@@ -1529,7 +1529,8 @@ footer small{ color:#333; font-size:0.82rem; }
       </div>
       <div class="fg"><label for="contact-date">תאריך האירוע</label><input id="contact-date" type="date" name="event_date"></div>
       <div class="fg"><label for="contact-msg">פרטים נוספים</label><textarea id="contact-msg" name="message" placeholder="ספר לי על האירוע שלך..."></textarea></div>
-      <button class="fbtn" onclick="alert('תודה! אחזור אליך בהקדם 🎈')">שלח הודעה 🎈</button>
+      <div id="form-msg" style="display:none;margin-top:1rem;padding:1rem 1.2rem;border-radius:12px;font-family:'Varela Round',sans-serif;font-size:1rem;text-align:center;"></div>
+      <button class="fbtn" id="contact-submit" onclick="submitContactForm(event)">שלח הודעה 🎈</button>
     </div>
   </div>
 </section>
@@ -1845,7 +1846,63 @@ document.querySelectorAll('.gfbtn').forEach(btn=>{
   });
 });
 
-// ── LIGHTBOX ──
+// ── CONTACT FORM ──
+async function submitContactForm(e) {
+  e.preventDefault();
+  const btn  = document.getElementById('contact-submit');
+  const msg  = document.getElementById('form-msg');
+  const name = document.getElementById('contact-name').value.trim();
+  const phone= document.getElementById('contact-tel').value.trim();
+
+  if (!name || !phone) {
+    msg.style.display = 'block';
+    msg.style.background = 'rgba(248,75,108,0.15)';
+    msg.style.color = '#f84b6c';
+    msg.style.border = '1px solid rgba(248,75,108,0.3)';
+    msg.textContent = '⚠️ יש למלא שם וטלפון';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'שולח...';
+
+  const payload = {
+    name:       name,
+    phone:      phone,
+    event_type: document.getElementById('contact-type').value,
+    event_date: document.getElementById('contact-date').value,
+    message:    document.getElementById('contact-msg').value.trim(),
+    source:     'אתר ראשי',
+    submitted_at: new Date().toLocaleString('he-IL')
+  };
+
+  try {
+    await fetch('https://hook.eu1.make.com/tbkpqujcwixo1i4c553j0v26xkh8mumi', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    msg.style.display = 'block';
+    msg.style.background = 'rgba(47,136,27,0.15)';
+    msg.style.color = '#2f881b';
+    msg.style.border = '1px solid rgba(47,136,27,0.3)';
+    msg.textContent = '✅ תודה! קיבלתי את הפנייה ואחזור אליך בהקדם 🎈';
+    btn.textContent = 'נשלח ✓';
+    // clear form
+    ['contact-name','contact-tel','contact-msg','contact-date'].forEach(id => document.getElementById(id).value = '');
+    document.getElementById('contact-type').selectedIndex = 0;
+  } catch(err) {
+    msg.style.display = 'block';
+    msg.style.background = 'rgba(248,75,108,0.15)';
+    msg.style.color = '#f84b6c';
+    msg.style.border = '1px solid rgba(248,75,108,0.3)';
+    msg.textContent = '❌ שגיאה בשליחה, נסה שוב או פנה בוואטסאפ';
+    btn.disabled = false;
+    btn.textContent = 'שלח הודעה 🎈';
+  }
+}
+
+
 (function(){
   const lb = document.createElement('div');
   lb.id = 'lightbox';
