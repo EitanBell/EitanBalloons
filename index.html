@@ -4,6 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>איתן בלונים | האומנות שלנו – החוויה של כולנו</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="canonical" href="https://eitan-balloons.co.il/">
+<meta name="description" content="איתן בלונים – עיצובי בלונים לאירועים, הפעלות לילדים, משלוחי בלונים ומופעים באזור נתניה. מעל 500 אירועים מאז 2014. התקשרו: 054-9326454">
+<meta name="robots" content="index, follow">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="he_IL">
+<meta property="og:title" content="איתן בלונים | האומנות שלנו – החוויה של כולנו">
+<meta property="og:description" content="עיצובי בלונים לאירועים, הפעלות לילדים, משלוחי בלונים ומופעים באזור נתניה. מעל 500 אירועים מאז 2014.">
+<meta property="og:url" content="https://eitan-balloons.co.il/">
+<meta property="og:site_name" content="איתן בלונים">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="איתן בלונים | האומנות שלנו – החוויה של כולנו">
+<meta name="twitter:description" content="עיצובי בלונים לאירועים, הפעלות לילדים, משלוחי בלונים ומופעים באזור נתניה.">
 <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
 <style>
 @font-face {
@@ -30,7 +43,7 @@ body{
   direction:rtl;
   overflow-x:hidden;
   cursor:none;
-  background:#0a0a0a;
+  background:#f0f0ed;
 }
 
 /* ───────── CURSOR ───────── */
@@ -73,7 +86,7 @@ body{
 #nav{
   position:fixed; top:0; left:0; right:0; z-index:1000;
   height:66px;
-  background:rgba(10,10,10,0.85);
+  background:rgba(240,240,237,0.92);
   backdrop-filter:blur(16px);
   border-bottom:2.5px solid var(--y);
   display:flex; align-items:center; justify-content:space-between;
@@ -81,13 +94,13 @@ body{
   transition:background 0.4s;
 }
 #nav.light{
-  background:rgba(255,255,255,0.92);
-  border-bottom-color:var(--pk);
+  background:rgba(240,240,237,0.97);
+  border-bottom-color:var(--y);
 }
 .nav-logo{ height:44px; width:44px; cursor:none; border-radius:50%; object-fit:cover; border:2px solid var(--y); box-shadow:0 0 10px rgba(249,190,45,0.3); }
 .nav-links{ display:flex; gap:0.2rem; list-style:none; flex-direction:row-reverse; align-items:center; }
 .nav-links a{
-  color:#fff; text-decoration:none; font-size:0.92rem;
+  color:#111; text-decoration:none; font-size:0.92rem;
   padding:0.45rem 0.85rem; border-radius:30px;
   transition:all 0.2s; white-space:nowrap;
 }
@@ -100,7 +113,7 @@ body{
 .nd:hover>a::after{ transform:rotate(180deg); }
 .ddm{
   position:absolute; top:calc(100% + 14px); right:0;
-  background:#111; border:1px solid #333; border-radius:16px;
+  background:#fff; border:1px solid #ddd; border-radius:16px;
   min-width:200px; padding:0.5rem; list-style:none;
   opacity:0; pointer-events:none; transform:translateY(-8px);
   transition:all 0.2s; z-index:2000;
@@ -109,14 +122,14 @@ body{
 .nd:hover .ddm{ opacity:1; pointer-events:all; transform:translateY(0); }
 .ddm li a{
   display:block; padding:0.55rem 1rem; border-radius:10px;
-  color:#ccc; font-size:0.9rem; white-space:nowrap; transition:all 0.15s;
+  color:#333; font-size:0.9rem; white-space:nowrap; transition:all 0.15s;
 }
 .ddm li a:hover{ background:var(--y); color:#000!important; }
-.ddm li a.dim{ color:#444; font-size:0.82rem; }
-.ddm li a.dim:hover{ background:transparent; color:#444!important; }
-.dd-div{ height:1px; background:#222; margin:0.3rem 0.5rem; }
-.cs{ opacity:0.4; font-size:0.82rem; border:1px dashed #444; padding:0.35rem 0.7rem!important; border-radius:20px!important; }
-.cs:hover{ background:transparent!important; color:#fff!important; }
+.ddm li a.dim{ color:#999; font-size:0.82rem; }
+.ddm li a.dim:hover{ background:transparent; color:#999!important; }
+.dd-div{ height:1px; background:#eee; margin:0.3rem 0.5rem; }
+.cs{ opacity:0.5; font-size:0.82rem; border:1px dashed #bbb; padding:0.35rem 0.7rem!important; border-radius:20px!important; }
+.cs:hover{ background:transparent!important; color:#555!important; }
 
 /* ───────── HERO ───────── */
 #hero{
@@ -305,14 +318,16 @@ body{
 .astat b{ font-family:'NoaShalev',sans-serif; font-size:2rem; display:block; color:var(--pk); }
 .astat small{ font-size:0.85rem; color:#555; }
 
-/* SERVICES – Deep black with neon cards */
+/* SERVICES – Light with clean cards */
 #services{
-  background:var(--bk);
-  color:#fff;
+  background:#f0f0ed;
+  color:#111;
   clip-path:polygon(0 60px, 100% 0, 100% calc(100% - 60px), 0 100%);
   padding:130px 2rem 130px;
   margin-top:-60px;
 }
+#services .sec-title{ color:#111; }
+#services .sec-sub{ color:#666; }
 .sec-head{
   text-align:center; margin-bottom:3.5rem;
 }
@@ -323,16 +338,16 @@ body{
 }
 .sec-title{
   font-family:'NoaShalev','Varela Round',sans-serif;
-  font-size:clamp(2rem,5vw,3.2rem); color:#fff;
+  font-size:clamp(2rem,5vw,3.2rem); color:#111;
 }
-.sec-sub{ color:#777; font-size:1rem; margin-top:0.5rem; }
+.sec-sub{ color:#666; font-size:1rem; margin-top:0.5rem; }
 .services-grid{
   max-width:1100px; margin:0 auto;
   display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem;
 }
 .srv{
-  background:#111; border-radius:24px; padding:2rem 1.8rem;
-  border:1px solid #1e1e1e; position:relative; overflow:hidden;
+  background:#fff; border-radius:24px; padding:2rem 1.8rem;
+  border:1px solid #e0e0dc; position:relative; overflow:hidden;
   transition:transform 0.3s, border-color 0.3s, box-shadow 0.3s;
   cursor:none;
 }
@@ -345,25 +360,25 @@ body{
 .srv:nth-child(4)::before{ background:var(--or); }
 .srv:nth-child(5)::before{ background:var(--gn); }
 .srv:nth-child(6)::before{ background:#9b59b6; }
-.srv:hover{ transform:translateY(-10px); border-color:#333; box-shadow:0 25px 60px rgba(0,0,0,0.5); }
+.srv:hover{ transform:translateY(-10px); border-color:#ccc; box-shadow:0 25px 60px rgba(0,0,0,0.12); }
 .srv-img{
   width:calc(100% + 3.6rem); margin:-2rem -1.8rem 1.5rem;
   height:160px; object-fit:cover;
   display:block; border-radius:24px 24px 0 0;
-  background:#1a1a1a;
+  background:#e8e8e4;
 }
 .srv-img-ph{
   width:calc(100% + 3.6rem); margin:-2rem -1.8rem 1.5rem;
   height:160px; border-radius:24px 24px 0 0;
-  background:#141414;
-  border-bottom:1px dashed #2a2a2a;
+  background:#f0f0ed;
+  border-bottom:1px dashed #ddd;
   display:flex; flex-direction:column;
   align-items:center; justify-content:center; gap:0.4rem;
   cursor:pointer;
 }
 .srv-img-ph .ph-icon{ font-size:2rem; opacity:0.5; }
 .srv-img-ph .ph-txt{
-  font-size:0.72rem; color:#444; letter-spacing:0.06em; text-transform:uppercase;
+  font-size:0.72rem; color:#aaa; letter-spacing:0.06em; text-transform:uppercase;
 }
 
 .hero-goal {
@@ -426,8 +441,8 @@ body{
   100%{ background:linear-gradient(135deg,var(--y),var(--pk)); }
 }
 
-.srv h3{ font-size:1.3rem; font-weight:700; margin-bottom:0.8rem; color:#fff; }
-.srv p{ color:#777; font-size:0.93rem; line-height:1.7; }
+.srv h3{ font-size:1.3rem; font-weight:700; margin-bottom:0.8rem; color:#111; }
+.srv p{ color:#555; font-size:0.93rem; line-height:1.7; }
 .srv-tag{
   display:inline-block; margin-top:1.2rem;
   font-size:0.82rem; padding:0.25rem 0.9rem;
@@ -442,7 +457,7 @@ body{
 
 /* GALLERY – White angled with masonry feel */
 #gallery{
-  background:#fff;
+  background:#f7f7f4;
   color:#0a0a0a;
   clip-path:polygon(0 60px, 100% 0, 100% calc(100% - 60px), 0 100%);
   padding:130px 2rem 130px;
@@ -582,16 +597,16 @@ body{
 
 /* ── TESTIMONIALS ── */
 #testimonials{
-  background: linear-gradient(160deg, #0d0d0d 0%, #1a1a1a 100%);
-  color:#fff;
+  background: linear-gradient(160deg, #f0f0ed 0%, #e8e8e4 100%);
+  color:#111;
   clip-path:polygon(0 60px, 100% 0, 100% calc(100% - 60px), 0 100%);
   padding:130px 2rem 140px;
   margin-top:-60px;
   overflow:hidden;
 }
-#testimonials .sec-title{ color:#fff; }
+#testimonials .sec-title{ color:#111; }
 #testimonials .sec-label{ background:var(--y); color:#000; }
-#testimonials .sec-sub{ color:rgba(255,255,255,0.5); }
+#testimonials .sec-sub{ color:rgba(0,0,0,0.45); }
 
 .tcarousel-wrap{
   position:relative;
@@ -621,23 +636,23 @@ body{
 }
 .tcard[data-pos="active"]{ cursor:default; }
 .tcard-inner{
-  background:linear-gradient(135deg, rgba(255,255,255,0.07) 0%, rgba(255,255,255,0.03) 100%);
-  border:1px solid rgba(255,255,255,0.1);
+  background:linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(255,255,255,0.75) 100%);
+  border:1px solid rgba(0,0,0,0.08);
   border-radius:24px;
   padding:2rem 2rem 1.6rem;
   backdrop-filter:blur(8px);
-  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.1);
   position:relative;
   overflow:hidden;
   transition: background 0.65s ease, border-color 0.65s ease,
               box-shadow 0.65s ease;
 }
 .tcard[data-pos="active"] .tcard-inner{
-  background:linear-gradient(135deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.10) 100%);
-  border-color:rgba(249,190,45,0.35);
-  box-shadow: 0 30px 80px rgba(0,0,0,0.6),
-              0 0 40px rgba(249,190,45,0.12),
-              inset 0 1px 0 rgba(255,255,255,0.15);
+  background:linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.95) 100%);
+  border-color:rgba(249,190,45,0.5);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.15),
+              0 0 40px rgba(249,190,45,0.15),
+              inset 0 1px 0 rgba(255,255,255,0.8);
 }
 .tcard-inner::before{
   content:'';
@@ -654,7 +669,7 @@ body{
 .ttext{
   font-family:'Varela Round',sans-serif;
   font-size:0.92rem; line-height:1.75;
-  color:rgba(255,255,255,0.82);
+  color:rgba(0,0,0,0.75);
   margin:0.5rem 0 1.4rem;
   direction:rtl; text-align:right;
 }
@@ -671,10 +686,10 @@ body{
 }
 .tauthor strong{
   display:block; font-family:'Varela Round',sans-serif;
-  font-size:0.9rem; color:#fff;
+  font-size:0.9rem; color:#111;
 }
 .tauthor span{
-  font-size:0.78rem; color:rgba(255,255,255,0.45);
+  font-size:0.78rem; color:rgba(0,0,0,0.45);
 }
 .tstars{
   position:absolute; bottom:1.4rem; left:1.8rem;
@@ -711,9 +726,9 @@ body{
 .tc-arrow{
   position:absolute; top:50%; transform:translateY(-50%);
   width:48px; height:48px; border-radius:50%;
-  background:rgba(255,255,255,0.08);
-  border:1.5px solid rgba(255,255,255,0.15);
-  color:#fff; font-size:1.6rem;
+  background:rgba(0,0,0,0.07);
+  border:1.5px solid rgba(0,0,0,0.15);
+  color:#333; font-size:1.6rem;
   display:flex; align-items:center; justify-content:center;
   cursor:pointer; transition:all 0.2s; z-index:10;
   backdrop-filter:blur(6px);
@@ -729,7 +744,7 @@ body{
 }
 .tc-dot{
   width:8px; height:8px; border-radius:50%;
-  background:rgba(255,255,255,0.2);
+  background:rgba(0,0,0,0.18);
   transition:all 0.3s; cursor:pointer;
 }
 .tc-dot.active{
@@ -749,18 +764,18 @@ body{
 
 /* ── CLIENTS LOGO BAND – 3D CYLINDER ── */
 .clients-band{
-  background:#111;
+  background:#e8e8e4;
   padding:2.4rem 0 2.8rem;
   overflow:hidden;
   position:relative; z-index:3;
-  border-top:1px solid rgba(255,255,255,0.07);
-  border-bottom:1px solid rgba(255,255,255,0.07);
+  border-top:1px solid rgba(0,0,0,0.08);
+  border-bottom:1px solid rgba(0,0,0,0.08);
 }
 .clients-label{
   text-align:center;
   font-family:'Varela Round',sans-serif;
   font-size:0.78rem; font-weight:700; letter-spacing:0.18em;
-  color:rgba(255,255,255,0.28);
+  color:rgba(0,0,0,0.35);
   text-transform:uppercase;
   margin:0 0 1.6rem;
 }
@@ -795,12 +810,12 @@ body{
 }
 .clogo-ph{
   height:48px; min-width:110px;
-  background:rgba(255,255,255,0.07);
-  border:1.5px solid rgba(255,255,255,0.16);
+  background:rgba(0,0,0,0.06);
+  border:1.5px solid rgba(0,0,0,0.1);
   border-radius:10px;
   display:flex; align-items:center; justify-content:center;
   font-family:'Varela Round',sans-serif;
-  font-size:0.75rem; font-weight:700; color:rgba(255,255,255,0.38);
+  font-size:0.75rem; font-weight:700; color:rgba(0,0,0,0.3);
   padding:0 1.2rem;
   white-space:nowrap;
   transition:background 0.4s, border-color 0.4s, color 0.4s;
@@ -893,26 +908,26 @@ body{
 
 /* COMING SOON */
 .coming{
-  background:#0d0d0d; border-top:2px dashed #222;
+  background:#f7f7f4; border-top:2px dashed #ccc;
   padding:4rem 2rem; text-align:center;
   position:relative; z-index:2;
 }
 .coming h2{
-  font-family:'NoaShalev',sans-serif; font-size:1.8rem; color:#fff; margin-bottom:0.5rem;
+  font-family:'NoaShalev',sans-serif; font-size:1.8rem; color:#111; margin-bottom:0.5rem;
 }
-.coming p{ color:#555; margin-bottom:2rem; }
+.coming p{ color:#777; margin-bottom:2rem; }
 .cc-cards{
   max-width:700px; margin:0 auto;
   display:grid; grid-template-columns:1fr 1fr; gap:1.2rem;
 }
 .cc{
-  border:2px dashed #252525; border-radius:20px; padding:2rem 1.5rem;
-  transition:border-color 0.3s;
+  border:2px dashed #ccc; border-radius:20px; padding:2rem 1.5rem;
+  transition:border-color 0.3s; background:#fff;
 }
 .cc:hover{ border-color:var(--y); }
 .cc .ci{ font-size:2.8rem; display:block; margin-bottom:0.8rem; }
-.cc h3{ color:#fff; font-size:1.1rem; margin-bottom:0.4rem; }
-.cc p{ color:#555; font-size:0.88rem; }
+.cc h3{ color:#111; font-size:1.1rem; margin-bottom:0.4rem; }
+.cc p{ color:#777; font-size:0.88rem; }
 .cbdg{
   display:inline-block; margin-top:0.8rem;
   background:rgba(249,190,45,0.1); color:var(--y);
@@ -1031,6 +1046,34 @@ footer small{ color:#333; font-size:0.82rem; }
 }
 </style>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "איתן בלונים",
+  "alternateName": "Eitan Balloons",
+  "url": "https://eitan-balloons.co.il",
+  "telephone": "+972-54-9326454",
+  "image": "https://eitan-balloons.co.il/logo.jpg",
+  "description": "עיצובי בלונים לאירועים, הפעלות לילדים, משלוחי בלונים ומופעים באזור נתניה.",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "נתניה",
+    "addressCountry": "IL"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 32.3215,
+    "longitude": 34.8532
+  },
+  "sameAs": [
+    "https://www.facebook.com/EitanBalloonsMain/",
+    "https://instagram.com/eitan_balloons"
+  ],
+  "openingHours": "Mo-Su 08:00-21:00",
+  "priceRange": "₪₪"
+}
+</script>
 </head>
 <body>
 
@@ -1076,7 +1119,7 @@ footer small{ color:#333; font-size:0.82rem; }
       <span class="hero-goal">המטרה שלנו - להיות ה-WOW באירוע שלכם</span>
   </p>
   <div class="hero-cta">
-    <a href="https://wa.me/9720549326454" target="_blank" class="btn btn-wa"><i class="fa-brands fa-whatsapp" style="font-size:1.1rem;line-height:1"></i> דברו איתי עכשיו</a>
+    <a href="https://wa.me/972549326454" target="_blank" rel="noopener noreferrer" class="btn btn-wa"><i class="fa-brands fa-whatsapp" style="font-size:1.1rem;line-height:1"></i> דברו איתי עכשיו</a>
     <a href="#services" class="btn btn-more">השירותים שלי ↓</a>
   </div>
   <div class="scroll-hint">↓ גלול לגלות</div>
@@ -1087,9 +1130,9 @@ footer small{ color:#333; font-size:0.82rem; }
   <div class="about-inner">
     <div class="about-visual rev">
       <div class="ba-slider" id="baSlider">
-        <img class="ba-img ba-after"  src="https://i.imgur.com/QpqqqZZ.jpeg" alt="איתן עם כובע ארנב">
+        <img class="ba-img ba-after"  src="https://i.imgur.com/QpqqqZZ.jpeg" alt="איתן עם כובע ארנב" loading="lazy">
         <div class="ba-reveal" id="baReveal">
-          <img class="ba-img ba-before" src="https://i.imgur.com/ASSBOWR.jpeg" alt="איתן">
+          <img class="ba-img ba-before" src="https://i.imgur.com/ASSBOWR.jpeg" alt="איתן" loading="lazy">
         </div>
         <div class="ba-handle" id="baHandle">
           <div class="ba-line"></div>
@@ -1101,6 +1144,7 @@ footer small{ color:#333; font-size:0.82rem; }
 
     </div>
     <div class="about-copy">
+      <img src="IMG_PLACEHOLDER" alt="איתן בלונים" id="aboutLogo" style="display:none;" loading="lazy">
       <div class="sec-label">אודות</div>
       <h2 class="rev">היי, אני <span>איתן</span> 👋<br>אמן הבלונים שלכם</h2>
       <p class="rev" style="transition-delay:0.1s">
@@ -1111,12 +1155,12 @@ footer small{ color:#333; font-size:0.82rem; }
           מה שהתחיל כניסוי קטן הפך מהר מאוד לתשוקה.
           התחלתי ללמוד טכניקות חדשות, להכיר אמני בלונים נוספים ולהתפתח בתחום. עם הזמן יותר ויותר אנשים פנו אליי כדי שאכין עבורם יצירות שישמחו את האורחים שלהם — וכך נולד <span class="brand-highlight">איתן בלונים</span> ("לב מבלון" לשעבר).
       </p>
-      <p class="rev" style="transition-delay:0.3s">הבנתי כמה כח עצום לשמח יש בבלונים (מבחינתי זאת עדיין תעלומה!) מאז אני לא מפסיק ללמוד ולחשוב על יצירות ודרכים חדשות איך לשמח את כולם (תסכימו איתי שהיום זה מוצר צריכה בסיסי 🎈).</p>
+      <p class="rev" style="transition-delay:0.3s">הבנתי כמה כח עצום לשמחה יש בבלונים (מבחינתי זאת עדיין תעלומה!) מאז אני לא מפסיק ללמוד ולחשוב על יצירות ודרכים חדשות איך לשמח את כולם (תסכימו איתי שהיום זה מוצר צריכה בסיסי 🎈).</p>
       <p class="rev" style="transition-delay:0.4s">אשמח לשמח גם אתכם!</p>
       <div class="about-stats rev" style="transition-delay:0.3s">
         <div class="astat"><b>500+</b><small>אירועים</small></div>
         <div class="astat"><b>10+</b><small>שנות ניסיון</small></div>
-        <div class="astat"><b>100%</b><small>שביעות רצון</small></div>
+        <div class="astat"><span style="font-size:0.7em;opacity:0.6;display:block;margin-bottom:2px">בשאיפה ל-</span><b>100%</b><small>שביעות רצון</small></div>
       </div>
     </div>
   </div>
@@ -1131,42 +1175,42 @@ footer small{ color:#333; font-size:0.82rem; }
   </div>
   <div class="services-grid">
     <div class="srv rev">
-      <img class="srv-img" src="https://i.imgur.com/LAejqqV.jpeg" alt="משלוחי בלונים">
+      <img class="srv-img" src="https://i.imgur.com/LAejqqV.jpeg" alt="משלוחי בלונים" loading="lazy">
       <span class="srv-icon">🚀</span>
       <h3>משלוחי בלונים</h3>
       <p>זר בלונים מפתיע שמגיע ישירות לדלת. לימי הולדת, גיוסים, מתנות ועוד – מגיע עד אליך!</p>
       <span class="srv-tag">משלוח עד הבית</span>
     </div>
     <div class="srv rev" style="transition-delay:0.1s">
-      <img class="srv-img" src="https://i.imgur.com/ogN2CMS.jpeg" alt="סנדאות בלונים">
+      <img class="srv-img" src="https://i.imgur.com/ogN2CMS.jpeg" alt="סנדאות בלונים" loading="lazy">
       <span class="srv-icon">👟</span>
       <h3>סנדאות בלונים</h3>
       <p>יצירות ענידה ייחודיות – כובעים, צמידים ופסלים קטנים שכולם ירצו להצטלם איתם.</p>
       <span class="srv-tag">חוויה אישית</span>
     </div>
     <div class="srv rev" style="transition-delay:0.2s">
-      <img class="srv-img" src="https://i.imgur.com/U5IMyJf.jpeg" alt="הפעלות לילדים">
+      <img class="srv-img" src="https://i.imgur.com/U5IMyJf.jpeg" alt="הפעלות לילדים" loading="lazy">
       <span class="srv-icon">🎭</span>
       <h3>הפעלות לילדים</h3>
       <p>שעת שעשועים מלאת אנרגיה – יצירת בלונים בשידור חי לכל ילד ומבוגר שנשאר ילד בפנים.</p>
       <span class="srv-tag">אינטראקטיבי</span>
     </div>
     <div class="srv rev" style="transition-delay:0.3s">
-      <img class="srv-img" src="https://i.imgur.com/96VWCyh.jpeg" alt="מופעים">
+      <img class="srv-img" src="https://i.imgur.com/96VWCyh.jpeg" alt="מופעים" loading="lazy">
       <span class="srv-icon">🎪</span>
       <h3>מופעים</h3>
       <p>הצגת בלונים חיה שמשאירה קהל פעור פה – מגוון תוכן, הפתעות ורגעים בלתי נשכחים.</p>
       <span class="srv-tag">לכל גיל</span>
     </div>
     <div class="srv rev" style="transition-delay:0.4s">
-      <img class="srv-img" src="https://i.imgur.com/jC2Ju40.jpeg" alt="עיצובי אירועים">
+      <img class="srv-img" src="https://i.imgur.com/jC2Ju40.jpeg" alt="עיצובי אירועים" loading="lazy">
       <span class="srv-icon">✨</span>
       <h3>עיצובי אירועים</h3>
       <p>קשתות, עמודים, פינות צילום ועיצוב מלא לאולם – כולל ימי הולדת, חתונות ואירועי חברה.</p>
       <span class="srv-tag">שאף אחד לא ישכח</span>
     </div>
     <div class="srv rev" style="transition-delay:0.5s">
-      <img class="srv-img" src="https://i.imgur.com/uedHITS.jpeg" alt="כובעי מסיבות">
+      <img class="srv-img" src="https://i.imgur.com/uedHITS.jpeg" alt="כובעי מסיבות" loading="lazy">
       <span class="srv-icon">🎩</span>
       <h3>כובעי מסיבות</h3>
       <p>כובעי בלונים מצחיקים ומרהיבים שהופכים כל מסיבה לקרנבל – ייחודיים, צבעוניים, בלתי נשכחים.</p>
@@ -1192,39 +1236,39 @@ footer small{ color:#333; font-size:0.82rem; }
   </div>
   <div class="gallery-mosaic">
     <!-- משלוחי בלונים -->
-    <div class="gitem rev" data-cat="delivery"><img src="https://i.imgur.com/HCUEFVz.jpeg" alt="משלוח בלונים"><div class="goverlay"><span>משלוח בלונים</span></div></div>
-    <div class="gitem rev" data-cat="delivery"><img src="https://i.imgur.com/w2VZT6l.jpeg" alt="משלוח הפתעה"><div class="goverlay"><span>משלוח הפתעה</span></div></div>
-    <div class="gitem rev" data-cat="delivery"><img src="https://i.imgur.com/WvGXPge.jpeg" alt="זר בלונים"><div class="goverlay"><span>זר בלונים</span></div></div>
-    <div class="gitem rev" data-cat="delivery"><img src="https://i.imgur.com/2aQlBSu.jpeg" alt="בלונים לאירוע"><div class="goverlay"><span>בלונים לאירוע</span></div></div>
-    <div class="gitem rev" data-cat="delivery"><img src="https://i.imgur.com/gW2GgOV.jpeg" alt="משלוח מיוחד"><div class="goverlay"><span>משלוח מיוחד</span></div></div>
+    <div class="gitem rev" data-cat="delivery"><img src="https://i.imgur.com/HCUEFVz.jpeg" alt="משלוח בלונים" loading="lazy"><div class="goverlay"><span>משלוח בלונים</span></div></div>
+    <div class="gitem rev" data-cat="delivery"><img src="https://i.imgur.com/w2VZT6l.jpeg" alt="משלוח הפתעה" loading="lazy"><div class="goverlay"><span>משלוח הפתעה</span></div></div>
+    <div class="gitem rev" data-cat="delivery"><img src="https://i.imgur.com/WvGXPge.jpeg" alt="זר בלונים" loading="lazy"><div class="goverlay"><span>זר בלונים</span></div></div>
+    <div class="gitem rev" data-cat="delivery"><img src="https://i.imgur.com/2aQlBSu.jpeg" alt="בלונים לאירוע" loading="lazy"><div class="goverlay"><span>בלונים לאירוע</span></div></div>
+    <div class="gitem rev" data-cat="delivery"><img src="https://i.imgur.com/gW2GgOV.jpeg" alt="משלוח מיוחד" loading="lazy"><div class="goverlay"><span>משלוח מיוחד</span></div></div>
     <!-- סנדאות בלונים -->
     <!-- הפעלות לילדים -->
-    <div class="gitem rev" data-cat="kids"><img src="https://i.imgur.com/F04nc8r.jpeg" alt="הפעלת ילדים"><div class="goverlay"><span>הפעלת ילדים</span></div></div>
-    <div class="gitem rev" data-cat="kids"><img src="https://i.imgur.com/Ss8Lsdo.jpeg" alt="מסיבת ילדים"><div class="goverlay"><span>מסיבת ילדים</span></div></div>
-    <div class="gitem rev" data-cat="kids"><img src="https://i.imgur.com/D0Q6VOc.jpeg" alt="בלונים לילדים"><div class="goverlay"><span>בלונים לילדים</span></div></div>
-    <div class="gitem rev" data-cat="kids"><img src="https://i.imgur.com/QwS7bim.jpeg" alt="יום הולדת"><div class="goverlay"><span>יום הולדת</span></div></div>
-    <div class="gitem rev" data-cat="kids"><img src="https://i.imgur.com/tZ6irak.jpeg" alt="חגיגה לילדים"><div class="goverlay"><span>חגיגה לילדים</span></div></div>
+    <div class="gitem rev" data-cat="kids"><img src="https://i.imgur.com/F04nc8r.jpeg" alt="הפעלת ילדים" loading="lazy"><div class="goverlay"><span>הפעלת ילדים</span></div></div>
+    <div class="gitem rev" data-cat="kids"><img src="https://i.imgur.com/Ss8Lsdo.jpeg" alt="מסיבת ילדים" loading="lazy"><div class="goverlay"><span>מסיבת ילדים</span></div></div>
+    <div class="gitem rev" data-cat="kids"><img src="https://i.imgur.com/D0Q6VOc.jpeg" alt="בלונים לילדים" loading="lazy"><div class="goverlay"><span>בלונים לילדים</span></div></div>
+    <div class="gitem rev" data-cat="kids"><img src="https://i.imgur.com/QwS7bim.jpeg" alt="יום הולדת" loading="lazy"><div class="goverlay"><span>יום הולדת</span></div></div>
+    <div class="gitem rev" data-cat="kids"><img src="https://i.imgur.com/tZ6irak.jpeg" alt="חגיגה לילדים" loading="lazy"><div class="goverlay"><span>חגיגה לילדים</span></div></div>
     <!-- מופעים -->
-    <div class="gitem rev" data-cat="shows"><img src="https://i.imgur.com/s6JkGea.jpeg" alt="מופע בלונים"><div class="goverlay"><span>מופע בלונים</span></div></div>
-    <div class="gitem rev" data-cat="shows"><img src="https://i.imgur.com/N8AGxse.jpeg" alt="מופע חי"><div class="goverlay"><span>מופע חי</span></div></div>
-    <div class="gitem rev" data-cat="shows"><img src="https://i.imgur.com/0urTUE0.jpeg" alt="הופעה מיוחדת"><div class="goverlay"><span>הופעה מיוחדת</span></div></div>
-    <div class="gitem rev" data-cat="shows"><img src="https://i.imgur.com/1d6qWNl.jpeg" alt="אמן הבלונים"><div class="goverlay"><span>אמן הבלונים</span></div></div>
-    <div class="gitem rev" data-cat="shows"><img src="https://i.imgur.com/LGl1vE2.jpeg" alt="שואו בלונים"><div class="goverlay"><span>שואו בלונים</span></div></div>
+    <div class="gitem rev" data-cat="shows"><img src="https://i.imgur.com/s6JkGea.jpeg" alt="מופע בלונים" loading="lazy"><div class="goverlay"><span>מופע בלונים</span></div></div>
+    <div class="gitem rev" data-cat="shows"><img src="https://i.imgur.com/N8AGxse.jpeg" alt="מופע חי" loading="lazy"><div class="goverlay"><span>מופע חי</span></div></div>
+    <div class="gitem rev" data-cat="shows"><img src="https://i.imgur.com/0urTUE0.jpeg" alt="הופעה מיוחדת" loading="lazy"><div class="goverlay"><span>הופעה מיוחדת</span></div></div>
+    <div class="gitem rev" data-cat="shows"><img src="https://i.imgur.com/1d6qWNl.jpeg" alt="אמן הבלונים" loading="lazy"><div class="goverlay"><span>אמן הבלונים</span></div></div>
+    <div class="gitem rev" data-cat="shows"><img src="https://i.imgur.com/LGl1vE2.jpeg" alt="שואו בלונים" loading="lazy"><div class="goverlay"><span>שואו בלונים</span></div></div>
     <!-- עיצובי אירועים -->
-    <div class="gitem rev" data-cat="events"><img src="https://i.imgur.com/Z07JmDH.jpeg" alt="עיצוב אירוע"><div class="goverlay"><span>עיצוב אירוע</span></div></div>
-    <div class="gitem rev" data-cat="events"><img src="https://i.imgur.com/1NoOZgJ.jpeg" alt="קשת בלונים"><div class="goverlay"><span>קשת בלונים</span></div></div>
-    <div class="gitem rev" data-cat="events"><img src="https://i.imgur.com/keJtRMi.jpeg" alt="עיצוב אולם"><div class="goverlay"><span>עיצוב אולם</span></div></div>
-    <div class="gitem rev" data-cat="events"><img src="https://i.imgur.com/O7EZa0n.jpeg" alt="פינת צילום"><div class="goverlay"><span>פינת צילום</span></div></div>
-    <div class="gitem rev" data-cat="events"><img src="https://i.imgur.com/K46Zi8c.jpeg" alt="עמודי בלונים"><div class="goverlay"><span>עמודי בלונים</span></div></div>
+    <div class="gitem rev" data-cat="events"><img src="https://i.imgur.com/Z07JmDH.jpeg" alt="עיצוב אירוע" loading="lazy"><div class="goverlay"><span>עיצוב אירוע</span></div></div>
+    <div class="gitem rev" data-cat="events"><img src="https://i.imgur.com/1NoOZgJ.jpeg" alt="קשת בלונים" loading="lazy"><div class="goverlay"><span>קשת בלונים</span></div></div>
+    <div class="gitem rev" data-cat="events"><img src="https://i.imgur.com/keJtRMi.jpeg" alt="עיצוב אולם" loading="lazy"><div class="goverlay"><span>עיצוב אולם</span></div></div>
+    <div class="gitem rev" data-cat="events"><img src="https://i.imgur.com/O7EZa0n.jpeg" alt="פינת צילום" loading="lazy"><div class="goverlay"><span>פינת צילום</span></div></div>
+    <div class="gitem rev" data-cat="events"><img src="https://i.imgur.com/K46Zi8c.jpeg" alt="עמודי בלונים" loading="lazy"><div class="goverlay"><span>עמודי בלונים</span></div></div>
     <!-- כובעי מסיבות -->
-    <div class="gitem rev" data-cat="hats"><img src="https://i.imgur.com/Ehn3THL.jpeg" alt="כובע קרנבל"><div class="goverlay"><span>כובע קרנבל</span></div></div>
-    <div class="gitem rev" data-cat="hats"><img src="https://i.imgur.com/uSfKCM4.jpeg" alt="כובע בלונים"><div class="goverlay"><span>כובע בלונים</span></div></div>
-    <div class="gitem rev" data-cat="hats"><img src="https://i.imgur.com/VnSbxj9.jpeg" alt="כתר מלכותי"><div class="goverlay"><span>כתר מלכותי</span></div></div>
-    <div class="gitem rev" data-cat="hats"><img src="https://i.imgur.com/fFChcdY.jpeg" alt="כובע מיוחד"><div class="goverlay"><span>כובע מיוחד</span></div></div>
-    <div class="gitem rev" data-cat="hats"><img src="https://i.imgur.com/Tm7fYkh.jpeg" alt="כובע מסיבה"><div class="goverlay"><span>כובע מסיבה</span></div></div>
+    <div class="gitem rev" data-cat="hats"><img src="https://i.imgur.com/Ehn3THL.jpeg" alt="כובע קרנבל" loading="lazy"><div class="goverlay"><span>כובע קרנבל</span></div></div>
+    <div class="gitem rev" data-cat="hats"><img src="https://i.imgur.com/uSfKCM4.jpeg" alt="כובע בלונים" loading="lazy"><div class="goverlay"><span>כובע בלונים</span></div></div>
+    <div class="gitem rev" data-cat="hats"><img src="https://i.imgur.com/VnSbxj9.jpeg" alt="כתר מלכותי" loading="lazy"><div class="goverlay"><span>כתר מלכותי</span></div></div>
+    <div class="gitem rev" data-cat="hats"><img src="https://i.imgur.com/fFChcdY.jpeg" alt="כובע מיוחד" loading="lazy"><div class="goverlay"><span>כובע מיוחד</span></div></div>
+    <div class="gitem rev" data-cat="hats"><img src="https://i.imgur.com/Tm7fYkh.jpeg" alt="כובע מסיבה" loading="lazy"><div class="goverlay"><span>כובע מסיבה</span></div></div>
   </div>
   <div class="gallery-footer rev" style="text-align:center">
-    <a href="GALLERY_URL_PLACEHOLDER" target="_blank" class="gallery-glow-btn rev">
+    <a href="GALLERY_URL_PLACEHOLDER" target="_blank" rel="noopener noreferrer" class="gallery-glow-btn rev">
       🖼️ לצפייה בגלריה המלאה
     </a>
   </div>
@@ -1390,19 +1434,19 @@ footer small{ color:#333; font-size:0.82rem; }
   <p class="clients-label">מלקוחותינו</p>
   <div class="clients-scene">
     <div class="clients-cylinder" id="clientsCylinder">
-      <div class="clogo-item"><img src="https://i.imgur.com/5GinHmd.png" alt="לוגו לקוח"></div>
-      <div class="clogo-item"><img src="https://i.imgur.com/81PRvHF.png" alt="לוגו לקוח"></div>
-      <div class="clogo-item"><img src="https://i.imgur.com/PL4dAx1.png" alt="לוגו לקוח"></div>
-      <div class="clogo-item"><img src="https://i.imgur.com/eSYYpIw.png" alt="לוגו לקוח"></div>
-      <div class="clogo-item"><img src="https://i.imgur.com/yiVXq1z.png" alt="לוגו לקוח"></div>
-      <div class="clogo-item"><img src="https://i.imgur.com/3psvv9B.png" alt="לוגו לקוח"></div>
-      <div class="clogo-item"><img src="https://i.imgur.com/mxJNSC6.png" alt="לוגו לקוח"></div>
-      <div class="clogo-item"><img src="https://i.imgur.com/YUZv5mS.png" alt="לוגו לקוח"></div>
-      <div class="clogo-item"><img src="https://i.imgur.com/mD4dfBW.png" alt="לוגו לקוח"></div>
-      <div class="clogo-item"><img src="https://i.imgur.com/9Nf3fXd.png" alt="לוגו לקוח"></div>
-      <div class="clogo-item"><img src="https://i.imgur.com/2QBHOxR.png" alt="לוגו לקוח"></div>
-      <div class="clogo-item"><img src="https://i.imgur.com/1sid8YG.png" alt="לוגו לקוח"></div>
-      <div class="clogo-item"><img src="https://i.imgur.com/cVdnxqr.png" alt="לוגו לקוח"></div>
+      <div class="clogo-item"><img src="https://i.imgur.com/5GinHmd.png" alt="לוגו לקוח" loading="lazy"></div>
+      <div class="clogo-item"><img src="https://i.imgur.com/81PRvHF.png" alt="לוגו לקוח" loading="lazy"></div>
+      <div class="clogo-item"><img src="https://i.imgur.com/PL4dAx1.png" alt="לוגו לקוח" loading="lazy"></div>
+      <div class="clogo-item"><img src="https://i.imgur.com/eSYYpIw.png" alt="לוגו לקוח" loading="lazy"></div>
+      <div class="clogo-item"><img src="https://i.imgur.com/yiVXq1z.png" alt="לוגו לקוח" loading="lazy"></div>
+      <div class="clogo-item"><img src="https://i.imgur.com/DssmgAw.png" alt="לוגו לקוח" loading="lazy"></div>
+      <div class="clogo-item"><img src="https://i.imgur.com/mxJNSC6.png" alt="לוגו לקוח" loading="lazy"></div>
+      <div class="clogo-item"><img src="https://i.imgur.com/YUZv5mS.png" alt="לוגו לקוח" loading="lazy"></div>
+      <div class="clogo-item"><img src="https://i.imgur.com/mD4dfBW.png" alt="לוגו לקוח" loading="lazy"></div>
+      <div class="clogo-item"><img src="https://i.imgur.com/9Nf3fXd.png" alt="לוגו לקוח" loading="lazy"></div>
+      <div class="clogo-item"><img src="https://i.imgur.com/2QBHOxR.png" alt="לוגו לקוח" loading="lazy"></div>
+      <div class="clogo-item"><img src="https://i.imgur.com/1sid8YG.png" alt="לוגו לקוח" loading="lazy"></div>
+      <div class="clogo-item"><img src="https://i.imgur.com/cVdnxqr.png" alt="לוגו לקוח" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -1412,7 +1456,7 @@ footer small{ color:#333; font-size:0.82rem; }
   <div class="num-grid">
     <div class="nitem"><b>500+</b><small>אירועים מוצלחים</small></div>
     <div class="nitem"><b>10+</b><small>שנות ניסיון</small></div>
-    <div class="nitem"><b>100%</b><small>שביעות רצון</small></div>
+    <div class="nitem"><span style="font-size:0.7em;opacity:0.6;display:block;margin-bottom:2px">בשאיפה ל-</span><b>100%</b><small>שביעות רצון</small></div>
     <div class="nitem"><b>∞</b><small>אהבה לאומנות</small></div>
   </div>
 </div>
@@ -1451,30 +1495,30 @@ footer small{ color:#333; font-size:0.82rem; }
         <div class="cicon" style="background:rgba(249,190,45,0.12); border-color:rgba(249,190,45,0.3);"><i class="fa-solid fa-phone" style="color:#f9be2d;font-size:1.3rem"></i></div>
         <div><strong style="color:#fff">054-9326454</strong><br><small>זמין ברוב שעות היום</small></div>
       </a>
-      <a href="https://wa.me/9720549326454" target="_blank" class="cdetail">
+      <a href="https://wa.me/972549326454" target="_blank" rel="noopener noreferrer" class="cdetail">
         <div class="cicon" style="background:rgba(37,211,102,0.12); border-color:rgba(37,211,102,0.3);"><i class="fa-brands fa-whatsapp" style="color:#25d366;font-size:1.5rem"></i></div>
         <div><strong style="color:#fff">WhatsApp</strong><br><small>הכי מהיר לתגובה</small></div>
       </a>
-      <a href="https://Eitan-Balloons.co.il" target="_blank" class="cdetail">
+      <a href="https://Eitan-Balloons.co.il" target="_blank" rel="noopener noreferrer" class="cdetail">
         <div class="cicon" style="background:rgba(60,163,247,0.12); border-color:rgba(60,163,247,0.3);"><i class="fa-solid fa-globe" style="color:#3ca3f7;font-size:1.3rem"></i></div>
         <div><strong style="color:#fff">Eitan-Balloons.co.il</strong></div>
       </a>
-      <a href="https://www.facebook.com/EitanBalloonsMain/" target="_blank" class="cdetail">
+      <a href="https://www.facebook.com/EitanBalloonsMain/" target="_blank" rel="noopener noreferrer" class="cdetail">
         <div class="cicon" style="background:rgba(24,119,242,0.12); border-color:rgba(24,119,242,0.3);"><i class="fa-brands fa-facebook-f" style="color:#1877f2;font-size:1.4rem"></i></div>
         <div><strong style="color:#fff">איתן בלונים – Eitan Balloons</strong></div>
       </a>
-      <a href="https://instagram.com/eitan_balloons" target="_blank" class="cdetail">
+      <a href="https://instagram.com/eitan_balloons" target="_blank" rel="noopener noreferrer" class="cdetail">
         <div class="cicon" style="background:rgba(225,48,108,0.12); border-color:rgba(225,48,108,0.3);"><i class="fa-brands fa-instagram" style="color:#e1306c;font-size:1.4rem"></i></div>
         <div><strong style="color:#fff">@eitan_balloons</strong></div>
       </a>
     </div>
     <div class="cform rev" style="transition-delay:0.15s">
       <h3>שלח הודעה 📬</h3>
-      <div class="fg"><label>שם מלא *</label><input type="text" placeholder="השם שלך"></div>
-      <div class="fg"><label>טלפון *</label><input type="tel" placeholder="050-0000000"></div>
+      <div class="fg"><label for="contact-name">שם מלא *</label><input id="contact-name" type="text" placeholder="השם שלך" name="name" autocomplete="name"></div>
+      <div class="fg"><label for="contact-tel">טלפון *</label><input id="contact-tel" type="tel" placeholder="050-0000000" name="phone" autocomplete="tel"></div>
       <div class="fg">
-        <label>סוג האירוע</label>
-        <select>
+        <label for="contact-type">סוג האירוע</label>
+        <select id="contact-type" name="event_type">
           <option value="">בחר...</option>
           <option>יום הולדת</option>
           <option>חתונה</option>
@@ -1485,8 +1529,8 @@ footer small{ color:#333; font-size:0.82rem; }
           <option>אחר</option>
         </select>
       </div>
-      <div class="fg"><label>תאריך האירוע</label><input type="date"></div>
-      <div class="fg"><label>פרטים נוספים</label><textarea placeholder="ספר לי על האירוע שלך..."></textarea></div>
+      <div class="fg"><label for="contact-date">תאריך האירוע</label><input id="contact-date" type="date" name="event_date"></div>
+      <div class="fg"><label for="contact-msg">פרטים נוספים</label><textarea id="contact-msg" name="message" placeholder="ספר לי על האירוע שלך..."></textarea></div>
       <button class="fbtn" onclick="alert('תודה! אחזור אליך בהקדם 🎈')">שלח הודעה 🎈</button>
     </div>
   </div>
@@ -1494,7 +1538,7 @@ footer small{ color:#333; font-size:0.82rem; }
 
 <!-- FOOTER -->
 <footer>
-  <img src="IMG_PLACEHOLDER" alt="איתן בלונים" class="flogo" id="footerLogo">
+  <img src="IMG_PLACEHOLDER" alt="איתן בלונים" class="flogo" id="footerLogo" loading="lazy">
   <div class="flinks">
     <a href="#about">אודות</a>
     <a href="#services">שירותים</a>
@@ -1507,13 +1551,13 @@ footer small{ color:#333; font-size:0.82rem; }
     <a href="https://www.facebook.com/EitanBalloonsMain/" title="פייסבוק"><i class="fa-brands fa-facebook-f"></i></a>
     <a href="https://instagram.com/eitan_balloons" title="אינסטגרם"><i class="fa-brands fa-instagram"></i></a>
     <a href="tel:054-9326454" title="טלפון"><i class="fa-solid fa-phone"></i></a>
-    <a href="https://wa.me/9720549326454" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+    <a href="https://wa.me/972549326454" title="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
   </div>
   <small>© 2025 איתן בלונים – אומנות מכל הלב | כל הזכויות שמורות</small>
 </footer>
 
 <!-- FLOATING WHATSAPP -->
-<a href="https://wa.me/9720549326454" target="_blank" class="fwa">
+<a href="https://wa.me/972549326454" target="_blank" rel="noopener noreferrer" class="fwa">
   <i class="fa-brands fa-whatsapp" style="font-size:1.25rem;line-height:1"></i> <span>WhatsApp</span>
 </a>
 
@@ -1809,13 +1853,13 @@ document.querySelectorAll('.gfbtn').forEach(btn=>{
   lb.id = 'lightbox';
   lb.innerHTML = `
     <button class="lb-close" id="lb-close" title="סגור">✕</button>
-    <button class="lb-arrow" id="lb-prev" title="הבא">&#8249;</button>
+    <button class="lb-arrow" id="lb-prev" title="הקודם">&#8249;</button>
     <div id="lightbox-inner">
       <div id="lightbox-counter"></div>
-      <img id="lightbox-img" src="" alt="">
+      <img id="lightbox-img" src="" alt="" loading="lazy">
       <div id="lightbox-caption"></div>
     </div>
-    <button class="lb-arrow" id="lb-next" title="הקודם">&#8250;</button>
+    <button class="lb-arrow" id="lb-next" title="הבא">&#8250;</button>
   `;
   document.body.appendChild(lb);
 
