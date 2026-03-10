@@ -57,12 +57,20 @@ body{
   animation:curWig 1.8s ease-in-out infinite;
 }
 @keyframes curWig{0%,100%{rotate:-10deg}50%{rotate:10deg}}
-#cursor.pop{ animation:curPop 0.4s ease both!important; }
-@keyframes curPop{
-  0%{transform:translate(-50%,-80%) scale(1)}
-  40%{transform:translate(-50%,-80%) scale(2); filter:drop-shadow(0 6px 30px #f9be2dcc)}
-  70%{transform:translate(-50%,-80%) scale(0.3); opacity:0.2}
-  100%{transform:translate(-50%,-80%) scale(1); opacity:1}
+#cursor.popping{ animation:balloonPop 0.35s ease-out forwards; }
+@keyframes balloonPop{
+  0%  { transform:translate(-50%,-80%) scale(1);   opacity:1; filter:blur(0); }
+  30% { transform:translate(-50%,-80%) scale(1.8); opacity:1; filter:blur(0); }
+  60% { transform:translate(-50%,-80%) scale(0.3); opacity:0.6; filter:blur(2px); }
+  100%{ transform:translate(-50%,-80%) scale(0);   opacity:0; filter:blur(4px); }
+}
+.pop-shred{
+  position:fixed; pointer-events:none; z-index:99998;
+  font-size:0.7rem; animation:shredFly 0.5s ease-out forwards;
+}
+@keyframes shredFly{
+  0%  { opacity:1; transform:translate(0,0) scale(1) rotate(0deg); }
+  100%{ opacity:0; transform:translate(var(--sx),var(--sy)) scale(0.3) rotate(var(--sr)); }
 }
 
 /* ───────── BALLOON BG ───────── */
@@ -1268,7 +1276,7 @@ footer small{ color:#333; font-size:0.82rem; }
     <div class="gitem rev" data-cat="hats"><img src="https://i.imgur.com/Tm7fYkh.jpeg" alt="כובע מסיבה" loading="lazy"><div class="goverlay"><span>כובע מסיבה</span></div></div>
   </div>
   <div class="gallery-footer rev" style="text-align:center">
-    <a href="GALLERY_URL_PLACEHOLDER" target="_blank" rel="noopener noreferrer" class="gallery-glow-btn rev">
+    <a href="https://www.eitan-balloons.co.il/gallery" target="_blank" rel="noopener noreferrer" class="gallery-glow-btn rev">
       🖼️ לצפייה בגלריה המלאה
     </a>
   </div>
@@ -1569,21 +1577,40 @@ const sigEl = document.getElementById('sigImg'); if(sigEl) sigEl.src = SIG;
 
 // ── CURSOR ──
 const cur = document.getElementById('cursor');
-const balloons = ['🎈','🎉','🎊','🎀','✨','🎈','🎈'];
-let bi = 0;
+let curX = 0, curY = 0, isPopping = false;
 document.addEventListener('mousemove', e => {
-  cur.style.left = e.clientX + 'px';
-  cur.style.top  = e.clientY + 'px';
+  curX = e.clientX; curY = e.clientY;
+  if (!isPopping) {
+    cur.style.left = curX + 'px';
+    cur.style.top  = curY + 'px';
+  }
 });
 document.addEventListener('click', e => {
-  // confetti burst
-  for(let i=0;i<6;i++){
-    const p = document.createElement('div');
-    p.style.cssText = `position:fixed;left:${e.clientX}px;top:${e.clientY}px;font-size:${1+Math.random()}rem;pointer-events:none;z-index:99998;animation:confettiFly 0.8s ease-out forwards;--dx:${(Math.random()-0.5)*120}px;--dy:${-60-Math.random()*80}px;`;
-    p.textContent = ['🎈','⭐','✨','🌟','💫','🎊'][Math.floor(Math.random()*6)];
-    document.body.appendChild(p);
-    setTimeout(()=>p.remove(), 900);
+  if (isPopping) return;
+  isPopping = true;
+  const shreds = ['💥','🔴','🟡','🟠','⚪','🔵'];
+  for (let i = 0; i < 8; i++) {
+    const s = document.createElement('div');
+    const angle = (i / 8) * Math.PI * 2;
+    const dist = 40 + Math.random() * 60;
+    s.className = 'pop-shred';
+    s.style.left = curX + 'px';
+    s.style.top  = curY + 'px';
+    s.style.setProperty('--sx', `${Math.cos(angle)*dist}px`);
+    s.style.setProperty('--sy', `${Math.sin(angle)*dist}px`);
+    s.style.setProperty('--sr', `${(Math.random()-0.5)*360}deg`);
+    s.textContent = shreds[i % shreds.length];
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 520);
   }
+  cur.classList.add('popping');
+  setTimeout(() => {
+    cur.classList.remove('popping');
+    cur.textContent = '🎈';
+    cur.style.left = curX + 'px';
+    cur.style.top  = curY + 'px';
+    isPopping = false;
+  }, 380);
 });
 
 
@@ -1597,11 +1624,6 @@ for(let i=0;i<12;i++){
   b.style.cssText = `left:${Math.random()*100}%;font-size:${1.5+Math.random()*2}rem;animation-duration:${12+Math.random()*14}s;animation-delay:${Math.random()*12}s;`;
   bgEl.appendChild(b);
 }
-
-// ── CONFETTI CSS ──
-const confStyle = document.createElement('style');
-confStyle.textContent = `@keyframes confettiFly{to{transform:translate(var(--dx),var(--dy)) rotate(720deg);opacity:0}}`;
-document.head.appendChild(confStyle);
 
 // ── BEFORE/AFTER SLIDER ──
 (function(){
