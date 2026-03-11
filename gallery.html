@@ -205,7 +205,11 @@ body{
 @keyframes float{ 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
 .gallery-item.entering{ animation:fadeIn 0.4s ease both; }
 .gallery-item.leaving{ animation:fadeOut 0.25s ease both; pointer-events:none; }
-.gallery-item img{ width:100%; display:block; transition:transform 0.35s ease; }
+.gallery-item img{
+  width:100%; display:block; transition:transform 0.35s ease, filter 0.4s ease;
+  filter:blur(6px); /* starts blurred from placeholder */
+}
+.gallery-item img.loaded{ filter:blur(0); }
 .gallery-item:hover img{ transform:scale(1.04); }
 .gallery-item .overlay{
   position:absolute; inset:0;
@@ -237,23 +241,22 @@ body{
 .empty-state p{ font-size:18px; }
 
 /* ── LIGHTBOX ── */
-#fullscreen-overlay{
-  display:none; position:fixed; inset:0; z-index:99999;
-  background:rgba(0,0,0,0.97); cursor:none;
+#fullscreen-overlay{  display:none; position:fixed; inset:0; z-index:99999;
+  background:rgba(0,0,0,0.97); cursor:default;
   align-items:center; justify-content:center;
 }
 #fullscreen-overlay.open{ display:flex; }
 #fullscreen-overlay img{
   max-width:100vw; max-height:100vh;
   width:100vw; height:100vh; object-fit:contain;
-  display:block; transition:opacity 0.2s ease;
+  display:block; transition:opacity 0.2s ease; cursor:zoom-out;
 }
 #fullscreen-overlay img.fading{ opacity:0; }
 .fs-arrow{
   position:absolute; top:50%; transform:translateY(-50%);
   background:rgba(255,255,255,0.08); border:none; color:#fff;
   font-size:26px; width:52px; height:52px; border-radius:50%;
-  cursor:none; display:flex; align-items:center; justify-content:center;
+  cursor:pointer; display:flex; align-items:center; justify-content:center;
   transition:all 0.2s; z-index:1;
 }
 .fs-arrow:hover{ background:var(--y); color:#000; transform:translateY(-50%) scale(1.1); }
@@ -533,18 +536,62 @@ function showToast(msg) {
 }
 
 
+// ── Cloudinary thumbnail URL (smaller, WebP, auto quality) ──
+function thumbUrl(src) {
+  // inject w_600,c_scale,f_auto,q_auto after /upload/
+  return src.replace('/upload/', '/upload/w_600,c_scale,f_auto,q_auto/');
+}
+// tiny blur placeholder (~30px wide)
+function blurUrl(src) {
+  return src.replace('/upload/', '/upload/w_30,e_blur:400,f_auto,q_10/');
+}
+
+// IntersectionObserver for deferred image loading
+const imgObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const realSrc = el.dataset.src;
+    if (!realSrc) return;
+    const img = el.querySelector('img');
+    if (img) {
+      img.src = realSrc;
+      img.onload = () => { img.classList.add('loaded'); };
+    }
+    imgObserver.unobserve(el);
+  });
+}, { rootMargin: '200px' }); // start loading 200px before entering viewport
+
 function renderGallery() {
+  // disconnect previous observations
+  imgObserver.disconnect();
+
   const gallery = document.getElementById('gallery');
   gallery.innerHTML = '';
   const filtered = currentCat === 'all' ? images : images.filter(i => i.cat === currentCat);
   const empty = document.getElementById('empty-state');
   if (filtered.length === 0) { empty.classList.add('visible'); updateFilterBadges(); return; }
   empty.classList.remove('visible');
+
   filtered.forEach((img, idx) => {
     const item = document.createElement('div');
     item.className = 'gallery-item entering';
     item.style.animationDelay = `${Math.min(idx * 40, 400)}ms`;
-    item.innerHTML = `<img src="${img.src}" alt="${img.name}" loading="lazy"><div class="overlay"><span class="cat-badge">${img.cat}</span></div><button class="delete-btn" title="מחק">✕</button>`;
+
+    const thumb = thumbUrl(img.src);
+    const blur  = blurUrl(img.src);
+    const isEager = idx < 8; // first 8 load immediately (above fold)
+
+    if (isEager) {
+      // load immediately, no observer needed
+      item.innerHTML = `<img src="${thumb}" alt="${img.name}" decoding="async" class="loaded"><div class="overlay"><span class="cat-badge">${img.cat}</span></div><button class="delete-btn" title="מחק">✕</button>`;
+    } else {
+      // blur placeholder → real image via observer
+      item.dataset.src = thumb;
+      item.innerHTML = `<img src="${blur}" alt="${img.name}" decoding="async"><div class="overlay"><span class="cat-badge">${img.cat}</span></div><button class="delete-btn" title="מחק">✕</button>`;
+      imgObserver.observe(item);
+    }
+
     item.addEventListener('click', () => openLightbox(filtered, idx));
     item.querySelector('.delete-btn').addEventListener('click', e => {
       e.stopPropagation();
@@ -585,13 +632,17 @@ function openLightbox(imgs, idx) {
   showFsImage();
   document.getElementById('fullscreen-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
+  // hide balloon cursor — let the real cursor show inside lightbox
+  const cur = document.getElementById('cursor');
+  if (cur) cur.style.display = 'none';
 }
 function showFsImage() {
   const img = document.getElementById('fs-img');
   const counter = document.getElementById('fs-counter');
   img.classList.add('fading');
   setTimeout(() => {
-    img.src = fsImages[fsIndex].src;
+    // use Cloudinary 1400px version for lightbox — sharp enough, much faster than raw original
+    img.src = fsImages[fsIndex].src.replace('/upload/', '/upload/w_1400,c_scale,f_auto,q_auto/');
     img.classList.remove('fading');
   }, 150);
   counter.textContent = fsImages.length > 1 ? `${fsIndex + 1} / ${fsImages.length}` : '';
@@ -622,6 +673,9 @@ document.getElementById('fullscreen-overlay').addEventListener('touchend', e => 
 function closeLb() {
   document.getElementById('fullscreen-overlay').classList.remove('open');
   document.body.style.overflow = '';
+  // restore balloon cursor
+  const cur = document.getElementById('cursor');
+  if (cur) cur.style.display = '';
 }
 
 // ── CURSOR ──
