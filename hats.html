@@ -1000,6 +1000,21 @@
   .feat-pills { gap: 0.4rem; }
   .feat-pill { font-size: 0.75rem; padding: 0.28rem 0.75rem; }
   .feat-cta-btn { font-size: 1rem; padding: 0.85rem 1.8rem; }
+
+  /* Fix: on mobile the overlay content can be taller than the image,
+     so we flip the layout — the wrapper grows with the content
+     and the image fills it absolutely */
+  .featured-cta-wrap {
+    min-height: 680px;
+  }
+  .featured-cta-wrap > img {
+    position: absolute !important;
+    top: 0; left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+    object-fit: cover !important;
+  }
 }
 
 .featured-img-wrap img {
@@ -1303,6 +1318,71 @@ body.a11y-contrast > *:not(#cursor):not(#a11y-trigger):not(#a11y-panel) {
   filter: contrast(1.6) grayscale(0.15);
 }
 body.a11y-no-anim * { animation: none !important; transition: none !important; }
+
+/* ═══════════════════════════════════════════════════
+   GLOBAL ANIMATION SPEED — ~1.5× slower
+   ═══════════════════════════════════════════════════ */
+
+/* ── Hero entrance (slideUp / pop keyframe animations) ── */
+.hero-title .line          { animation-duration: 1.1s !important; }
+.hero-sub                  { animation-duration: 1.1s !important; }
+.hero-cta-group            { animation-duration: 1.1s !important; }
+.scroll-hint               { animation-duration: 1.1s !important; }
+.reveal.from-scale         { animation-duration: 0.8s !important; }
+
+/* ── Scroll-reveal transitions ── */
+.reveal {
+  transition-duration: 1s !important;
+}
+.reveal.blur-up {
+  transition-duration: 1.4s !important;
+}
+.reveal.pop {
+  transition-duration: 0.85s !important;
+}
+.reveal.slide-fade {
+  transition-duration: 1.1s !important;
+}
+.reveal.flip-in {
+  transition-duration: 1.1s !important;
+}
+.reveal.wipe {
+  transition-duration: 1.2s !important;
+}
+.reveal.float-up {
+  transition-duration: 0.9s !important;
+}
+.reveal.glow-in {
+  transition-duration: 1.2s !important;
+}
+
+/* ── Stagger delays ── */
+.reveal-delay-05 { transition-delay: 0.08s !important; }
+.reveal-delay-1  { transition-delay: 0.15s !important; }
+.reveal-delay-2  { transition-delay: 0.30s !important; }
+.reveal-delay-3  { transition-delay: 0.45s !important; }
+.reveal-delay-4  { transition-delay: 0.60s !important; }
+.reveal-delay-5  { transition-delay: 0.75s !important; }
+
+/* ── Looping / ambient animations ── */
+.scroll-hint i,
+.bounce          { animation-duration: 3s   !important; }
+.feat-bubble     { animation-duration: 8s   !important; }
+.feat-cta-btn    { animation-duration: 3.5s !important; }
+.pkg-popular-badge { animation-duration: 3s !important; }
+.float-wa        { animation-duration: 4.5s !important; }
+.photo-strip-track { animation-duration: 58s !important; }
+.urgency-badge   { animation-duration: 3.5s !important; }
+.cursor          { animation-duration: 3s   !important; }
+
+/* ── Hover / UI transitions (slightly smoother) ── */
+.pkg-card,
+.why-card,
+.step,
+.testi-card      { transition-duration: 0.4s !important; }
+.gallery-grid img { transition-duration: 0.3s !important; }
+.faq-a           { transition-duration: 0.6s !important; }
+.feat-cta-btn    { transition-duration: 0.3s !important; }
 html.a11y-bigtext   { font-size: 120% !important; }
 html.a11y-smalltext { font-size: 80%  !important; }
 body.a11y-readable, body.a11y-readable * { font-family: Arial, sans-serif !important; }
@@ -2126,7 +2206,7 @@ body.a11y-links a {
           <span>כמה זמן לוקח להכין את הכובעים?</span>
           <span class="faq-arrow">▾</span>
         </button>
-        <div class="faq-a">הכובעים מוכנים מראש בהתאמה אישית לאירוע שלכם, ומגיעים כשהם מוכנים לחלוקה. בחבילות עם נוכחות, גם ניתן להכין כובעים נוספים במקום בזמן האירוע.</div>
+        <div class="faq-a">את הכובעים אני מכין במשך היום, כך שהכובעים מוכנים מראש בהתאמה אישית לאירוע שלכם, ומגיעים כשהם מוכנים לחלוקה. בחבילות עם נוכחות, גם ניתן להכין כובעים נוספים במקום בזמן האירוע.</div>
       </div>
 
       <div class="faq-item reveal from-right reveal-delay-2">
@@ -2179,6 +2259,13 @@ body.a11y-links a {
     <h2 class="section-title reveal streak" style="color:#b07800">💬 מה אומרים עלינו?</h2>
 
     <div class="testi-ref reveal pop" style="margin-top:1.5rem;">
+      <p style="font-family:'NoaShalev','Varela Round',sans-serif;
+                font-size:clamp(1.3rem,3.5vw,1.8rem);
+                font-weight:700;
+                color:#111;
+                margin:0 0 0.5rem;">
+        מדורגים 5 כוכבים על ידי מאות לקוחות מרוצים
+      </p>
       <div style="font-size:1.5rem; letter-spacing:3px; margin-bottom:1rem;">⭐⭐⭐⭐⭐</div>
       <a href="https://www.eitan-balloons.co.il/#testimonials"
          target="_blank" rel="noopener"
@@ -2221,8 +2308,8 @@ body.a11y-links a {
       </p>
       <div class="feat-pills">
         <span class="feat-pill">⚡ מקום מוגבל</span>
-        <span class="feat-pill">📅 תאריכים נתפסים מהר</span>
-        <span class="feat-pill">🥳 +500 אירועים מאושרים</span>
+        <span class="feat-pill">📅 התאריכים נתפסים מהר</span>
+        <span class="feat-pill">🥳 +100 אירועים מאושרים</span>
       </div>
       <div class="feat-cta-group">
         <a href="https://wa.me/972549326454?text=שלום איתן! ראיתי את הכובעים ואני חייב להזמין! 🎩🔥"
