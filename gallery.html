@@ -646,6 +646,8 @@ function showFsImage() {
   counter.textContent = fsImages.length > 1 ? `${fsIndex + 1} / ${fsImages.length}` : '';
 }
 document.getElementById('fullscreen-overlay').addEventListener('click', e => {
+  // מניעת "ghost click" שמופיע ~300ms אחרי touchend במובייל
+  if (Date.now() - lastTouchEndTime < 500) return;
   if (e.target === document.getElementById('fullscreen-overlay') || e.target === document.getElementById('fs-img')) closeLb();
 });
 document.getElementById('fs-prev').addEventListener('click', e => { e.stopPropagation(); fsIndex = (fsIndex + 1) % fsImages.length; showFsImage(); });
@@ -660,12 +662,36 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowRight') { fsIndex = (fsIndex - 1 + fsImages.length) % fsImages.length; showFsImage(); }
 });
 
-let touchStartX = 0;
-document.getElementById('fullscreen-overlay').addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; });
+let touchStartX = 0, touchStartY = 0, lastTouchEndTime = 0;
+
+document.getElementById('fullscreen-overlay').addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
 document.getElementById('fullscreen-overlay').addEventListener('touchend', e => {
-  const diff = touchStartX - e.changedTouches[0].clientX;
-  if (Math.abs(diff) > 50) { fsIndex = diff > 0 ? (fsIndex + 1) % fsImages.length : (fsIndex - 1 + fsImages.length) % fsImages.length; showFsImage(); }
-  else closeLb();
+  lastTouchEndTime = Date.now();
+  const diffX = touchStartX - e.changedTouches[0].clientX;
+  const diffY = touchStartY - e.changedTouches[0].clientY;
+  const absDiffX = Math.abs(diffX);
+  const absDiffY = Math.abs(diffY);
+
+  // ── סווייפ אופקי ברור: absDiffX > 50 ו-X שולט על Y ──
+  if (absDiffX > 50 && absDiffX > absDiffY * 1.5) {
+    fsIndex = diffX > 0
+      ? (fsIndex + 1) % fsImages.length
+      : (fsIndex - 1 + fsImages.length) % fsImages.length;
+    showFsImage();
+    return;
+  }
+
+  // ── טאפ מדויק: תנועה קטנה מאוד בשני הצירים ──
+  if (absDiffX < 12 && absDiffY < 12) {
+    closeLb();
+    return;
+  }
+
+  // ── גלילה אנכית / תנועה אמביגואלית: מתעלמים, לא סוגרים ──
 });
 
 function closeLb() {
