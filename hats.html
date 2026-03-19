@@ -109,17 +109,19 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding: 2rem 1.5rem 3rem;
+    padding: 80px 2rem 4rem;
     z-index: 1;
     overflow: hidden;
+    background: radial-gradient(ellipse 140% 100% at 50% 25%, #1e0638 0%, #0d0020 50%, #080008 100%);
   }
   .hero::before {
     content: '';
     position: absolute; inset: 0;
     background:
-      radial-gradient(ellipse at 70% 30%, #f84b6c1a 0%, transparent 55%),
-      radial-gradient(ellipse at 20% 70%, #f9be2d15 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, #3ca3f70a 0%, transparent 70%);
+      radial-gradient(ellipse at 15% 85%,  rgba(248,75,108,0.35)  0%, transparent 45%),
+      radial-gradient(ellipse at 85% 15%,  rgba(255,133,51,0.25)  0%, transparent 45%),
+      radial-gradient(ellipse at 50% 110%, rgba(249,190,45,0.12)  0%, transparent 55%);
+    pointer-events: none;
     z-index: 0;
   }
 
@@ -142,9 +144,10 @@
     font-size: clamp(3rem, 10vw, 8rem);
     line-height: 1; position: relative; z-index:1;
     animation: slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.85), 0 0 60px rgba(0,0,0,0.5);
   }
   .hero-title .line1 { color: var(--pink); display:block; }
-  .hero-title .line2 { color: var(--yellow); display:block; font-size:0.55em; }
+  .hero-title .line2 { color: var(--yellow); display:block; font-size:0.55em; text-shadow: 0 2px 16px rgba(0,0,0,0.7); }
   .hero-title .line3 { color: var(--sky); display:block; }
 
   @keyframes slideUp {
@@ -154,9 +157,10 @@
 
   .hero-sub {
     font-size: clamp(1rem, 2.5vw, 1.35rem);
-    color: #e0e0e0; margin-top: 1.2rem;
-    max-width: 580px; line-height: 1.7;
+    color: rgba(255,255,255,0.72); margin-top: 1.2rem;
+    max-width: 580px; line-height: 1.8;
     position: relative; z-index:1;
+    text-shadow: 0 1px 12px rgba(0,0,0,0.7);
     animation: slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.35s both;
   }
 
@@ -212,7 +216,7 @@
   }
 
   /* ===== SECTION WRAPPER ===== */
-  section { position: relative; z-index:1; }
+  section { position: relative; z-index:1; overflow: hidden; }
 
   .section-inner {
     max-width: 1100px; margin: 0 auto;
@@ -402,7 +406,7 @@
   .why-card p { font-size: 0.9rem; color: #e0e0e0; line-height: 1.6; }
 
   /* ===== EVENT TYPES ===== */
-  .events-section { background: #0a0a0a; }
+  .events-section { background: transparent; }
   .events-chips {
     display: flex; flex-wrap: wrap; gap: 1rem;
     justify-content: center;
@@ -481,7 +485,18 @@
   .svg-balloon-layer {
     position: fixed; top:0; left:0;
     width:100%; height:100%;
-    pointer-events: none; z-index:0; overflow:hidden;
+    pointer-events: none; z-index: 0; overflow:hidden;
+    opacity: 0.55;
+    mix-blend-mode: screen;
+  }
+  .hero-balloon-layer {
+    position: absolute; inset: 0;
+    pointer-events: none; z-index: 0; overflow: hidden;
+    opacity: 0.7;
+  }
+  .section-bln-layer {
+    position: absolute; inset: 0;
+    pointer-events: none; z-index: 0; overflow: hidden;
   }
   .svg-bln {
     position: absolute;
@@ -491,9 +506,9 @@
   }
   @keyframes svgFloatUp {
     0%   { transform: translateY(0) translateX(0) rotate(-4deg); opacity:0; }
-    8%   { opacity: 0.12; }
+    8%   { opacity: 1; }
     50%  { transform: translateY(-55vh) translateX(16px) rotate(5deg); }
-    92%  { opacity: 0.12; }
+    92%  { opacity: 0.9; }
     100% { transform: translateY(-110vh) translateX(-10px) rotate(-3deg); opacity:0; }
   }
 
@@ -598,7 +613,7 @@
   .guarantee-badge span { font-size: 0.88rem; color: #999; }
 
   /* ===== FAQ ===== */
-  .faq-section { background: #0a0a0a; }
+  .faq-section { background: transparent; }
   .faq-list { max-width: 750px; margin: 0 auto; display:flex; flex-direction:column; gap:0.75rem; }
   .faq-item {
     background: rgba(255,255,255,0.025);
@@ -1405,7 +1420,7 @@ body.a11y-links a {
 
   /* ══════════ LIGHT SECTIONS ══════════ */
   .light-section {
-    background: #f5f5f3 !important;
+    background: rgba(245,245,243,0.96) !important;
     color: #1a1a1a !important;
   }
 
@@ -1586,12 +1601,12 @@ body.a11y-links a {
   /* ── Section dividers ── */
   .section-divider-dark-to-light {
     width: 100%; height: 80px;
-    background: linear-gradient(to bottom, #0a0a0a, #f5f5f3);
+    background: linear-gradient(to bottom, #0a0a0a, rgba(245,245,243,0.92));
     display: block;
   }
   .section-divider-light-to-dark {
     width: 100%; height: 80px;
-    background: linear-gradient(to bottom, #f5f5f3, #0a0a0a);
+    background: linear-gradient(to bottom, rgba(245,245,243,0.92), #0a0a0a);
     display: block;
   }
 
@@ -1875,7 +1890,7 @@ body.a11y-links a {
 <!-- Custom cursor: top hat emoji -->
 
 <!-- SVG Balloon layer -->
-<div class="svg-balloon-layer" id="svgBalloonLayer"></div>
+
 
 
 <button id="a11y-trigger" aria-label="תפריט נגישות" title="נגישות">
@@ -1947,7 +1962,14 @@ body.a11y-links a {
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="main-content">
+  <div class="hero-balloon-layer" id="heroBalloonLayer"></div>
 
+  <!-- לוגו -->
+  <div class="hero-logo-wrap" style="position:relative;z-index:1;margin-bottom:1.5rem;animation:slideUp 0.6s cubic-bezier(0.22,1,0.36,1) 0s both;">
+    <img src="https://res.cloudinary.com/dhsetthhx/image/upload/v1773170033/logo_round_o7fmb4.png"
+         alt="איתן בלונים" loading="lazy"
+         style="height:80px;width:80px;border-radius:50%;object-fit:cover;border:3px solid var(--yellow);box-shadow:0 0 30px rgba(249,190,45,0.4);">
+  </div>
 
   <div class="badge reveal" style="transition-delay:0.1s">🎩 את האירוע שלכם לא הולכים לשכח!</div>
 
@@ -2415,19 +2437,48 @@ body.a11y-links a {
     return svg;
   }
 
-  const balloonColors = ['#f84b6c','#f9be2d','#3ca3f7','#ff8533','#a855f7','#10b981','#ec4899','#f97316'];
-  const svgLayer = document.getElementById('svgBalloonLayer');
-  for (let i = 0; i < 18; i++) {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'svg-bln';
-    const color = balloonColors[i % balloonColors.length];
-    const size = 28 + Math.random() * 36;
-    wrapper.appendChild(createSVGBalloon(color, size));
-    wrapper.style.left = (Math.random() * 100) + '%';
-    wrapper.style.animationDuration = (12 + Math.random() * 16) + 's';
-    wrapper.style.animationDelay = (-Math.random() * 28) + 's';
-    svgLayer.appendChild(wrapper);
+  // ===== BALLOON PALETTES =====
+  const darkPalette = [
+    'rgba(249,190,45,0.60)',
+    'rgba(248,75,108,0.55)',
+    'rgba(255,255,255,0.35)',
+    'rgba(255,160,60,0.55)',
+    'rgba(200,140,255,0.50)'
+  ];
+  const lightPalette = [
+    'rgba(249,190,45,0.30)',
+    'rgba(248,75,108,0.25)',
+    'rgba(180,120,255,0.22)',
+    'rgba(255,133,51,0.28)',
+    'rgba(60,163,247,0.22)'
+  ];
+
+  function spawnBalloons(container, count, palette, opacityMultiplier) {
+    for (let i = 0; i < count; i++) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'svg-bln';
+      const color = palette[i % palette.length];
+      const size = 32 + Math.random() * 36;
+      wrapper.appendChild(createSVGBalloon(color, size));
+      wrapper.style.left  = (Math.random() * 100) + '%';
+      wrapper.style.animationDuration = (14 + Math.random() * 18) + 's';
+      wrapper.style.animationDelay    = (-Math.random() * 32) + 's';
+      if (opacityMultiplier != null) wrapper.style.opacity = opacityMultiplier;
+      container.appendChild(wrapper);
+    }
   }
+
+  // Hero — שכבה פנימית, בלונים כהים בולטים
+  spawnBalloons(document.getElementById('heroBalloonLayer'), 18, darkPalette, null);
+
+  // כל שאר הסקשנים — שכבה פנימית עם בלונים עדינים
+  document.querySelectorAll('section:not(.hero)').forEach(sec => {
+    const layer = document.createElement('div');
+    layer.className = 'section-bln-layer';
+    sec.insertBefore(layer, sec.firstChild);
+    const isLight = sec.classList.contains('light-section');
+    spawnBalloons(layer, 10, isLight ? lightPalette : darkPalette, null);
+  });
 
 
   // ===== FAQ ACCORDION =====

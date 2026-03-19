@@ -126,19 +126,23 @@
     position:relative; min-height:100vh;
     display:flex; flex-direction:column;
     align-items:center; justify-content:center;
-    text-align:center; padding:6rem 1.5rem 4rem;
-    background: radial-gradient(ellipse at 60% 0%, rgba(249,190,45,0.08) 0%, transparent 55%),
-                radial-gradient(ellipse at 10% 80%, rgba(248,75,108,0.07) 0%, transparent 50%),
-                #0a0a0a;
+    text-align:center; padding:80px 2rem 4rem;
+    background: radial-gradient(
+      ellipse 140% 100% at 50% 25%,
+      #1e0638 0%,
+      #0d0020 50%,
+      #080008 100%
+    );
     border-bottom:3px solid var(--or);
+    overflow:hidden;
   }
   .hero::before {
     content:''; position:absolute; inset:0;
     background:
-      radial-gradient(ellipse at 70% 20%, #f84b6c15 0%, transparent 55%),
-      radial-gradient(ellipse at 20% 80%, #f9be2d12 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, #3ca3f708 0%, transparent 70%);
-    z-index:0;
+      radial-gradient(ellipse at 15% 85%, rgba(60,163,247,0.30)  0%, transparent 45%),
+      radial-gradient(ellipse at 85% 15%, rgba(200,140,255,0.22) 0%, transparent 45%),
+      radial-gradient(ellipse at 50% 110%, rgba(248,75,108,0.12) 0%, transparent 55%);
+    pointer-events:none; z-index:0;
   }
 
   /* ── HERO BALLOONS (shows page) ── */
@@ -177,12 +181,15 @@
     100% { transform: translateY(-110vh) translateX(-10px) rotate(-3deg); opacity:0; }
   }
 
-  .logo-img {
-    width:120px; height:120px; border-radius:50%;
-    position:relative; z-index:1;
-    animation:pop 0.6s cubic-bezier(0.36,0.07,0.19,0.97) both, logoPulse 2.4s ease-out 0.7s infinite;
-    margin-bottom:1rem;
-    border: 2.5px solid rgba(249,190,45,0.7);
+  .hero-logo-wrap {
+    position:relative; z-index:1; margin-bottom:1rem;
+    animation:pop 0.6s cubic-bezier(0.36,0.07,0.19,0.97) both;
+  }
+  .hero-logo {
+    width:110px; height:110px; border-radius:50%;
+    border:2.5px solid rgba(249,190,45,0.7);
+    animation:logoPulse 2.4s ease-out 0.7s infinite;
+    display:block;
   }
   @keyframes logoPulse {
     0%,100% {
@@ -211,23 +218,37 @@
     80% { transform:scale(1.1); }
     100% { transform:scale(1); opacity:1; }
   }
-  .hero-title {
-    font-size:clamp(2.8rem,9vw,7rem); line-height:1;
-    position:relative; z-index:1;
+  /* legacy hero-title kept for compat but hidden — hero-tagline is the new standard */
+  .hero-title { display:none; }
+
+  /* ── HERO TAGLINE — new standard per design-spec ── */
+  .hero-tagline {
+    font-family:'NoaShalev','Varela Round',sans-serif;
+    font-size:clamp(1.6rem,5vw,3rem);
+    color:#fff;
+    text-shadow:0 2px 24px rgba(0,0,0,0.85), 0 0 60px rgba(0,0,0,0.5);
+    line-height:1.3;
+    position:relative; z-index:1; margin-bottom:0;
     animation:slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.2s both;
   }
-  .hero-title .line1 { color:var(--or); display:block; }
-  .hero-title .line2 { color:var(--y); display:block; font-size:0.52em; }
-  .hero-title .line3 { color:var(--pk); display:block; }
+  .hero-tagline em {
+    color:var(--y); font-style:normal;
+    text-shadow:0 0 40px rgba(249,190,45,0.4);
+  }
   @keyframes slideUp {
     from { transform:translateY(60px); opacity:0; }
     to   { transform:translateY(0); opacity:1; }
   }
   .hero-sub {
-    font-size:clamp(1rem,2.5vw,1.3rem); color:#b0b0b0;
-    margin-top:1.2rem; max-width:600px; line-height:1.7;
+    font-size:0.98rem; color:rgba(255,255,255,0.72);
+    text-shadow:0 1px 12px rgba(0,0,0,0.7);
+    margin-top:1.1rem; max-width:580px; line-height:1.8;
     position:relative; z-index:1;
     animation:slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.35s both;
+  }
+  .hero-goal {
+    display:block; margin-top:0.5rem;
+    color:rgba(255,255,255,0.55); font-size:0.9rem;
   }
   .hero-pills {
     display:flex; flex-wrap:wrap; gap:0.6rem;
@@ -267,8 +288,8 @@
 
   .scroll-hint {
     position:absolute; bottom:1rem; left:50%;
-    transform:translateX(-50%); font-size:0.85rem; color:#777;
-    animation:bounce 2s infinite; z-index:1;
+    transform:translateX(-50%); font-size:0.85rem; color:rgba(255,255,255,0.45);
+    animation:bounce 2s infinite; z-index:1; letter-spacing:0.05em;
   }
   @keyframes bounce {
     0%,100% { transform:translateX(-50%) translateY(0); }
@@ -1449,30 +1470,47 @@
 
 
 <!-- HERO -->
-<section class="hero" id="main-content">
+<section class="hero" id="hero" aria-label="כותרת ראשית">
   <!-- Hero balloon layer -->
   <div class="hero-balloons" id="heroBalloons" aria-hidden="true"></div>
-  <img src="https://res.cloudinary.com/dhsetthhx/image/upload/v1773170033/logo_round_o7fmb4.png" alt="איתן בלונים" class="logo-img"/>
-  <div class="badge">🎪 איתן בלונים — הפעלות שלא שוכחים!</div>
-  <h1 class="hero-title">
-    <span class="line1">הפעלות</span>
-    <span class="line2">ומופעים</span>
-    <span class="line3">בבלונים</span>
-  </h1>
-  <p class="hero-sub">
-    ימי ההולדת והמופעים שלנו משלבים קטעים מצחיקים, שמחים, עם מלא בלונים מיוחדים ויצירתיים, 
-      בהם הילדים והקהל לוקחים חלק אינטרקטיבי ופעיל לאורך כל הפעילות! 
-      המופע  והפעילות משלבים מסרים חינוכיים ובנויים בצורה שהילדים יישארו מרותקים לכל אורכן!
 
+  <!-- לוגו -->
+  <div class="hero-logo-wrap" id="main-content">
+    <img src="https://res.cloudinary.com/dhsetthhx/image/upload/v1773170033/logo_round_o7fmb4.png"
+         alt="איתן בלונים" class="hero-logo" id="heroLogo"/>
+  </div>
+
+  <!-- Badge -->
+  <div class="badge">🎪 איתן בלונים — הפעלות שלא שוכחים!</div>
+
+  <!-- כותרת מחודשת לפי design-spec -->
+  <h1 class="hero-tagline">הפעלות שילדים<br><em>לא שוכחים</em></h1>
+
+  <!-- תת-כותרת -->
+  <p class="hero-sub">
+    מופעים שמשלבים צחוק, בלונים מיוחדים ויצירתיות — שבהם הילדים לוקחים חלק פעיל לאורך כל הדרך.
+    <span class="hero-goal">בואו לחוות חוויה שתישאר בזיכרון! 🎈</span>
   </p>
+
+  <!-- Pills -->
+  <div class="hero-pills">
+    <span class="pill sky">🎈 מופעי בלונים</span>
+    <span class="pill pink">🎉 הפעלות לילדים</span>
+    <span class="pill orange">✂️ יצירה בבלונים</span>
+    <span class="pill yellow">🎩 קרנבל כובעים</span>
+  </div>
+
+  <!-- CTA -->
   <div class="hero-cta-group" style="margin-top:2rem;position:relative;z-index:1;animation:slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.55s both;">
-    <a href="https://wa.me/972549326454?text=שלום%20איתן!%20אני%20מעוניין%20בעיצוב%20אירוע%20בבלונים%20✨" class="cta-btn cta-wa" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> דברו איתי עכשיו
+    <a href="https://wa.me/972549326454?text=שלום%20איתן!%20אני%20מעוניין%20בהפעלה%20או%20מופע%20בלונים%20🎈" class="cta-btn cta-wa" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> דברו איתי עכשיו
     </a>
     <a href="#services" class="cta-btn cta-pink">
-      ✨ לסוגי העיצובים
+      ✨ לסוגי ההפעלות
     </a>
   </div>
-  <div class="scroll-hint">⬇ גלול למטה</div>
+
+  <!-- scroll hint -->
+  <div class="scroll-hint">↓ גלול לגלות</div>
 </section>
 
 <!-- STATS BAR -->
@@ -2108,12 +2146,18 @@
   // ===== HERO BALLOONS =====
   const heroBalloonLayer = document.getElementById('heroBalloons');
   if (heroBalloonLayer) {
-    const heroColors = ['#ff8533','#f84b6c','#f9be2d','#3ca3f7','#a855f7','#ff8533','#f84b6c'];
+    const heroColors = [
+      'rgba(249,190,45,0.60)',   /* צהוב */
+      'rgba(248,75,108,0.55)',   /* ורוד */
+      'rgba(255,255,255,0.40)',  /* לבן */
+      'rgba(255,160,60,0.55)',   /* כתום */
+      'rgba(200,140,255,0.50)'  /* סגול */
+    ];
     for (let i = 0; i < 14; i++) {
       const wrapper = document.createElement('div');
       wrapper.className = 'hb';
       const color = heroColors[i % heroColors.length];
-      const size  = 22 + Math.random() * 32;
+      const size  = 32 + Math.random() * 36;
       wrapper.appendChild(createSVGBalloon(color, size));
       wrapper.style.left             = (Math.random() * 100) + '%';
       wrapper.style.opacity          = '0.5';
