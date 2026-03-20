@@ -122,23 +122,27 @@
     position:relative; min-height:100vh;
     display:flex; flex-direction:column;
     align-items:center; justify-content:center;
-    text-align:center; padding:6rem 1.5rem 4rem;
-    background: radial-gradient(ellipse at 60% 0%, rgba(249,190,45,0.08) 0%, transparent 55%),
-                radial-gradient(ellipse at 10% 80%, rgba(248,75,108,0.07) 0%, transparent 50%),
-                #0a0a0a;
+    text-align:center; padding:80px 2rem 4rem;
+    background: radial-gradient(ellipse 140% 100% at 50% 25%, #1e0638 0%, #0d0020 50%, #080008 100%);
     border-bottom:3px solid var(--y);
+    overflow:hidden;
   }
   .hero::before {
     content:''; position:absolute; inset:0;
     background:
-      radial-gradient(ellipse at 70% 20%, #f84b6c15 0%, transparent 55%),
-      radial-gradient(ellipse at 20% 80%, #f9be2d12 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, #3ca3f708 0%, transparent 70%);
-    z-index:0;
+      radial-gradient(ellipse at 85% 15%,  rgba(249,190,45,0.35)  0%, transparent 45%),
+      radial-gradient(ellipse at 15% 85%,  rgba(248,75,108,0.25)  0%, transparent 45%),
+      radial-gradient(ellipse at 50% 110%, rgba(60,163,247,0.12)  0%, transparent 55%);
+    pointer-events:none; z-index:0;
   }
 
   /* ── HERO BALLOONS ── */
   .hero-balloons {
+    position: absolute; inset: 0;
+    pointer-events: none; z-index: 0; overflow: hidden;
+  }
+  /* בלוני רקע לכל section — z-index:0 = מאחורי התוכן */
+  .section-balloons {
     position: absolute; inset: 0;
     pointer-events: none; z-index: 0; overflow: hidden;
   }
@@ -209,6 +213,7 @@
     80% { transform:scale(1.1); }
     100% { transform:scale(1); opacity:1; }
   }
+  /* legacy — kept for backward compat if referenced elsewhere */
   .hero-title {
     font-size:clamp(2.8rem,9vw,7rem); line-height:1;
     position:relative; z-index:1;
@@ -221,12 +226,87 @@
     from { transform:translateY(60px); opacity:0; }
     to   { transform:translateY(0); opacity:1; }
   }
+
+  /* NEW — spec-aligned hero title */
+  .hero-tagline {
+    font-family:'NoaShalev','Varela Round',sans-serif;
+    font-size:clamp(2.6rem,7.5vw,5.2rem); line-height:1.2;
+    color:#fff;
+    text-shadow: 0 2px 24px rgba(0,0,0,0.85), 0 0 60px rgba(0,0,0,0.5);
+    position:relative; z-index:1; margin-bottom:0.5rem;
+    animation:slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.2s both;
+    letter-spacing: -0.01em;
+  }
+  /* שורה ראשונה — קנטור עדין + glow */
+  .hero-tagline .t-line1 {
+    display: block;
+    color: #fff;
+    text-shadow:
+      0 0 40px rgba(255,255,255,0.25),
+      0 2px 24px rgba(0,0,0,0.9);
+  }
+  /* שורה שנייה — שימר זהוב עם glow */
+  .hero-tagline em {
+    font-style: normal;
+    display: block;
+    background: linear-gradient(90deg,
+      var(--y) 0%, #fff8b0 35%, var(--y) 55%, var(--or) 80%, var(--y) 100%);
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: taglineShimmer 3.2s linear infinite;
+    filter: drop-shadow(0 0 18px rgba(249,190,45,0.55));
+    font-size: 1.1em;
+  }
+  .hero-tagline .t-sub {
+    display: block;
+    font-size: 0.45em;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.18em;
+    text-shadow: none;
+    margin-top: 0.2em;
+    font-family: 'Varela Round', sans-serif;
+  }
+    0%   { background-position: 200% center; }
+    100% { background-position: -200% center; }
+  }
+
+  /* hero logo wrap */
+  .hero-logo-wrap { position:relative; z-index:1; margin-bottom:1rem; }
+  .hero-logo {
+    width:120px; height:120px; border-radius:50%;
+    border: 2.5px solid rgba(249,190,45,0.7);
+    animation:pop 0.6s cubic-bezier(0.36,0.07,0.19,0.97) both, logoPulse 2.4s ease-out 0.7s infinite;
+    object-fit:cover;
+  }
+
+  /* hero CTA buttons — spec-aligned */
+  .btn { display:inline-flex; align-items:center; gap:0.5rem;
+    font-family:'Varela Round',sans-serif; font-size:1.1rem;
+    padding:0.85rem 1.8rem; border-radius:999px; text-decoration:none;
+    cursor:none; transition:transform 0.2s, box-shadow 0.2s; font-weight:600;
+  }
+  .btn-wa {
+    background:linear-gradient(135deg,#25D366,#128C7E); color:#fff;
+    box-shadow:0 6px 30px #25D36655;
+    animation:ctaWAPulse 2.8s ease-in-out infinite;
+  }
+  .btn-wa:hover { transform:translateY(-4px) scale(1.04); animation:none; }
+  .btn-more {
+    background:rgba(249,190,45,0.12); color:var(--y);
+    border:2px solid rgba(249,190,45,0.45);
+  }
+  .btn-more:hover { background:rgba(249,190,45,0.22); transform:translateY(-4px); }
+
   .hero-sub {
-    font-size:clamp(1rem,2.5vw,1.3rem); color:#b0b0b0;
-    margin-top:1.2rem; max-width:600px; line-height:1.7;
+    font-size:0.95rem; color:rgba(255,255,255,0.72);
+    text-shadow: 0 1px 12px rgba(0,0,0,0.7);
+    margin-top:1rem; max-width:580px; line-height:1.8;
     position:relative; z-index:1;
     animation:slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.35s both;
   }
+  .hero-goal { display:block; margin-top:0.5rem; color:var(--y); font-weight:600; }
   .hero-pills {
     display:flex; flex-wrap:wrap; gap:0.6rem;
     justify-content:center; margin-top:1.4rem;
@@ -301,7 +381,7 @@
   .stat-label { font-size:0.85rem; color:#ccc; }
 
   section { position:relative; z-index:2; }
-  .section-inner { max-width:1100px; margin:0 auto; padding:5rem 1.5rem; }
+  .section-inner { max-width:1100px; margin:0 auto; padding:5rem 1.5rem; position:relative; z-index:1; }
   .section-title { font-size:clamp(1.8rem,5vw,3rem); text-align:center; margin-bottom:0.5rem; }
   .section-subtitle { text-align:center; color:#888; font-size:1rem; margin-bottom:3rem; }
 
@@ -1324,26 +1404,31 @@
 <!-- HERO -->
 <section class="hero" id="main-content">
   <div class="hero-balloons" id="heroBalloons" aria-hidden="true"></div>
-  <img src="https://res.cloudinary.com/dhsetthhx/image/upload/v1773170033/logo_round_o7fmb4.png" alt="איתן בלונים" class="logo-img" width="120" height="120" fetchpriority="high"/>
-  <div class="badge">✨ איתן בלונים — עיצובים שיזכרו לנצח</div>
-  <h1 class="hero-title">
-    <span class="line1">עיצוב</span>
-    <span class="line2">אירועים</span>
-    <span class="line3">בבלונים</span>
-  </h1>
-  <p class="hero-sub">
-   המטרה שלי - לרגש אתכם! 
-      כשאני חושב על עיצוב, אני רוצה שיהיה משהו מיוחד. אני רוצה שהאורחים יגידו - כזה עוד לא ראינו! <br />
-      כשלקוח פונה אלי, אני מרגיש כאילו זה אירוע שלי. אם אני כבר מגיע - אתן את המקסימום בשבילכם!
-  </p>
-  <div class="hero-cta-group" style="margin-top:2rem;position:relative;z-index:1;animation:slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.55s both;">
-    <a href="https://wa.me/972549326454?text=שלום%20איתן!%20אני%20מעוניין%20בעיצוב%20אירוע%20בבלונים%20✨" class="cta-btn cta-wa" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> דברו איתי עכשיו
-    </a>
-    <a href="#services" class="cta-btn cta-pink">
-      ✨ לסוגי העיצובים
-    </a>
+
+  <!-- לוגו -->
+  <div class="hero-logo-wrap">
+    <img src="https://res.cloudinary.com/dhsetthhx/image/upload/v1773170033/logo_round_o7fmb4.png" alt="איתן בלונים" class="hero-logo" width="120" height="120" fetchpriority="high"/>
   </div>
-  <div class="scroll-hint">⬇ גלול למטה</div>
+
+  <!-- כותרת -->
+  <h1 class="hero-tagline"><span class="t-line1">עיצובי אירועים</span><span class="t-sub">מבלונים</span></h1>
+
+  <!-- תת-כותרת -->
+  <p class="hero-sub">
+    המטרה שלי — לרגש אתכם!<br>
+    כשאני מגיע לאירוע, אני רוצה שהאורחים יגידו: <em style="color:rgba(255,255,255,0.9);font-style:normal;">כזה עוד לא ראינו!</em>
+  </p>
+
+  <!-- כפתורים -->
+  <div class="hero-cta" style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;margin-top:2rem;position:relative;z-index:1;animation:slideUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.55s both;">
+    <a href="https://wa.me/972549326454?text=שלום%20איתן!%20אני%20מעוניין%20בעיצוב%20אירוע%20בבלונים%20✨" class="btn btn-wa" target="_blank" rel="noopener noreferrer">
+      <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> דברו איתי עכשיו
+    </a>
+    <a href="#services" class="btn btn-more">גלו עוד ↓</a>
+  </div>
+
+  <!-- scroll hint -->
+  <div class="scroll-hint">↓ גלול לגלות</div>
 </section>
 
 <!-- STATS BAR -->
@@ -1363,6 +1448,7 @@
 
 <!-- SERVICES -->
 <section id="services" class="light-section">
+  <div class="section-balloons" aria-hidden="true"></div>
   <div class="section-inner reveal">
     <h2 class="section-title" style="color:var(--pk)">🎨 סוגי העיצובים</h2>
     <p class="section-subtitle">כל עיצוב מותאם אישית — צבעים, סגנון ואוירה לפי האירוע שלכם</p>
@@ -1418,6 +1504,7 @@
 
 <!-- PROCESS -->
 <section class="light-section">
+  <div class="section-balloons" aria-hidden="true"></div>
   <div class="section-inner reveal">
     <h2 class="section-title" style="color:var(--or)">🗓️ איך זה עובד?</h2>
     <p class="section-subtitle">4 צעדים פשוטים לאירוע מושלם</p>
@@ -1456,6 +1543,7 @@
 
 <!-- GALLERY -->
 <section id="gallery" class="gallery-section light-section">
+  <div class="section-balloons" aria-hidden="true"></div>
   <div class="section-inner reveal">
     <h2 class="section-title" style="color:var(--sk)">📸 גלריה</h2>
     <p class="section-subtitle">לחצו על תמונה להגדלה • ניתן לדפדף בין התמונות</p>
@@ -1655,6 +1743,7 @@
 
 <!-- WHY US -->
 <section class="light-section">
+  <div class="section-balloons" aria-hidden="true"></div>
   <div class="section-inner reveal">
     <h2 class="section-title" style="color:var(--pu)">💜 למה לבחור בנו?</h2>
     <p class="section-subtitle">לא סתם בלונים — חוויה שלמה</p>
@@ -1695,6 +1784,7 @@
 
 <!-- TESTIMONIALS -->
 <section id="testimonials" class="light-section testi-section">
+  <div class="section-balloons" aria-hidden="true"></div>
 
   <!-- Floating balloons background -->
   <div class="testi-balloons" aria-hidden="true">
@@ -1728,6 +1818,7 @@
 
 <!-- FINAL CTA -->
 <section class="final-cta">
+  <div class="section-balloons" aria-hidden="true"></div>
   <h2 class="final-cta-title reveal">רוצים אירוע שלא ישכחו? 🎈</h2>
   <p class="final-cta-sub reveal">צרו איתנו קשר עוד היום — התאריכים מוגבלים!</p>
   <div class="reveal" style="display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;">
@@ -2039,21 +2130,64 @@
   // ===== HERO BALLOONS =====
   const heroBalloonLayer = document.getElementById('heroBalloons');
   if (heroBalloonLayer) {
-    const heroColors = ['#f84b6c','#f9be2d','#3ca3f7','#ff8533','#a855f7','#f84b6c','#f9be2d'];
-    const heroBalloonCount = window.innerWidth < 768 ? 5 : 14;
+    // dark palette per hero-design-spec: opacity ≥ 0.50, size rand(32,68)
+    const darkPalette = [
+      'rgba(249,190,45,0.60)',
+      'rgba(248,75,108,0.55)',
+      'rgba(255,255,255,0.40)',
+      'rgba(255,160,60,0.55)',
+      'rgba(200,140,255,0.50)'
+    ];
+    const heroBalloonCount = window.innerWidth < 768 ? 6 : 16;
     for (let i = 0; i < heroBalloonCount; i++) {
       const wrapper = document.createElement('div');
       wrapper.className = 'hb';
-      const color = heroColors[i % heroColors.length];
-      const size  = 22 + Math.random() * 32;
-      wrapper.appendChild(createSVGBalloon(color, size));
-      wrapper.style.left             = (Math.random() * 100) + '%';
-      wrapper.style.opacity          = '0.5';
-      wrapper.style.animationDuration = (5 + Math.random() * 7) + 's';
-      wrapper.style.animationDelay   = (-Math.random() * 14) + 's';
+      const colorStr = darkPalette[i % darkPalette.length];
+      // extract hex-like color for SVG fill; pass rgba string directly
+      const size  = 32 + Math.random() * 36; // rand(32, 68)
+      const svgEl = createSVGBalloon(colorStr, size);
+      wrapper.appendChild(svgEl);
+      wrapper.style.left              = (Math.random() * 100) + '%';
+      wrapper.style.animationDuration  = (6 + Math.random() * 8) + 's';
+      wrapper.style.animationDelay    = (-Math.random() * 16) + 's';
       heroBalloonLayer.appendChild(wrapper);
     }
   }
+
+  // ── SECTION BACKGROUND BALLOONS ──
+  const sectionPaletteDark = [
+    'rgba(249,190,45,0.18)',
+    'rgba(248,75,108,0.16)',
+    'rgba(255,255,255,0.12)',
+    'rgba(255,160,60,0.18)',
+    'rgba(200,140,255,0.15)',
+    'rgba(60,163,247,0.14)',
+  ];
+  // על רקע לבן — צבעים רוויים יותר כדי שיהיו בולטים
+  const sectionPaletteLight = [
+    'rgba(249,190,45,0.45)',
+    'rgba(248,75,108,0.38)',
+    'rgba(255,160,60,0.42)',
+    'rgba(200,140,255,0.35)',
+    'rgba(60,163,247,0.38)',
+    'rgba(34,197,94,0.32)',
+  ];
+  document.querySelectorAll('.section-balloons').forEach(layer => {
+    const isLight = layer.closest('section')?.classList.contains('light-section');
+    const palette = isLight ? sectionPaletteLight : sectionPaletteDark;
+    const count = window.innerWidth < 768 ? 5 : 10;
+    for (let i = 0; i < count; i++) {
+      const wrapper = document.createElement('div');
+      wrapper.className = 'hb';
+      const color = palette[i % palette.length];
+      const size  = 28 + Math.random() * 36;
+      wrapper.appendChild(createSVGBalloon(color, size));
+      wrapper.style.left              = (Math.random() * 100) + '%';
+      wrapper.style.animationDuration  = (9 + Math.random() * 10) + 's';
+      wrapper.style.animationDelay    = (-Math.random() * 20) + 's';
+      layer.appendChild(wrapper);
+    }
+  });
 
   // ── MOBILE BURGER ──
   const burger = document.getElementById('navBurger');
