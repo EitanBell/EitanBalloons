@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>איתן בלונים | קורסים דיגיטליים</title>
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dhsetthhx/image/upload/v1773170033/logo_round_o7fmb4.png">
+  <link rel="canonical" href="https://eitan-balloons.co.il/courses">
+  <meta name="description" content="קורסים דיגיטליים לאמנות הבלונים עם איתן — ללמוד ליצור בלונים מהבית, בקצב שלכם, עם 10+ שנות ניסיון מקצועי.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="he_IL">
+  <meta property="og:title" content="קורסים דיגיטליים — איתן בלונים">
+  <meta property="og:description" content="למדו לעשות בלונים מהמומחה. קורסי וידאו בקצב שלכם, עם 10+ שנות ניסיון.">
+  <meta property="og:url" content="https://eitan-balloons.co.il/courses">
+  <meta property="og:site_name" content="איתן בלונים">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "name": "קורס בלונים למתחילים",
+    "description": "קורס דיגיטלי ללימוד אמנות הבלונים מאפס. שיעורי וידאו HD, מהבית, בקצב שלכם.",
+    "provider": {
+      "@type": "Person",
+      "name": "איתן — איתן בלונים",
+      "url": "https://eitan-balloons.co.il"
+    },
+    "url": "https://eitan-balloons.co.il/courses",
+    "inLanguage": "he",
+    "teaches": "אמנות בלונים",
+    "educationalLevel": "מתחילים"
+  }
+  </script>
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --y:  #f9be2d;
+      --y2: #fed152;
+      --pk: #f84b6c;
+      --sk: #3ca3f7;
+      --or: #ff8533;
+      --gn: #2f881b;
+      --bk: #0a0a0a;
+      --wh: #ffffff;
+    }
+
+    /* ===== FONT FACE ===== */
+    @font-face {
+      font-family: 'NoaShalev';
+      src: url('https://www.eitan-balloons.co.il/fonts/NoaShalev.woff2') format('woff2'),
+           url('https://www.eitan-balloons.co.il/fonts/NoaShalev.woff') format('woff');
+      font-display: swap;
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Heebo', sans-serif;
+      background: #f5f5f0;
+      color: #111;
+      overflow-x: hidden;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ===== CURSOR ===== */
+    #cursor {
+      position: fixed; top: -100px; pointer-events: none; z-index: 99998;
+      font-size: 1.5rem; transition: transform 0.08s;
+      animation: curWig 1.8s ease-in-out infinite;
+    }
+    @keyframes curWig { 0%,100%{ rotate:-10deg } 50%{ rotate:10deg } }
+    #cursor.popping { animation: balloonPop 0.35s ease-out forwards; }
+    @keyframes balloonPop {
+      0%  { transform:scale(1) }
+      50% { transform:scale(1.6) }
+      100%{ transform:scale(0) rotate(45deg); opacity:0; }
+    }
+
+    /* ===== SKIP LINK ===== */
+    #skip-link {
+      position: absolute; top: -50px; left: 50%; transform: translateX(-50%);
+      background: var(--y); color: #000; padding: 0.5rem 1rem;
+      border-radius: 0 0 8px 8px; font-weight: 700; z-index: 99999; transition: top 0.2s;
+    }
+    #skip-link:focus { top: 0; }
+
+    /* ===== BALLOON BG ===== */
+    #balloon-bg {
+      position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden;
+    }
+    @keyframes blnRise {
+      100% { opacity:0; transform:translate(var(--sx),var(--sy)) scale(0.3) rotate(var(--sr)); }
+    }
+
+    /* ===== NAV ===== */
+    #nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.6rem 1.5rem;
+      background: rgba(240,240,237,0.92);
+      border-bottom: 2.5px solid var(--y);
+      transition: background 0.4s;
+    }
+    #nav.scrolled { background: rgba(240,240,237,0.97); }
+    .nav-links {
+      display: flex; gap: 0.2rem; list-style: none;
+      flex-direction: row-reverse; align-items: center;
+    }
+    .nav-links a {
+      color: #111; font-size: 0.92rem;
+      padding: 0.45rem 0.85rem; border-radius: 30px;
+      transition: all 0.2s; font-family: 'Varela Round', sans-serif;
+    }
+    .nav-links a:hover, .nav-links a.act { background: var(--y); color: #000 !important; }
+    .nd { position: relative; }
+    .nd > a::after { content:'▾'; font-size:0.7rem; margin-right:0.3rem; }
+    .ddm {
+      position: absolute; background: #fff; border: 1px solid #ddd;
+      border-radius: 16px; padding: 0.5rem;
+      opacity: 0; pointer-events: none; transform: translateY(-8px);
+      transition: all 0.2s; z-index: 2000; min-width: 190px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+    }
+    .nd:hover .ddm { opacity:1; pointer-events:all; transform:translateY(0); }
+    .ddm li { list-style: none; }
+    .ddm li a { display:block; padding:0.55rem 1rem; border-radius:10px; color:#333; font-size:0.9rem; }
+    .ddm li a:hover, .ddm li a.act { background:var(--y); color:#000 !important; }
+    .nav-logo {
+      height:44px; width:44px; border-radius:50%;
+      object-fit:cover; border:2px solid var(--y);
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: 'Varela Round', sans-serif;
+      font-size: 1.1rem; padding: 0.9rem 2rem; border-radius: 999px;
+      font-weight: 700; transition: transform 0.2s, box-shadow 0.2s;
+      cursor: pointer; border: none;
+    }
+    .btn:hover { transform: translateY(-3px) scale(1.03); }
+    .btn-cta {
+      background: var(--y); color: #000;
+      box-shadow: 0 6px 30px rgba(249,190,45,0.4);
+      animation: btnBreath 3s ease-in-out infinite;
+    }
+    @keyframes btnBreath {
+      0%,100%{ box-shadow:0 6px 30px rgba(249,190,45,0.4) }
+      50%    { box-shadow:0 14px 50px rgba(249,190,45,0.7) }
+    }
+    .btn-wa {
+      background: linear-gradient(135deg,#25D366,#128C7E);
+      color: #fff; box-shadow: 0 6px 30px #25D36650;
+    }
+    .btn-wa:hover { box-shadow: 0 14px 50px #25D36680; }
+    .btn-outline {
+      background: transparent; color: var(--y);
+      border: 2px solid var(--y);
+    }
+    .btn-outline:hover { background: var(--y); color: #000; }
+
+    /* ===== SCROLL REVEAL ===== */
+    .rev {
+      opacity: 0; transform: translateY(32px);
+      transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1),
+                  transform 0.65s cubic-bezier(0.22,1,0.36,1);
+    }
+    .rev.in { opacity:1; transform:none; }
+    .rev-d1 { transition-delay: 0.1s; }
+    .rev-d2 { transition-delay: 0.2s; }
+    .rev-d3 { transition-delay: 0.3s; }
+    .rev-d4 { transition-delay: 0.4s; }
+
+    /* ===== SECTION HEADER ===== */
+    .sec-head { text-align: center; margin-bottom: 3rem; }
+    .sec-label {
+      display: inline-block; background: var(--y); color: #000;
+      font-size: 0.78rem; font-weight: 700; text-transform: uppercase;
+      border-radius: 999px; margin-bottom: 1rem; letter-spacing: 0.08em;
+      padding: 0.3rem 1rem; font-family: 'Varela Round', sans-serif;
+    }
+    .sec-label.dark { background: #1a1a1a; color: var(--y); }
+    .sec-label.pink { background: var(--pk); color: #fff; }
+    .sec-label.blue { background: var(--sk); color: #fff; }
+    .sec-label.orange { background: var(--or); color: #fff; }
+    .sec-title {
+      font-family: 'NoaShalev','Varela Round',sans-serif;
+      font-size: clamp(2rem,5vw,3.2rem); color: #111; line-height: 1.2;
+    }
+    .sec-title.wh { color: #fff; }
+    .sec-sub { color: #666; font-size: 1rem; margin-top: 0.5rem; line-height: 1.7; max-width: 600px; margin-left: auto; margin-right: auto; }
+    .sec-sub.wh { color: #bbb; }
+
+    /* ===== CONTAINER ===== */
+    .cont { max-width: 1200px; margin: auto; padding: 0 1.5rem; }
+
+    /* ===== PILLS ===== */
+    .pills { display:flex; gap:0.7rem; flex-wrap:wrap; justify-content:flex-start; margin-top:1.5rem; }
+    .pill { border-radius:999px; padding:0.4rem 1.1rem; font-size:0.9rem; font-family:'Varela Round',sans-serif; }
+    .pill.y { background:rgba(249,190,45,0.12); border:1px solid var(--y); color:var(--y); }
+    .pill.p { background:rgba(248,75,108,0.12); border:1px solid var(--pk); color:var(--pk); }
+    .pill.b { background:rgba(60,163,247,0.12); border:1px solid var(--sk); color:var(--sk); }
+    .pill.g { background:rgba(47,136,27,0.12); border:1px solid var(--gn); color:var(--gn); }
+
+    /* ===========================
+       HERO
+    =========================== */
+    #hero {
+      min-height: 100vh;
+      background: linear-gradient(160deg, #0a0a0a 0%, #12121a 55%, #0d1a0d 100%);
+      display: flex; align-items: center;
+      padding: 8rem 1.5rem 5rem;
+      position: relative; overflow: hidden;
+    }
+    #hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 25% 50%, rgba(249,190,45,0.09) 0%, transparent 55%),
+                  radial-gradient(ellipse at 75% 85%, rgba(60,163,247,0.06) 0%, transparent 45%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
+      max-width: 1200px; margin: auto; width: 100%;
+      position: relative; z-index: 1;
+    }
+    .hero-title {
+      font-family: 'NoaShalev','Varela Round',sans-serif;
+      font-size: clamp(2.4rem,5vw,3.8rem);
+      color: #fff; line-height: 1.2; margin-bottom: 1.2rem;
+    }
+    .hero-title em { font-style:normal; color:var(--y); }
+    .hero-sub {
+      color: #bbb; font-size: 1.1rem; line-height: 1.8; margin-bottom: 2rem;
+    }
+    .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:2rem; }
+
+    /* Hero Visual — floating course card */
+    .hero-visual { position: relative; }
+    .hero-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(249,190,45,0.25);
+      border-radius: 24px; padding: 1.8rem;
+      backdrop-filter: blur(12px);
+    }
+    .hero-card-img {
+      width: 100%; height: 240px; object-fit: cover;
+      border-radius: 16px; margin-bottom: 1.2rem;
+    }
+    .hero-card-badge {
+      display: inline-block; background: var(--pk); color: #fff;
+      font-family: 'Varela Round',sans-serif;
+      font-size: 0.75rem; font-weight: 700;
+      padding: 0.25rem 0.8rem; border-radius: 999px; margin-bottom: 0.7rem;
+    }
+    .hero-card h3 {
+      color: #fff; font-family:'Varela Round',sans-serif;
+      font-size: 1.2rem; margin-bottom: 0.4rem;
+    }
+    .hero-card-desc { color: #aaa; font-size:0.9rem; margin-bottom:1rem; }
+    .hero-card-meta {
+      display: flex; gap:1rem; margin-bottom:1.2rem; flex-wrap:wrap;
+    }
+    .hero-card-meta span {
+      color: #888; font-size:0.82rem; font-family:'Varela Round',sans-serif;
+    }
+    /* floating badges */
+    .hero-float {
+      position: absolute;
+      background: #fff; border-radius: 12px; padding: 0.6rem 1rem;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+      font-family: 'Varela Round',sans-serif; font-size:0.85rem;
+      white-space: nowrap; font-weight: 700;
+      animation: floatBadge 4s ease-in-out infinite;
+    }
+    @keyframes floatBadge { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+    .hero-float.top  { top:-1.2rem; left:-1.2rem; animation-delay:0s; }
+    .hero-float.bot  { bottom:-1.2rem; right:-1.2rem; background:var(--y); animation-delay:-2s; }
+
+    /* ===========================
+       WHY SECTION
+    =========================== */
+    #why { background: #fff; padding: 6rem 1.5rem; }
+    .why-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 2rem;
+    }
+    .why-card {
+      background: #f8f8f5; border-radius: 20px; padding: 2rem;
+      text-align: center; border: 1.5px solid #eee;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      position: relative; overflow: hidden;
+    }
+    .why-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:3px;
+    }
+    .why-card:nth-child(1)::before { background:var(--y); }
+    .why-card:nth-child(2)::before { background:var(--pk); }
+    .why-card:nth-child(3)::before { background:var(--sk); }
+    .why-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--y);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+    }
+    .why-icon {
+      width: 72px; height: 72px; border-radius: 50%;
+      display: flex; align-items:center; justify-content:center;
+      font-size: 2rem; margin: 0 auto 1.2rem;
+    }
+    .why-icon.y { background:rgba(249,190,45,0.15); }
+    .why-icon.p { background:rgba(248,75,108,0.12); }
+    .why-icon.b { background:rgba(60,163,247,0.12); }
+    .why-card h3 { font-family:'Varela Round',sans-serif; font-size:1.1rem; margin-bottom:0.6rem; }
+    .why-card p  { color:#666; font-size:0.95rem; line-height:1.7; }
+
+    /* ===========================
+       COURSES SECTION
+    =========================== */
+    #courses { background: #f5f5f0; padding: 6rem 1.5rem; }
+    .courses-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 2rem;
+    }
+
+    /* Course Card */
+    .course-card {
+      background: #fff; border-radius: 24px;
+      border: 1.5px solid #eee; overflow: hidden;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      display: flex; flex-direction: column;
+    }
+    .course-card:hover { transform:translateY(-10px); border-color:var(--y); box-shadow:0 25px 60px rgba(0,0,0,0.12); }
+    .course-card.featured {
+      border-color: var(--y);
+      box-shadow: 0 0 0 3px rgba(249,190,45,0.2), 0 10px 40px rgba(0,0,0,0.08);
+    }
+    .course-thumb {
+      position: relative; height: 210px; overflow: hidden;
+    }
+    .course-thumb img {
+      width:100%; height:100%; object-fit:cover;
+      transition: transform 0.4s;
+    }
+    .course-card:hover .course-thumb img { transform: scale(1.05); }
+    .course-badge {
+      position: absolute; top:1rem; right:1rem;
+      font-family:'Varela Round',sans-serif;
+      font-size:0.72rem; font-weight:700;
+      padding:0.3rem 0.8rem; border-radius:999px;
+      color: #fff;
+    }
+    .course-badge.new  { background:var(--pk); }
+    .course-badge.soon { background: rgba(0,0,0,0.6); backdrop-filter:blur(4px); }
+
+    .course-body { padding:1.8rem; flex:1; display:flex; flex-direction:column; }
+    .course-body .sec-label { margin-bottom:0.7rem; }
+    .course-body h3 {
+      font-family:'Varela Round',sans-serif;
+      font-size:1.2rem; margin-bottom:0.6rem; color:#111;
+    }
+    .course-body p { color:#666; font-size:0.92rem; line-height:1.65; margin-bottom:1.2rem; flex:1; }
+    .course-meta {
+      display:flex; gap:0.7rem; flex-wrap:wrap; margin-bottom:1.4rem;
+    }
+    .course-meta span {
+      font-size:0.8rem; color:#777;
+      font-family:'Varela Round',sans-serif;
+      background:#f4f4f0; border-radius:999px; padding:0.25rem 0.7rem;
+    }
+
+    /* Coming Soon overlay */
+    .course-card.coming-soon { position:relative; }
+    .coming-soon-overlay {
+      position: absolute; inset:0; z-index:2;
+      background: rgba(10,10,10,0.78);
+      backdrop-filter: blur(4px);
+      display: flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      border-radius:24px; gap:0.4rem;
+    }
+    .coming-soon-overlay .cs-icon { font-size:2.8rem; }
+    .coming-soon-overlay .cs-label {
+      color:#fff; font-family:'Varela Round',sans-serif;
+      font-size:1.1rem; font-weight:700;
+    }
+    .coming-soon-overlay .cs-sub { color:#bbb; font-size:0.88rem; }
+
+    /* ===========================
+       INSTRUCTOR
+    =========================== */
+    #instructor { background:#111; padding:6rem 1.5rem; }
+    .instructor-inner {
+      display: grid; grid-template-columns: auto 1fr;
+      gap: 4rem; align-items: center;
+      max-width: 900px; margin: auto;
+    }
+    .instructor-photo {
+      width: 200px; height:200px; border-radius:50%;
+      object-fit: cover; border:4px solid var(--y);
+      box-shadow: 0 0 0 10px rgba(249,190,45,0.12), 0 20px 60px rgba(0,0,0,0.4);
+      flex-shrink:0;
+    }
+    .instructor-badge {
+      display: inline-block; background:var(--y); color:#000;
+      font-family:'Varela Round',sans-serif;
+      font-size:0.8rem; font-weight:700;
+      padding:0.25rem 0.9rem; border-radius:999px; margin-bottom:0.8rem;
+    }
+    .instructor-text h2 {
+      font-family:'NoaShalev','Varela Round',sans-serif;
+      font-size:clamp(1.8rem,3vw,2.4rem); color:#fff; margin-bottom:0.4rem;
+    }
+    .instructor-bio {
+      color:#bbb; line-height:1.85; font-size:1rem; margin-bottom:1.4rem;
+    }
+    .instructor-stats { display:flex; gap:2.5rem; flex-wrap:wrap; }
+    .inst-stat strong {
+      display:block; font-size:1.8rem; color:var(--y);
+      font-family:'Varela Round',sans-serif; line-height:1.1;
+    }
+    .inst-stat span { font-size:0.85rem; color:#888; }
+
+    /* ===========================
+       SYLLABUS
+    =========================== */
+    #syllabus { background:#f5f5f0; padding:6rem 1.5rem; }
+    .syllabus-grid {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:1.5rem; max-width:880px; margin:2.5rem auto 0;
+    }
+    .syl-module {
+      background:#fff; border-radius:16px; padding:1.5rem;
+      border:1.5px solid #eee; display:flex; gap:1rem; align-items:flex-start;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .syl-module:hover { border-color:var(--y); box-shadow:0 8px 24px rgba(0,0,0,0.07); }
+    .syl-num {
+      width:36px; height:36px; border-radius:50%;
+      background:var(--y); color:#000;
+      font-family:'Varela Round',sans-serif; font-weight:700;
+      display:flex; align-items:center; justify-content:center;
+      font-size:0.9rem; flex-shrink:0;
+    }
+    .syl-content h4 { font-family:'Varela Round',sans-serif; font-size:0.95rem; margin-bottom:0.3rem; color:#111; }
+    .syl-content p  { color:#777; font-size:0.85rem; line-height:1.5; }
+
+    /* ===========================
+       FOR WHOM
+    =========================== */
+    #forwhom { background:#fff; padding:6rem 1.5rem; }
+    .forwhom-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem;
+    }
+    .fw-card {
+      background:#f8f8f5; border-radius:16px; padding:1.5rem;
+      border:1.5px solid #eee; display:flex; gap:1rem; align-items:flex-start;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .fw-card:hover { transform:translateY(-4px); border-color:var(--y); }
+    .fw-icon { font-size:2rem; flex-shrink:0; line-height:1; }
+    .fw-card h4 { font-family:'Varela Round',sans-serif; font-size:0.95rem; margin-bottom:0.35rem; }
+    .fw-card p  { color:#777; font-size:0.88rem; line-height:1.55; }
+
+    /* ===========================
+       FAQ
+    =========================== */
+    #faq { background:#f5f5f0; padding:6rem 1.5rem; }
+    .faq-list { max-width:800px; margin:2.5rem auto 0; }
+    .faq-item {
+      background:#fff; border-radius:16px;
+      border:1.5px solid #eee; margin-bottom:1rem;
+      overflow:hidden; transition:border-color 0.25s, box-shadow 0.25s;
+    }
+    .faq-item.open { border-color:var(--y); box-shadow:0 6px 20px rgba(249,190,45,0.1); }
+    .faq-q {
+      width:100%; background:none; border:none;
+      padding:1.3rem 1.5rem; cursor:pointer;
+      display:flex; justify-content:space-between; align-items:center;
+      font-family:'Varela Round',sans-serif; font-size:0.98rem;
+      color:#111; text-align:right; gap:1rem;
+    }
+    .faq-chevron {
+      font-size:0.8rem; color:#999; flex-shrink:0;
+      transition: transform 0.3s; display:inline-block;
+    }
+    .faq-item.open .faq-chevron { transform:rotate(-180deg); }
+    .faq-a { max-height:0; overflow:hidden; transition:max-height 0.38s ease; }
+    .faq-item.open .faq-a { max-height:300px; }
+    .faq-a-inner {
+      padding:0 1.5rem 1.3rem; color:#666;
+      line-height:1.75; font-size:0.95rem;
+    }
+
+    /* ===========================
+       FINAL CTA
+    =========================== */
+    #cta-final {
+      background: linear-gradient(135deg, #0f0f0f 0%, #0f1a0f 100%);
+      padding: 7rem 1.5rem; text-align:center;
+      position:relative; overflow:hidden;
+    }
+    #cta-final::before {
+      content:'';
+      position:absolute; inset:0;
+      background: radial-gradient(ellipse at center, rgba(249,190,45,0.1) 0%, transparent 65%);
+      pointer-events:none;
+    }
+    #cta-final .cont { position:relative; z-index:1; }
+    #cta-final .big-emoji { font-size:4rem; margin-bottom:1rem; display:block; animation:floatBadge 3s ease-in-out infinite; }
+    #cta-final h2 {
+      font-family:'NoaShalev','Varela Round',sans-serif;
+      font-size:clamp(2rem,5vw,3.2rem); color:#fff; margin-bottom:1rem;
+    }
+    #cta-final p { color:#bbb; font-size:1.05rem; margin-bottom:2.5rem; line-height:1.75; }
+    .cta-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; }
+
+    /* ===========================
+       FOOTER
+    =========================== */
+    footer {
+      background:var(--bk); color:#aaa;
+      text-align:center; padding:3rem 2rem 2rem;
+    }
+    .flogo {
+      height:60px; width:60px; border-radius:50%;
+      border:2px solid var(--y); margin:0 auto 1.2rem; display:block;
+    }
+    .flinks {
+      display:flex; gap:1rem 1.5rem; flex-wrap:wrap;
+      justify-content:center; margin-bottom:1.2rem;
+    }
+    .flinks a { color:#aaa; font-size:0.9rem; transition:color 0.2s; }
+    .flinks a:hover { color:var(--y); }
+    .fsoc { display:flex; gap:1rem; justify-content:center; margin-bottom:1.5rem; }
+    .fsoc a {
+      font-size:1.4rem; transition:transform 0.2s, filter 0.2s;
+      width:44px; height:44px; border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+    }
+    .fsoc a:hover { transform:scale(1.15); filter:brightness(1.2); }
+    .fsoc a.soc-fb { color:#fff; background:#1877F2; box-shadow:0 4px 14px rgba(24,119,242,0.4); }
+    .fsoc a.soc-ig {
+      color:#fff;
+      background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+      box-shadow:0 4px 14px rgba(214,36,159,0.4);
+    }
+    .fsoc a.soc-ph { color:#000; background:var(--y); box-shadow:0 4px 14px rgba(249,190,45,0.4); }
+    .fsoc a.soc-wa { color:#fff; background:#25D366; box-shadow:0 4px 14px rgba(37,211,102,0.4); }
+
+    /* ===========================
+       WHATSAPP FLOAT
+    =========================== */
+    .fwa {
+      position:fixed; bottom:5rem; right:1.5rem; z-index:10000;
+      width:54px; height:54px; border-radius:50%;
+      background:#25D366; color:#fff; font-size:1.8rem;
+      display:flex; align-items:center; justify-content:center;
+      box-shadow:0 6px 20px #25D36660; transition:all 0.2s;
+    }
+    .fwa:hover { transform:scale(1.1); box-shadow:0 10px 30px #25D36680; }
+
+    /* ===========================
+       ACCESSIBILITY PANEL
+    =========================== */
+    #a11y-trigger {
+      position:fixed; bottom:1.5rem; left:1.5rem; z-index:10000;
+      width:48px; height:48px; border-radius:50%;
+      background:#1a1a1a; border:2px solid var(--y);
+      color:var(--y); font-size:1.4rem; cursor:pointer;
+      transition:all 0.2s;
+    }
+    #a11y-panel {
+      position:fixed; bottom:4.5rem; left:1.5rem; z-index:10001;
+      background:#1a1a1a; border:1.5px solid var(--y);
+      border-radius:20px; width:280px;
+      box-shadow:0 20px 60px rgba(0,0,0,0.5);
+    }
+    #a11y-header {
+      display:flex; justify-content:space-between; align-items:center;
+      padding:1rem 1.2rem; border-bottom:1px solid #333;
+      color:var(--y); font-family:'Varela Round',sans-serif; font-weight:700;
+    }
+    #a11y-close { background:none; border:none; color:#aaa; font-size:1rem; cursor:pointer; }
+    #a11y-body { padding:0.8rem 1rem; display:flex; flex-direction:column; gap:0.4rem; }
+    .a11y-toggle {
+      display:flex; align-items:center; gap:0.8rem;
+      background:none; border:none; cursor:pointer;
+      padding:0.5rem 0.4rem; border-radius:8px;
+      color:#ddd; font-family:'Heebo',sans-serif; font-size:0.9rem;
+      width:100%; text-align:right;
+    }
+    .a11y-toggle:hover { background:rgba(249,190,45,0.1); }
+    .a11y-knob {
+      width:36px; height:20px; border-radius:10px;
+      background:#444; position:relative; flex-shrink:0;
+      transition:background 0.2s;
+    }
+    .a11y-knob::after {
+      content:''; position:absolute; top:3px; right:3px;
+      width:14px; height:14px; border-radius:50%; background:#fff;
+      transition:right 0.2s;
+    }
+    .a11y-toggle[aria-checked="true"] .a11y-knob { background:var(--y); }
+    .a11y-toggle[aria-checked="true"] .a11y-knob::after { right:calc(100% - 17px); }
+    #a11y-footer { padding:0.8rem 1rem; border-top:1px solid #333; }
+    #a11y-reset {
+      background:var(--y); color:#000; border:none; border-radius:999px;
+      padding:0.5rem 1.2rem; cursor:pointer; font-family:'Varela Round',sans-serif;
+      font-weight:700; font-size:0.88rem; width:100%;
+    }
+
+    /* Accessibility feature classes */
+    body.a11y-no-anim *, body.a11y-no-anim *::before, body.a11y-no-anim *::after {
+      animation:none !important; transition:none !important;
+    }
+    body.a11y-contrast { filter:contrast(1.5); }
+    html.a11y-bigtext  { font-size:120%; }
+    html.a11y-smalltext{ font-size:85%; }
+    body.a11y-readable, body.a11y-readable * { font-family:Arial,sans-serif !important; }
+    body.a11y-headings h1, body.a11y-headings h2, body.a11y-headings h3 { outline:2px solid var(--y); }
+    body.a11y-links a { text-decoration:underline !important; }
+    body.a11y-keyboard :focus { outline:3px solid var(--y) !important; outline-offset:3px !important; }
+
+    /* ===========================
+       RESPONSIVE
+    =========================== */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns:1fr; }
+      .hero-visual { display:none; }
+      .why-grid { grid-template-columns:1fr; }
+      .courses-grid { grid-template-columns:1fr; max-width:480px; margin:auto; }
+      .syllabus-grid { grid-template-columns:1fr; }
+      .forwhom-grid { grid-template-columns:1fr 1fr; }
+      .instructor-inner { grid-template-columns:1fr; text-align:center; }
+      .instructor-stats { justify-content:center; }
+      .instructor-photo { margin:auto; }
+    }
+    @media (max-width: 640px) {
+      .hero-title { font-size:2.2rem; }
+      .forwhom-grid { grid-template-columns:1fr; }
+      .nav-links a { font-size:0.82rem; padding:0.4rem 0.55rem; }
+      .why-grid, .courses-grid { grid-template-columns:1fr; }
+      .pills { justify-content:flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- CURSOR -->
+  <div id="cursor">🎈</div>
+
+  <!-- SKIP LINK -->
+  <a id="skip-link" href="#main-content">דלג לתוכן הראשי</a>
+
+  <!-- BALLOON BG -->
+  <div id="balloon-bg"></div>
+
+  <!-- NAV -->
+  <nav id="nav" aria-label="ניווט ראשי">
+    <ul class="nav-links">
+      <li><a href="https://www.eitan-balloons.co.il/#contact">יצירת קשר</a></li>
+      <li><a href="https://www.eitan-balloons.co.il/#gallery">גלריה</a></li>
+      <li><a href="https://www.eitan-balloons.co.il/#testimonials">המלצות</a></li>
+      <li class="nd">
+        <a href="https://www.eitan-balloons.co.il/#services">השירותים שלי</a>
+        <ul class="ddm">
+          <li><a href="https://www.eitan-balloons.co.il/delivery">🎈 משלוחים</a></li>
+          <li><a href="https://www.eitan-balloons.co.il/shows">🎭 הפעלות ומופעים</a></li>
+          <li><a href="https://www.eitan-balloons.co.il/events">✨ עיצובי אירועים</a></li>
+          <li><a href="https://www.eitan-balloons.co.il/hats">🎩 קרנבל כובעים</a></li>
+          <li><a href="https://www.eitan-balloons.co.il/courses" class="act">📚 קורסים דיגיטליים</a></li>
+        </ul>
+      </li>
+      <li><a href="https://www.eitan-balloons.co.il/#about">אודות</a></li>
+    </ul>
+    <img src="" alt="איתן בלונים" class="nav-logo" id="navLogo">
+  </nav>
+
+  <main id="main-content">
+
+    <!-- ==================== HERO ==================== -->
+    <section id="hero" aria-label="קורסים דיגיטליים">
+      <div class="hero-inner">
+
+        <!-- Text side -->
+        <div class="hero-text">
+          <span class="sec-label">📚 קורסים דיגיטליים</span>
+          <h1 class="hero-title">
+            למדו לעשות בלונים<br>
+            מהמומחה — <em>מהבית</em>
+          </h1>
+          <p class="hero-sub">
+            קורסי וידאו בקצב שלכם, עם 10+ שנות ניסיון כאמן בלונים מקצועי.<br>
+            בלי ניסיון קודם, בלי ציוד יקר — רק רצון ובלון.
+          </p>
+          <div class="hero-btns">
+            <a href="#courses" class="btn btn-cta">🎈 לצפייה בקורסים</a>
+            <a href="https://wa.me/972549326454" class="btn btn-wa" target="_blank" rel="noopener noreferrer">
+              <i class="fa-brands fa-whatsapp"></i> שאלה? דברו איתי
+            </a>
+          </div>
+          <div class="pills">
+            <span class="pill y">📚 קורס ראשון זמין</span>
+            <span class="pill b">🎬 וידאו HD</span>
+            <span class="pill p">⭐ 10+ שנות ניסיון</span>
+            <span class="pill g">♾️ גישה לצמיתות</span>
+          </div>
+        </div>
+
+        <!-- Visual side -->
+        <div class="hero-visual">
+          <span class="hero-float top">⭐ 10+ שנות ניסיון מקצועי</span>
+          <div class="hero-card">
+            <img src="https://res.cloudinary.com/dhsetthhx/image/upload/v1773845502/%D7%9C%D7%90%D7%AA%D7%A8_rjg3qo.jpg"
+                 alt="איתן — אמן הבלונים" class="hero-card-img" loading="lazy">
+            <span class="hero-card-badge">🆕 קורס חדש!</span>
+            <h3>קורס בלונים למתחילים</h3>
+            <p class="hero-card-desc">מאפס ליצירות ראשונות — בלי ניסיון קודם</p>
+            <div class="hero-card-meta">
+              <span>🎬 שיעורי וידאו</span>
+              <span>⏱ למידה עצמית</span>
+              <span>📶 מתחילים</span>
+            </div>
+            <a href="#courses" class="btn btn-cta"
+               style="width:100%;justify-content:center;font-size:0.95rem">
+              הצטרפו עכשיו 🎈
+            </a>
+          </div>
+          <span class="hero-float bot">🎈 הצטרפו לקהילת הלומדים</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==================== WHY LEARN FROM ME ==================== -->
+    <section id="why" aria-label="למה ללמוד ממני">
+      <div class="cont">
+        <div class="sec-head rev">
+          <span class="sec-label">למה איתן?</span>
+          <h2 class="sec-title">ניסיון אמיתי — ידע אמיתי</h2>
+          <p class="sec-sub">לא לומדים בלונים מספר לימוד. לומדים מאמן שחי את זה כל יום מאז 2014</p>
+        </div>
+        <div class="why-grid">
+          <div class="why-card rev rev-d1">
+            <div class="why-icon y">🏆</div>
+            <h3>500+ אירועים בניסיון</h3>
+            <p>מעל עשור של אירועים — ימי הולדת, חתונות, פסטיבלים ועוד. הניסיון הזה עובר אליכם ישירות בכל שיעור.</p>
+          </div>
+          <div class="why-card rev rev-d2">
+            <div class="why-icon p">🎬</div>
+            <h3>שיעורים ברורים וזורמים</h3>
+            <p>כל שיעור בנוי בצורה הדרגתית — מהבסיס עד לגמר. קל להבנה, קל ליישום, ואפשר לחזור כמה פעמים שצריך.</p>
+          </div>
+          <div class="why-card rev rev-d3">
+            <div class="why-icon b">📱</div>
+            <h3>בכל מקום ובכל זמן</h3>
+            <p>הגישה לקורס היא לצמיתות — צפו שוב ושוב, בטלפון, בטאבלט, במחשב. בקצב שלכם, בדיוק כמו שנוח לכם.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== COURSES GRID ==================== -->
+    <section id="courses" aria-label="הקורסים שלי">
+      <div class="cont">
+        <div class="sec-head rev">
+          <span class="sec-label pink">🎈 הקורסים שלי</span>
+          <h2 class="sec-title">בחרו את הקורס שמתאים לכם</h2>
+          <p class="sec-sub">מסלול ברור מהתחלה ועד שליטה מלאה — שלב אחרי שלב, יצירה אחרי יצירה</p>
+        </div>
+
+        <div class="courses-grid">
+
+          <!-- ✅ COURSE 1: AVAILABLE -->
+          <div class="course-card featured rev rev-d1">
+            <div class="course-thumb">
+              <img src="https://res.cloudinary.com/dhsetthhx/image/upload/v1773180773/Untitled-3_kxwisg.jpg"
+                   alt="קורס בלונים למתחילים עם איתן" loading="lazy">
+              <span class="course-badge new">🆕 זמין עכשיו!</span>
+            </div>
+            <div class="course-body">
+              <span class="sec-label" style="font-size:0.72rem">🌱 שלב 1</span>
+              <h3>קורס בלונים למתחילים</h3>
+              <p>הבסיס שכל אמן בלונים צריך — מאיך לנפח נכון, דרך הטכניקות הראשונות ועד ליצירות שתוכלו להתגאות בהן ולהראות לכולם.</p>
+              <div class="course-meta">
+                <span>🎬 שיעורי וידאו</span>
+                <span>📶 מתחילים</span>
+                <span>♾️ גישה לצמיתות</span>
+                <span>📱 בכל מכשיר</span>
+              </div>
+              <a href="#" class="btn btn-cta"
+                 style="width:100%;justify-content:center"
+                 aria-label="לרכישת קורס בלונים למתחילים">
+                להצטרפות לקורס 🎈
+              </a>
+            </div>
+          </div>
+
+          <!-- 🔒 COURSE 2: COMING SOON -->
+          <div class="course-card coming-soon rev rev-d2">
+            <div class="coming-soon-overlay">
+              <span class="cs-icon">🔒</span>
+              <span class="cs-label">בקרוב...</span>
+              <span class="cs-sub">קורס מתקדמים</span>
+            </div>
+            <div class="course-thumb">
+              <img src="https://res.cloudinary.com/dhsetthhx/image/upload/v1773845502/%D7%9C%D7%90%D7%AA%D7%A8_rjg3qo.jpg"
+                   alt="קורס בלונים מתקדמים — בקרוב" loading="lazy">
+              <span class="course-badge soon">⏳ בקרוב</span>
+            </div>
+            <div class="course-body">
+              <span class="sec-label blue" style="font-size:0.72rem">🚀 שלב 2</span>
+              <h3>קורס בלונים מתקדמים</h3>
+              <p>ליצירות מורכבות, פיגורות מרהיבות וכניסה לעולם הבלונים המקצועי. לאחר השלמת הקורס למתחילים.</p>
+              <div class="course-meta">
+                <span>🎬 שיעורי וידאו</span>
+                <span>📶 מתקדמים</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 🔒 COURSE 3: COMING SOON -->
+          <div class="course-card coming-soon rev rev-d3">
+            <div class="coming-soon-overlay">
+              <span class="cs-icon">🔒</span>
+              <span class="cs-label">בקרוב...</span>
+              <span class="cs-sub">קורס עיצוב אירועים</span>
+            </div>
+            <div class="course-thumb">
+              <img src="https://i.imgur.com/Z07JmDH.jpeg"
+                   alt="קורס עיצוב אירועים עם בלונים — בקרוב" loading="lazy">
+              <span class="course-badge soon">⏳ בקרוב</span>
+            </div>
+            <div class="course-body">
+              <span class="sec-label orange" style="font-size:0.72rem">✨ שלב 3</span>
+              <h3>קורס עיצוב אירועים</h3>
+              <p>מקשתות ועד עמודים מרהיבים — ללמוד לעצב אירועים שלמים עם בלונים. הקורס למי שרוצה לעשות מזה מקצוע.</p>
+              <div class="course-meta">
+                <span>🎬 שיעורי וידאו</span>
+                <span>📶 מקצועי</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== INSTRUCTOR ==================== -->
+    <section id="instructor" aria-label="אודות המרצה">
+      <div class="cont">
+        <div class="instructor-inner rev">
+          <img src="https://res.cloudinary.com/dhsetthhx/image/upload/v1773845502/%D7%9C%D7%90%D7%AA%D7%A8_rjg3qo.jpg"
+               alt="איתן — אמן הבלונים והמרצה שלכם"
+               class="instructor-photo" loading="lazy">
+          <div class="instructor-text">
+            <span class="instructor-badge">👨‍🏫 המרצה שלכם</span>
+            <h2>היי, אני איתן 👋</h2>
+            <p class="instructor-bio">
+              מאז 2014 אני חי את עולם הבלונים — מאירועים קטנים לחגיגות גדולות,
+              ממופעים לילדים ועד עיצובי אולמות שלמים.
+              <br><br>
+              500+ אירועים, 10+ שנות ניסיון, ואהבה עצומה לשמח אנשים —
+              כל זה עכשיו ארוז בקורסים דיגיטליים שיקחו אתכם מאפס
+              ועד ליצירות שיגרמו לכולם לעצור ולהסתכל.
+              <br><br>
+              אני מאמין שכל אחד יכול ללמוד לעשות בלונים — צריך רק את הבסיס הנכון.
+            </p>
+            <div class="instructor-stats">
+              <div class="inst-stat">
+                <strong>500+</strong>
+                <span>אירועים</span>
+              </div>
+              <div class="inst-stat">
+                <strong>10+</strong>
+                <span>שנות ניסיון</span>
+              </div>
+              <div class="inst-stat">
+                <strong>100%</strong>
+                <span>אהבה לבלונים</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== SYLLABUS ==================== -->
+    <section id="syllabus" aria-label="תכנית הקורס למתחילים">
+      <div class="cont">
+        <div class="sec-head rev">
+          <span class="sec-label">📋 תוכן הקורס</span>
+          <h2 class="sec-title">מה לומדים בקורס למתחילים?</h2>
+          <p class="sec-sub">תכנית לימודים הדרגתית — כל שיעור בנוי על הקודם, בלי לדלג על שום דבר חשוב</p>
+        </div>
+        <div class="syllabus-grid">
+
+          <div class="syl-module rev rev-d1">
+            <div class="syl-num">1</div>
+            <div class="syl-content">
+              <h4>מבוא לעולם הבלונים</h4>
+              <p>הכרת הציוד, סוגי בלונים, כיצד לנפח נכון ובטוח — הכל מהאפס המוחלט.</p>
+            </div>
+          </div>
+
+          <div class="syl-module rev rev-d2">
+            <div class="syl-num">2</div>
+            <div class="syl-content">
+              <h4>הטכניקות הבסיסיות</h4>
+              <p>לולאה פשוטה, גלגלת, בועה — כל הבסיס שתצטרכו לכל יצירה עתידית.</p>
+            </div>
+          </div>
+
+          <div class="syl-module rev rev-d3">
+            <div class="syl-num">3</div>
+            <div class="syl-content">
+              <h4>יצירות ראשונות</h4>
+              <p>כלב, פרח, חרב — שלוש היצירות הקלאסיות שכל ילד (וגדול) יתאהב בהן.</p>
+            </div>
+          </div>
+
+          <div class="syl-module rev rev-d4">
+            <div class="syl-num">4</div>
+            <div class="syl-content">
+              <h4>שרשראות וכובעים</h4>
+              <p>יצירות מחוברות — שרשרת צבעונית וכובע בלונים ייחודי שכולם ירצו ללבוש.</p>
+            </div>
+          </div>
+
+          <div class="syl-module rev rev-d1">
+            <div class="syl-num">5</div>
+            <div class="syl-content">
+              <h4>יצירות מתקדמות למתחילים</h4>
+              <p>ציפור, פרפר וחרב מתקדמת — לקחת את הכישורים שלב אחד קדימה.</p>
+            </div>
+          </div>
+
+          <div class="syl-module rev rev-d2">
+            <div class="syl-num">6</div>
+            <div class="syl-content">
+              <h4>סיכום ומה הלאה</h4>
+              <p>תרגול משולב, טיפים מהניסיון האישי שלי, ומה מחכה לכם בקורסים הבאים.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FOR WHOM ==================== -->
+    <section id="forwhom" aria-label="למי הקורס מתאים">
+      <div class="cont">
+        <div class="sec-head rev">
+          <span class="sec-label blue">👥 למי זה מתאים?</span>
+          <h2 class="sec-title">לא צריך ניסיון — רק רצון</h2>
+          <p class="sec-sub">הקורס נבנה עם אנשים כמוכם בראש</p>
+        </div>
+        <div class="forwhom-grid">
+
+          <div class="fw-card rev rev-d1">
+            <span class="fw-icon">👨‍👩‍👧‍👦</span>
+            <div>
+              <h4>הורים שרוצים להפתיע</h4>
+              <p>רוצים להכין משהו מיוחד ליום הולדת של הילד? הקורס הזה הוא בשבילכם.</p>
+            </div>
+          </div>
+
+          <div class="fw-card rev rev-d2">
+            <span class="fw-icon">🎭</span>
+            <div>
+              <h4>אנשי הפעלות ומופעים</h4>
+              <p>מפעילים שרוצים להוסיף ממד חוויתי לשירות שלהם — בלונים הם ה-WOW הכי קל.</p>
+            </div>
+          </div>
+
+          <div class="fw-card rev rev-d3">
+            <span class="fw-icon">🎨</span>
+            <div>
+              <h4>אוהבי יצירה וחוויה</h4>
+              <p>אם אתם אוהבים ליצור ולשמח — בלונים הם תחביב שמשמח גם אתכם וגם את כולם סביבכם.</p>
+            </div>
+          </div>
+
+          <div class="fw-card rev rev-d4">
+            <span class="fw-icon">💼</span>
+            <div>
+              <h4>יזמים שרוצים להתחיל עסק</h4>
+              <p>חולמים לפתוח עסק בלונים? הקורס הזה הוא נקודת ההתחלה המושלמת שלכם.</p>
+            </div>
+          </div>
+
+          <div class="fw-card rev rev-d1">
+            <span class="fw-icon">🏫</span>
+            <div>
+              <h4>מחנכים ואנשי חינוך</h4>
+              <p>גננות, מורים, מדריכים — הוסיפו כלי יצירתי ומשמח לארגז הכלים שלכם.</p>
+            </div>
+          </div>
+
+          <div class="fw-card rev rev-d2">
+            <span class="fw-icon">🌟</span>
+            <div>
+              <h4>כל מי שאוהב להפתיע</h4>
+              <p>בסופו של דבר — אם יש לכם רצון לשמח, הבלונים ידאגו לשאר.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FAQ ==================== -->
+    <section id="faq" aria-label="שאלות נפוצות">
+      <div class="cont">
+        <div class="sec-head rev">
+          <span class="sec-label">❓ שאלות נפוצות</span>
+          <h2 class="sec-title">יש לכם שאלות?</h2>
+          <p class="sec-sub">ריכזנו עבורכם את מה שחוזר הכי הרבה</p>
+        </div>
+        <div class="faq-list">
+
+          <div class="faq-item rev">
+            <button class="faq-q" aria-expanded="false">
+              האם צריך ניסיון קודם?
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-a" aria-hidden="true">
+              <div class="faq-a-inner">
+                בכלל לא! הקורס מתחיל מהאפס המוחלט — מה הם בלונים, איך מנפחים, ואיך יוצרים.
+                מתאים גם לאנשים שמעולם לא נגעו בבלון 260 בחייהם. 🎈
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item rev">
+            <button class="faq-q" aria-expanded="false">
+              איזה ציוד אני צריך לקנות?
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-a" aria-hidden="true">
+              <div class="faq-a-inner">
+                ציוד בסיסי בלבד — בלונים מסוג 260 ומשאבה קטנה. ההשקעה הראשונית היא מינימלית ממש,
+                ובקורס אני מסביר בדיוק מה לקנות, אצל מי ובאיזה מחיר.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item rev">
+            <button class="faq-q" aria-expanded="false">
+              כמה זמן יש לי גישה לקורס?
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-a" aria-hidden="true">
+              <div class="faq-a-inner">
+                הגישה לקורס היא לצמיתות! אתם יכולים לחזור לכל שיעור בכל עת, בכל מכשיר.
+                לומדים ביום שישי בלילה? בשבת בבוקר? מושלם. בקצב שלכם ובזמן שנוח לכם.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item rev">
+            <button class="faq-q" aria-expanded="false">
+              כיצד מתבצע התשלום?
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-a" aria-hidden="true">
+              <div class="faq-a-inner">
+                הרכישה מתבצעת דרך פלטפורמת "רב מסר" המאובטחת, עם תשלום בכרטיס אשראי בצורה פשוטה ובטוחה לחלוטין.
+                לאחר הרכישה מקבלים גישה מיידית לכל חומרי הקורס.
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item rev">
+            <button class="faq-q" aria-expanded="false">
+              האם יש תמיכה אם יש לי שאלות?
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-a" aria-hidden="true">
+              <div class="faq-a-inner">
+                כמובן! תמיד אפשר לפנות אליי ישירות בוואטסאפ עם שאלות.
+                אני שם כדי לעזור ולוודא שאתם מצליחים — אתם לא לבד בתהליך. 🎈
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item rev">
+            <button class="faq-q" aria-expanded="false">
+              מה ההבדל בין קורס המתחילים למתקדמים?
+              <span class="faq-chevron">▾</span>
+            </button>
+            <div class="faq-a" aria-hidden="true">
+              <div class="faq-a-inner">
+                קורס המתחילים הוא נקודת ההתחלה — טכניקות בסיס ויצירות ראשונות.
+                קורס המתקדמים (שיגיע בקרוב) בנוי ישירות על הבסיס ומכניס לעולם המקצועי.
+                מומלץ להתחיל מהתחלה גם אם אתם מרגישים שאתם יודעים קצת — יש תמיד מה ללמוד.
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== FINAL CTA ==================== -->
+    <section id="cta-final" aria-label="הצטרפות לקורס">
+      <div class="cont">
+        <div class="rev">
+          <span class="big-emoji">🎈</span>
+          <h2>מוכנים להתחיל?</h2>
+          <p>
+            הצעד הראשון בדרך לאמנות הבלונים שלכם מתחיל כאן.<br>
+            הצטרפו לקורס, למדו בקצב שלכם — ותפתיעו את כולם.
+          </p>
+          <div class="cta-btns">
+            <a href="#" class="btn btn-cta" style="font-size:1.2rem;padding:1rem 2.5rem"
+               aria-label="להצטרפות לקורס בלונים למתחילים">
+              🎈 להצטרפות לקורס עכשיו
+            </a>
+            <a href="https://wa.me/972549326454" class="btn btn-wa"
+               target="_blank" rel="noopener noreferrer"
+               style="font-size:1.1rem;padding:1rem 2rem">
+              <i class="fa-brands fa-whatsapp"></i> שאלה לפני הרכישה? כתבו לי
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer role="contentinfo" aria-label="פוטר">
+    <img src="" alt="איתן בלונים" class="flogo" id="footerLogo" loading="lazy">
+    <div class="flinks">
+      <a href="https://www.eitan-balloons.co.il/#about">אודות</a>
+      <a href="https://www.eitan-balloons.co.il/#services">שירותים</a>
+      <a href="https://www.eitan-balloons.co.il/#gallery">גלריה</a>
+      <a href="https://www.eitan-balloons.co.il/#testimonials">המלצות</a>
+      <a href="https://www.eitan-balloons.co.il/#contact">יצירת קשר</a>
+      <a href="/courses" style="color:var(--y)">קורסים</a>
+    </div>
+    <div class="fsoc">
+      <a href="https://www.facebook.com/EitanBalloonsMain/" title="פייסבוק" class="soc-fb" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-facebook-f"></i>
+      </a>
+      <a href="https://instagram.com/eitan_balloons" title="אינסטגרם" class="soc-ig" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-instagram"></i>
+      </a>
+      <a href="tel:054-9326454" title="טלפון" class="soc-ph">
+        <i class="fa-solid fa-phone"></i>
+      </a>
+      <a href="https://wa.me/972549326454" title="WhatsApp" class="soc-wa" target="_blank" rel="noopener noreferrer">
+        <i class="fa-brands fa-whatsapp"></i>
+      </a>
+    </div>
+    <small>© 2025 איתן בלונים – אומנות מכל הלב | כל הזכויות שמורות</small>
+  </footer>
+
+  <!-- WHATSAPP FLOAT -->
+  <a href="https://wa.me/972549326454" target="_blank" rel="noopener noreferrer"
+     class="fwa" aria-label="שליחת הודעה בוואטסאפ">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+
+  <!-- A11Y TRIGGER -->
+  <button id="a11y-trigger" aria-label="תפריט נגישות" aria-expanded="false" aria-controls="a11y-panel">⚙</button>
+
+  <!-- A11Y PANEL -->
+  <div id="a11y-panel" role="dialog" aria-modal="true" aria-label="תפריט נגישות" hidden>
+    <div id="a11y-header">
+      <span>♿ נגישות</span>
+      <button id="a11y-close" aria-label="סגור">✕</button>
+    </div>
+    <div id="a11y-body">
+      <button class="a11y-toggle" data-feature="keyboard"   role="switch" aria-checked="false"><span class="a11y-knob"></span><span>הדגשת מיקוד מקלדת</span></button>
+      <button class="a11y-toggle" data-feature="animations" role="switch" aria-checked="false"><span class="a11y-knob"></span><span>עצור אנימציות</span></button>
+      <button class="a11y-toggle" data-feature="contrast"   role="switch" aria-checked="false"><span class="a11y-knob"></span><span>ניגודיות גבוהה</span></button>
+      <button class="a11y-toggle" data-feature="bigtext"    role="switch" aria-checked="false"><span class="a11y-knob"></span><span>טקסט גדול</span></button>
+      <button class="a11y-toggle" data-feature="smalltext"  role="switch" aria-checked="false"><span class="a11y-knob"></span><span>טקסט קטן</span></button>
+      <button class="a11y-toggle" data-feature="readable"   role="switch" aria-checked="false"><span class="a11y-knob"></span><span>פונט קריא (Arial)</span></button>
+      <button class="a11y-toggle" data-feature="headings"   role="switch" aria-checked="false"><span class="a11y-knob"></span><span>הדגש כותרות</span></button>
+      <button class="a11y-toggle" data-feature="links"      role="switch" aria-checked="false"><span class="a11y-knob"></span><span>הדגש קישורים</span></button>
+    </div>
+    <div id="a11y-footer">
+      <button id="a11y-reset">איפוס</button>
+    </div>
+  </div>
+
+  <script>
+    /* ===== BALLOON BG ===== */
+    (function() {
+      const bg = document.getElementById('balloon-bg');
+      for (let i = 0; i < 18; i++) {
+        const b = document.createElement('div');
+        const size = 0.8 + Math.random() * 1.4;
+        b.style.cssText = `
+          position:absolute;
+          left:${Math.random()*100}%;
+          top:${80+Math.random()*40}%;
+          font-size:${size}rem;
+          opacity:${0.08+Math.random()*0.15};
+          animation:blnRise ${12+Math.random()*18}s ${Math.random()*-20}s linear infinite;
+          --sx:${-40+Math.random()*80}px;
+          --sy:-${300+Math.random()*400}px;
+          --sr:${-30+Math.random()*60}deg;
+          pointer-events:none;
+        `;
+        b.textContent = '🎈';
+        bg.appendChild(b);
+      }
+    })();
+
+    /* ===== CUSTOM CURSOR ===== */
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX - 12 + 'px';
+      cursor.style.top  = e.clientY - 20 + 'px';
+    });
+    document.addEventListener('click', () => {
+      cursor.classList.add('popping');
+      setTimeout(() => cursor.classList.remove('popping'), 350);
+    });
+
+    /* ===== NAV SCROLL ===== */
+    const nav = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    /* ===== SCROLL REVEAL ===== */
+    const revObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          revObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.rev').forEach(el => revObs.observe(el));
+
+    /* ===== LOAD LOGOS ===== */
+    (function() {
+      const LOGO = 'https://res.cloudinary.com/dhsetthhx/image/upload/v1773170033/logo_round_o7fmb4.png';
+      ['navLogo', 'footerLogo'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.src = LOGO;
+      });
+    })();
+
+    /* ===== FAQ ACCORDION ===== */
+    document.querySelectorAll('.faq-q').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item   = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('open');
+        // Close all
+        document.querySelectorAll('.faq-item').forEach(i => {
+          i.classList.remove('open');
+          i.querySelector('.faq-q').setAttribute('aria-expanded', 'false');
+          i.querySelector('.faq-a').setAttribute('aria-hidden', 'true');
+        });
+        // Toggle current
+        if (!isOpen) {
+          item.classList.add('open');
+          btn.setAttribute('aria-expanded', 'true');
+          item.querySelector('.faq-a').setAttribute('aria-hidden', 'false');
+        }
+      });
+    });
+
+    /* ===== ACCESSIBILITY PANEL ===== */
+    (function() {
+      const panel   = document.getElementById('a11y-panel');
+      const trigger = document.getElementById('a11y-trigger');
+      const close   = document.getElementById('a11y-close');
+      const reset   = document.getElementById('a11y-reset');
+      const html    = document.documentElement;
+      const body    = document.body;
+      const HTML_FEATURES = new Set(['bigtext', 'smalltext']);
+      const FEATURES = {
+        keyboard:   'a11y-keyboard',
+        animations: 'a11y-no-anim',
+        contrast:   'a11y-contrast',
+        bigtext:    'a11y-bigtext',
+        smalltext:  'a11y-smalltext',
+        readable:   'a11y-readable',
+        headings:   'a11y-headings',
+        links:      'a11y-links',
+      };
+      const saved = JSON.parse(localStorage.getItem('a11y') || '{}');
+      Object.keys(saved).forEach(f => { if (saved[f]) applyFeature(f, true, false); });
+      syncToggles();
+
+      trigger.addEventListener('click', () => {
+        const open = panel.hidden;
+        panel.hidden = !open;
+        trigger.setAttribute('aria-expanded', open);
+        if (open) close.focus();
+      });
+      close.addEventListener('click', () => {
+        panel.hidden = true;
+        trigger.setAttribute('aria-expanded', 'false');
+        trigger.focus();
+      });
+      reset.addEventListener('click', () => {
+        Object.keys(FEATURES).forEach(f => applyFeature(f, false, true));
+        localStorage.removeItem('a11y');
+        syncToggles();
+      });
+      document.querySelectorAll('.a11y-toggle').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const feature = btn.dataset.feature;
+          const cls     = FEATURES[feature];
+          const target  = HTML_FEATURES.has(feature) ? html : body;
+          const on      = !target.classList.contains(cls);
+          applyFeature(feature, on, true);
+          syncToggles();
+        });
+      });
+      function applyFeature(feature, on, save) {
+        const cls    = FEATURES[feature];
+        const target = HTML_FEATURES.has(feature) ? html : body;
+        target.classList.toggle(cls, on);
+        if (save) {
+          const state = JSON.parse(localStorage.getItem('a11y') || '{}');
+          state[feature] = on;
+          localStorage.setItem('a11y', JSON.stringify(state));
+        }
+      }
+      function syncToggles() {
+        document.querySelectorAll('.a11y-toggle').forEach(btn => {
+          const feature = btn.dataset.feature;
+          const cls     = FEATURES[feature];
+          const target  = HTML_FEATURES.has(feature) ? html : body;
+          btn.setAttribute('aria-checked', target.classList.contains(cls));
+        });
+      }
+    })();
+  </script>
+
+</body>
+</html>
