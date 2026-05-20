@@ -2,12 +2,16 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<link rel="icon" type="image/png" href="https://res.cloudinary.com/dhsetthhx/image/upload/v1773170033/logo_round_o7fmb4.png">
+<link rel="icon" type="image/png" href="https://res.cloudinary.com/dhsetthhx/image/upload/w_32,h_32,c_fill,f_auto,q_auto/v1773170033/logo_round_o7fmb4.png">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>גלריית עבודות | איתן בלונים</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Heebo:wght@300;400;700;900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+<link rel="preload" as="image" href="https://res.cloudinary.com/dhsetthhx/image/upload/w_300,h_300,c_fill,f_auto,q_auto/v1773170033/logo_round_o7fmb4.png">
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+<link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"></noscript>
 <style>
 @font-face {
   font-family: 'NoaShalev';
@@ -485,7 +489,7 @@ footer small{ color:#333; font-size:0.82rem; }
     <li><a href="https://www.eitan-balloons.co.il/#about">אודות</a></li>
     <li><a href="https://www.eitan-balloons.co.il/">🏠 דף הבית</a></li>
   </ul>
-  <img src="https://res.cloudinary.com/dhsetthhx/image/upload/w_300,h_300,c_fill,f_auto,q_auto/v1773170033/logo_round_o7fmb4.png" alt="איתן בלונים" class="nav-logo" id="navLogo">
+  <img src="https://res.cloudinary.com/dhsetthhx/image/upload/w_300,h_300,c_fill,f_auto,q_auto/v1773170033/logo_round_o7fmb4.png" alt="איתן בלונים" class="nav-logo" id="navLogo" fetchpriority="high">
   <button class="hamburger" id="hamburger" aria-label="תפריט">
     <span></span><span></span><span></span>
   </button>
@@ -513,7 +517,7 @@ footer small{ color:#333; font-size:0.82rem; }
   <canvas id="balloon-layer"></canvas>
 
   <img src="https://res.cloudinary.com/dhsetthhx/image/upload/w_300,h_300,c_fill,f_auto,q_auto/v1773170033/logo_round_o7fmb4.png"
-       alt="איתן בלונים" class="header-logo" id="header-logo">
+       alt="איתן בלונים" class="header-logo" id="header-logo" fetchpriority="high">
 
   <h1>גלריית עבודות<br><em>של איתן בלונים</em></h1>
   <p class="tagline">מוזמנים להתרשם — כל תמונה היא רגע אמיתי שיצרתי באהבה 🎈</p>
