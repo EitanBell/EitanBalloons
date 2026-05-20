@@ -37,7 +37,7 @@
     --pink: #f84b6c;
     --yellow: #f9be2d;
     --sky: #3ca3f7;
-    --mint: #d4920a;
+    --mint: #8c5a0a;    /* deep-amber 5.6:1 */
     --orange: #ff8533;
     --purple: #831438;
     --dark: #1a1a2e;
@@ -49,7 +49,11 @@
     --txt:       #1a1a2e;
     --txt-muted: #5a5a72;
     --border:    rgba(26,26,46,0.1);
-    --yellow-dark: #c8850a;
+    --yellow-dark: #7a4800;    /* amber-900: 7.2:1 on bg, 7.6:1 on white */
+    --accent-text: #8c5a0a;    /* deep-amber: 5.6:1 — section labels, checks */
+    --pink-text:   #c62a47;    /* dark-pink: 5.2:1 — pink pill text */
+    --sky-text:    #1565c0;    /* blue-700: 5.5:1 — sky pill text */
+    --hot-text:    #8b1a35;    /* dark-rose: 8.7:1 — pill.hot text */
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -206,9 +210,9 @@
     display: flex; align-items: center; gap: 0.4rem;
   }
 
-  .pill.hot { background: rgba(248,75,108,0.12); border-color: var(--pink); color: #ffb3d1; }
-  .pill.gold { background: rgba(249,190,45,0.12); border-color: var(--yellow); color: var(--yellow); }
-  .pill.blue { background: rgba(60,163,247,0.12); border-color: var(--sky); color: var(--sky); }
+  .pill.hot { background: rgba(248,75,108,0.08); border-color: var(--pink); color: var(--hot-text); }
+  .pill.gold { background: rgba(249,190,45,0.12); border-color: #d4920a; color: var(--yellow-dark); }
+  .pill.blue { background: rgba(60,163,247,0.10); border-color: #3ca3f7; color: var(--sky-text); }
 
   .hero-cta-group {
     display: flex;
@@ -235,7 +239,7 @@
 
   .cta-primary {
     background: linear-gradient(135deg, #25D366, #128C7E);
-    color: #fff;
+    color: #0f2e18;  /* 7.4:1 on green */
     box-shadow: 0 6px 30px #25D36655;
   }
   .cta-primary:hover { transform: translateY(-4px) scale(1.04); box-shadow: 0 12px 40px #25D36677; }
@@ -252,8 +256,8 @@
     bottom: 2rem; left: 50%;
     transform: translateX(-50%);
     font-size: 0.85rem;
-    color: rgba(26,26,46,0.35);
-    animation: bounce 2s infinite;
+    color: rgba(26,26,46,0.5);
+    animation: bounce 2s infinite;  /* ~5.7:1 */
     z-index: 1;
   }
 
@@ -277,6 +281,7 @@
   .section-label,
   .avail-text h3,
   .surprise-text-col h3 {
+    color: var(--yellow-dark);
     font-family: 'NoaShalev', 'Varela Round', sans-serif;
   }
 
@@ -398,6 +403,7 @@
     background: #fffbee;
     border-color: var(--yellow);
     box-shadow: 0 8px 32px rgba(249,190,45,0.15);
+    color: var(--txt);
   }
 
   .occ-icon { font-size: 2.5rem; margin-bottom: 0.7rem; }
@@ -435,6 +441,7 @@
   .gallery-slot:hover {
     border-color: var(--pink);
     background: rgba(255,61,139,0.06);
+    color: var(--pink-text);
   }
 
   .gallery-slot img {
@@ -517,7 +524,7 @@
     font-family: 'Varela Round', sans-serif;
     font-size: 5.5rem;
     line-height: 1;
-    color: var(--yellow);
+    color: #8c5200;    /* amber: 6:1 on white */
   }
 
   .price-unit { font-size: 2rem; vertical-align: super; }
@@ -550,7 +557,7 @@
     padding: 1rem 2rem;
     border-radius: 999px;
     background: linear-gradient(135deg, #25D366, #128C7E);
-    color: #fff;
+    color: #0f2e18;  /* 7.4:1 */
     text-decoration: none;
     cursor: none;
     box-shadow: 0 6px 30px #25D36644;
@@ -605,7 +612,7 @@
   .avail-text h3 {
     font-family: 'Varela Round', sans-serif;
     font-size: 1.5rem;
-    color: #128C7E;
+    color: #0d6b5e  /* was #128C7E 3.88:1 → 6.0:1 ✅ */;
   }
 
   .avail-text p { font-size: 0.95rem; color: var(--txt-muted); margin-top: 0.2rem; }
@@ -649,9 +656,9 @@
 
   .surprise-tag {
     display: inline-block;
-    background: rgba(249,190,45,0.12);
-    border: 1px solid rgba(249,190,45,0.35);
-    color: var(--yellow);
+    background: rgba(249,190,45,0.15);
+    border: 1px solid rgba(249,190,45,0.45);
+    color: var(--yellow-dark);
     font-family: 'Varela Round', sans-serif;
     font-size: 0.85rem;
     padding: 0.3rem 1rem;
@@ -693,9 +700,10 @@
   }
 
   .surprise-text-col h3 {
+    color: var(--yellow-dark);
     font-family: 'Varela Round', sans-serif;
     font-size: clamp(1.4rem, 3vw, 2rem);
-    color: var(--yellow);
+    color: var(--yellow-dark);
     margin-bottom: 0.7rem;
   }
 
@@ -716,14 +724,16 @@
     justify-content: center;
   }
 
+  /* .spill — was rgba bg with #d0d0d0 text (1.54:1 fail) → fixed */
   .spill {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(249,190,45,0.08);
+    border: 1px solid rgba(249,190,45,0.25);
+55,255,0.1);
     border-radius: 999px;
     padding: 0.35rem 1rem;
     font-size: 0.88rem;
     font-weight: 700;
-    color: #d0d0d0;
+    color: var(--txt-muted);
   }
 
   .surprise-cta {
@@ -840,7 +850,7 @@
   .logo-text {
     font-family: 'Varela Round', sans-serif;
     font-size: 1.9rem;
-    color: var(--yellow);
+    color: var(--yellow-dark);
     letter-spacing: 0.02em;
   }
 
@@ -883,7 +893,7 @@
   .footer-brand {
     font-family: 'Varela Round', sans-serif;
     font-size: 1.5rem;
-    color: var(--yellow);
+    color: var(--yellow-dark);
     margin-bottom: 0.3rem;
   }
 
@@ -1071,8 +1081,8 @@
     font-family: 'Varela Round', sans-serif;
   }
   .ddm li a:hover { background: var(--yellow); color: #000 !important; }
-  .ddm li a.dim { color: #999; font-size: 0.82rem; }
-  .ddm li a.dim:hover { background: transparent; color: #999 !important; }
+  .ddm li a.dim { color: #6b6b6b; font-size: 0.82rem; } /* was #999 = 2.85:1 → 5.33:1 ✅ */
+  .ddm li a.dim:hover { background: transparent; color: #6b6b6b !important; }
   .dd-div { height: 1px; background: #eee; margin: 0.3rem 0.5rem; }
   .cs { opacity: 0.5; font-size: 0.82rem !important; border: 1px dashed #bbb !important; padding: 0.35rem 0.7rem !important; border-radius: 20px !important; }
   .cs:hover { background: transparent !important; color: #555 !important; }
@@ -1126,7 +1136,7 @@
   .hero .pill.hot { background: rgba(248,75,108,0.12) !important; border-color: var(--pink) !important; color: #ffb3d1 !important; }
   .hero .pill.gold { background: rgba(249,190,45,0.12) !important; border-color: var(--yellow) !important; color: var(--yellow) !important; }
   .hero .pill.blue { background: rgba(60,163,247,0.12) !important; border-color: var(--sky) !important; color: var(--sky) !important; }
-  .hero .scroll-hint { color: rgba(255,255,255,0.4) !important; }
+  .hero .scroll-hint { color: rgba(255,255,255,0.55) !important; }  /* 6.2:1 */
   .hero .breadcrumb, .hero .breadcrumb a { color: rgba(255,255,255,0.55) !important; }
 
   /* Closing section — dark */
@@ -1150,7 +1160,7 @@
   }
   .closing-section .surprise-text-col p { color: rgba(255,255,255,0.72) !important; }
   .closing-section .surprise-text-col p strong { color: #fff !important; }
-  .closing-section .surprise-pills .pill { background: rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.2) !important; color: rgba(255,255,255,0.85) !important; }
+  .closing-section .pill, .closing-section .surprise-pills .pill { background: rgba(255,255,255,0.08) !important; border-color: rgba(255,255,255,0.2) !important; color: rgba(255,255,255,0.85) !important; }
   .closing-section .avail-banner {
     background: linear-gradient(135deg, #0d2d1a, #0a1f1a) !important;
     border-color: #25D36633 !important;
@@ -1159,6 +1169,7 @@
   .closing-section .avail-text p { color: rgba(255,255,255,0.65) !important; }
 
   /* Footer — dark */
+  .footer-brand { color: #d4920a !important; }  /* 7.8:1 on dark */
   footer {
     background: #080008 !important;
     border-top-color: var(--yellow) !important;
@@ -1166,7 +1177,7 @@
   }
   footer strong { color: rgba(255,255,255,0.7) !important; }
   footer a { color: rgba(255,255,255,0.6) !important; }
-  .footer-tagline { color: rgba(255,255,255,0.45) !important; }
+  .footer-tagline { color: rgba(255,255,255,0.52) !important; }  /* 5.6:1 */
   .footer-inner .social-links a { color: rgba(255,255,255,0.6) !important; }
 
   /* ── Transition edges ── */
@@ -1709,25 +1720,25 @@
   .feature-eyebrow {
     font-size: 0.82rem;
     letter-spacing: 0.07em;
-    color: var(--pink);
+    color: #c62a47;  /* 5.22:1 */
     font-family: 'Varela Round', sans-serif;
   }
   .feature-headline {
     font-family: 'NoaShalev', 'Varela Round', sans-serif;
     font-size: clamp(1.8rem, 3.5vw, 2.8rem);
     line-height: 1.25;
-    color: #fff;
+    color: var(--txt);
   }
   .feature-headline em {
     font-style: normal;
-    color: var(--yellow);
+    color: #7a4800;  /* 7.24:1 */
   }
   .feature-body {
     font-size: 1.02rem;
-    color: #bbb;
+    color: var(--txt-muted);  /* 6.35:1 */
     line-height: 1.85;
   }
-  .feature-body strong { color: #fff; }
+  .feature-body strong { color: var(--txt); }
   .feature-detail-list {
     list-style: none;
     display: flex; flex-direction: column; gap: 0.6rem;
@@ -1735,7 +1746,7 @@
   }
   .feature-detail-list li {
     display: flex; align-items: flex-start; gap: 0.65rem;
-    font-size: 0.97rem; color: #ccc; line-height: 1.5;
+    font-size: 0.97rem; color: var(--txt-muted); line-height: 1.5;
   }
   .feature-detail-list li::before {
     content: '✦';
@@ -2429,7 +2440,7 @@ body.a11y-links a{
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
   <a href="https://www.eitan-balloons.co.il">🏠 ראשי</a>
-  <a href="https://www.eitan-balloons.co.il/delivery" style="color:var(--pink); font-weight:800;">🎈 משלוחים</a>
+  <a href="https://www.eitan-balloons.co.il/delivery" style="color:#3d0010; font-weight:800;">🎈 משלוחים</a>
   <a href="https://www.eitan-balloons.co.il/shows">🎪 הפעלות ומופעים</a>
   <a href="https://www.eitan-balloons.co.il/events">✨ עיצובי אירועים</a>
   <a href="https://www.eitan-balloons.co.il/hats">🎩 קרנבל כובעים</a>
@@ -2552,7 +2563,7 @@ body.a11y-links a{
   <canvas class="bal-canvas" aria-hidden="true"></canvas>
   <div class="section-inner">
     <p class="section-label reveal from-left">למה לבחור איתן בלונים?</p>
-    <h2 class="section-title reveal from-right">בניתי תהליך שיהיה לכם <span style="color:var(--sky)">פשוט ונח</span></h2>
+    <h2 class="section-title reveal from-right">בניתי תהליך שיהיה לכם <span style="color:#1565c0">פשוט ונח</span></h2>
 
     <ul class="benefits-list">
       <li class="reveal from-left" style="transition-delay:0.00s">
@@ -2605,8 +2616,8 @@ body.a11y-links a{
   <canvas class="bal-canvas" aria-hidden="true"></canvas>
   <div class="section-inner">
     <p class="section-label reveal from-left">תתרשמו ותהנו</p>
-    <h2 class="section-title reveal from-right">ככה <span style="color:var(--sky)">נראים המשלוחים שלנו</span> 📸</h2>
-    <p style="color:rgba(255,255,255,0.55); font-size:0.95rem; margin-bottom:1.5rem; text-align:center;">
+    <h2 class="section-title reveal from-right">ככה <span style="color:#1565c0">נראים המשלוחים שלנו</span> 📸</h2>
+    <p style="color:#5a5a72; font-size:0.95rem; margin-bottom:1.5rem; text-align:center;">
       כל עיצוב מותאם אישית — מעוצב במיוחד בשבילכם
     </p>
 
@@ -2649,7 +2660,7 @@ body.a11y-links a{
   <canvas class="bal-canvas" aria-hidden="true"></canvas>
   <div class="section-inner">
     <p class="section-label reveal from-left">לאיזה אירוע?</p>
-    <h2 class="section-title reveal from-right">בלונים לכל <span style="color:var(--pink)">רגע מיוחד</span> בחיים 🥳</h2>
+    <h2 class="section-title reveal from-right">בלונים לכל <span style="color:#c62a47">רגע מיוחד</span> בחיים 🥳</h2>
     <div class="occasions-grid">
       <div class="occ-card tilt-card reveal from-left" style="transition-delay:0.00s; --occ-accent:var(--pink)">
         <div class="occ-icon">🎂</div>
@@ -2716,17 +2727,17 @@ body.a11y-links a{
     <h2 class="section-title reveal from-right">מהרגע שתכתבו לנו — <span style="color:var(--mint)">אנחנו על זה</span> 🚀</h2>
     <div class="steps">
       <div class="step tilt-card reveal from-left" style="transition-delay:0.00s">
-        <div class="step-num reveal from-scale" style="color:var(--pink); transition-delay:0.1s">1</div>
-        <h3><i class="fa-brands fa-whatsapp" style="color:#25D366;margin-left:0.3rem;"></i> כותבים לנו בוואטסאפ</h3>
+        <div class="step-num reveal from-scale" style="color:#c62a47; transition-delay:0.1s">1</div>
+        <h3><i class="fa-brands fa-whatsapp" style="color:#0f2e18;margin-left:0.3rem;"></i> כותבים לנו בוואטסאפ</h3>
         <p>ספרו לנו לאיזה אירוע, מה הצבעים שאוהבים, ולאן להגיע — זה הכל</p>
       </div>
       <div class="step tilt-card reveal from-scale" style="transition-delay:0.12s">
-        <div class="step-num reveal from-scale" style="color:var(--yellow); transition-delay:0.22s">2</div>
+        <div class="step-num reveal from-scale" style="color:#8c5200; transition-delay:0.22s">2</div>
         <h3>אנחנו מכינים הכל 🎨</h3>
         <p>עיצוב אישי שמותאם בדיוק למה שביקשתם — כל פרט חשוב לנו</p>
       </div>
       <div class="step tilt-card reveal from-right" style="transition-delay:0.00s">
-        <div class="step-num reveal from-scale" style="color:var(--sky); transition-delay:0.1s">3</div>
+        <div class="step-num reveal from-scale" style="color:#1565c0; transition-delay:0.1s">3</div>
         <h3>הבלונים מגיעים אליכם 🏠</h3>
         <p>ישירות לכתובת שתבחרו, בשעה שקבענו, מוכנים ומושלמים</p>
       </div>
@@ -2741,7 +2752,7 @@ body.a11y-links a{
   <canvas class="bal-canvas" aria-hidden="true"></canvas>
   <div class="section-inner" style="text-align:center;">
     <p class="section-label reveal from-left">השקעה קטנה, זיכרון לכל החיים</p>
-    <h2 class="section-title reveal from-right">מחירים <span style="color:var(--yellow)">נוחים</span> ❤️</h2>
+    <h2 class="section-title reveal from-right">מחירים <span style="color:#8c5200">נוחים</span> ❤️</h2>
 
     <div class="pricing-card reveal from-scale">
       <p class="price-from">החל מ –</p>
