@@ -114,7 +114,7 @@ details p{padding:0 4px 14px;font-size:.88rem;line-height:1.6;color:#444}
     <div><h1>איתן בלונים — מרכז ניהול</h1><div class="sub">אומנות מכל הלב · שליטה מלאה בעסק</div></div>
     <div class="hspace"></div>
     <button class="hbtn" onclick="exportData()">💾 גיבוי</button>
-    <button class="hbtn" onclick="document.getElementById('impfile').click()">📂 שחזור</button>
+    <button class="hbtn" onclick="importUI()">📂 שחזור</button>
     <input type="file" id="impfile" accept=".json" style="display:none" onchange="importData(this)">
   </div>
   <nav id="nav"></nav>
@@ -201,7 +201,7 @@ function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}render
 function uid(){return 'x'+Date.now().toString(36)+Math.floor(Math.random()*999)}
 function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
 function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
-function today(){return new Date().toISOString().slice(0,10)}
+function today(){const d=new Date();return d.getFullYear()+'-'+('0'+(d.getMonth()+1)).slice(-2)+'-'+('0'+d.getDate()).slice(-2)}
 function dueInfo(d){if(!d)return null;const diff=Math.ceil((new Date(d)-new Date(today()))/864e5);
   if(diff<0)return{cls:'late',txt:'באיחור '+(-diff)+' ימים'};
   if(diff===0)return{cls:'soon',txt:'היום!'};
@@ -255,7 +255,7 @@ function svcForm(id){
     save();toast('נשמר ✔');
   });
 }
-function delSvc(id){if(confirm('למחוק את השירות?')){S.services=S.services.filter(s=>s.id!==id);save()}}
+function delSvc(id){askConfirm('למחוק את השירות?',()=>{S.services=S.services.filter(s=>s.id!==id);save()})}
 
 /* ---------- goals ---------- */
 function renderGoals(){
@@ -294,7 +294,7 @@ function goalForm(id){
     save();toast('נשמר ✔');
   });
 }
-function delGoal(id){if(confirm('למחוק את המטרה?')){S.goals=S.goals.filter(g=>g.id!==id);save()}}
+function delGoal(id){askConfirm('למחוק את המטרה?',()=>{S.goals=S.goals.filter(g=>g.id!==id);save()})}
 
 /* ---------- tasks ---------- */
 function renderTasks(){
@@ -343,7 +343,7 @@ function taskForm(id){
     save();toast('נשמר ✔');
   });
 }
-function delTask(id){if(confirm('למחוק את המשימה?')){S.tasks=S.tasks.filter(t=>t.id!==id);save()}}
+function delTask(id){askConfirm('למחוק את המשימה?',()=>{S.tasks=S.tasks.filter(t=>t.id!==id);save()})}
 
 /* ---------- ideas ---------- */
 function renderIdeas(){
@@ -352,7 +352,7 @@ function renderIdeas(){
     <button class="addbtn" onclick="ideaForm()">➕ רעיון חדש</button>
     <button class="addbtn sm" style="background:var(--line)" onclick="newIdeaCat()">📁 קטגוריה חדשה</button>
   </div>
-  <div class="catbar">${cats.map(c=>`<button class="${ideaFilter===c?'on':''}" onclick="ideaFilter='${esc(c)}';render()">${esc(c)}</button>`).join('')}</div>`;
+  <div class="catbar">${cats.map((c,i)=>`<button class="${ideaFilter===c?'on':''}" onclick="setIdeaFilter(${i-1})">${esc(c)}</button>`).join('')}</div>`;
   const list=S.ideas.filter(i=>ideaFilter==='הכל'||i.cat===ideaFilter);
   if(!list.length)return h+`<div class="empty">אין רעיונות בקטגוריה הזאת — כשמשהו עולה לך, תזרוק אותו לפה 💡</div>`;
   h+=`<div class="grid">`;
@@ -368,6 +368,7 @@ function renderIdeas(){
   </div>`).join('');
   return h+`</div>`;
 }
+function setIdeaFilter(i){ideaFilter=i<0?'הכל':S.ideaCats[i];render()}
 function setIdeaStatus(id,v){S.ideas.find(i=>i.id===id).status=v;save()}
 function ideaToTask(id){const i=S.ideas.find(x=>x.id===id);
   const cat=i.cat==='רעיונות לסרטונים'?'שיווק ותוכן':'כללי';
@@ -386,8 +387,10 @@ function ideaForm(id){
     save();toast('נשמר ✔');
   });
 }
-function newIdeaCat(){const n=prompt('שם הקטגוריה החדשה:');if(n&&n.trim()&&!S.ideaCats.includes(n.trim())){S.ideaCats.push(n.trim());ideaFilter=n.trim();save()}}
-function delIdea(id){if(confirm('למחוק את הרעיון?')){S.ideas=S.ideas.filter(i=>i.id!==id);save()}}
+function newIdeaCat(){openModal('קטגוריה חדשה',[{k:'name',l:'שם הקטגוריה',t:'text',v:'',req:1}],v=>{
+  if(!S.ideaCats.includes(v.name))S.ideaCats.push(v.name);
+  ideaFilter=v.name;save()},'הוספה')}
+function delIdea(id){askConfirm('למחוק את הרעיון?',()=>{S.ideas=S.ideas.filter(i=>i.id!==id);save()})}
 
 /* ---------- advisor ---------- */
 function computeInsights(){
@@ -440,7 +443,9 @@ async function runAI(){
 3. סיכון אחד ששווה לשים לב אליו.
 בלי הקדמות ובלי סיכומים.`;
     const res=await window.cowork.askClaude(prompt,[data]);
-    out.textContent=typeof res==='string'?res:(res&&res.text)||JSON.stringify(res);
+    out.textContent=typeof res==='string'?res
+      :(res&&res.text)||(res&&res.content&&res.content[0]&&res.content[0].text)
+      ||(res&&res.structuredContent&&JSON.stringify(res.structuredContent))||JSON.stringify(res);
   }catch(e){
     out.textContent='הניתוח החכם זמין רק כשהאפליקציה פתוחה בתוך Claude. בינתיים — התובנות למעלה מחושבות אוטומטית מהנתונים שלך.';
   }
@@ -449,19 +454,21 @@ async function runAI(){
 
 /* ---------- modal ---------- */
 let modalCb=null;
-function openModal(title,fields,cb){
+function openModal(title,fields,cb,okLabel){
   modalCb=cb;
   const m=document.getElementById('modal');
-  m.innerHTML=`<h3>${title}</h3>`+fields.map(f=>{
+  m.innerHTML=`<h3>${esc(title)}</h3>`+fields.map(f=>{
     let inp='';
     if(f.t==='select')inp=`<select id="f_${f.k}">${f.opts.map(([v,l])=>`<option value="${esc(v)}" ${f.v===v?'selected':''}>${esc(l)}</option>`).join('')}</select>`;
     else if(f.t==='textarea')inp=`<textarea id="f_${f.k}">${esc(f.v)}</textarea>`;
     else inp=`<input id="f_${f.k}" type="${f.t}" value="${esc(f.v)}">`;
     return `<div class="fld"><label>${f.l}</label>${inp}</div>`;
-  }).join('')+`<div class="mbtns"><button class="ok" onclick="submitModal(${JSON.stringify(fields.map(f=>({k:f.k,req:!!f.req}))).replace(/"/g,'&quot;')})">שמירה</button><button class="cancel" onclick="closeModal()">ביטול</button></div>`;
+  }).join('')+`<div class="mbtns"><button class="ok" onclick="submitModal(${JSON.stringify(fields.map(f=>({k:f.k,req:!!f.req}))).replace(/"/g,'&quot;')})">${okLabel||'שמירה'}</button><button class="cancel" onclick="closeModal()">ביטול</button></div>`;
   document.getElementById('ovl').classList.add('show');
+  m.querySelectorAll('input').forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();m.querySelector('.ok').click()}}));
   const first=m.querySelector('input,textarea,select');if(first)first.focus();
 }
+function askConfirm(msg,cb){openModal(msg,[],cb,'כן, למחוק')}
 function submitModal(spec){
   const vals={};
   for(const f of spec){
@@ -469,7 +476,7 @@ function submitModal(spec){
     vals[f.k]=el?el.value.trim():'';
     if(f.req&&!vals[f.k]){el.focus();el.style.borderColor='var(--pk)';return}
   }
-  closeModal();if(modalCb)modalCb(vals);
+  const cb=modalCb;closeModal();if(cb)cb(vals);
 }
 function closeModal(){document.getElementById('ovl').classList.remove('show');modalCb=null}
 document.getElementById('ovl').addEventListener('click',e=>{if(e.target.id==='ovl')closeModal()});
@@ -477,16 +484,47 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 
 /* ---------- backup ---------- */
 function exportData(){
+  const m=document.getElementById('modal');
+  m.innerHTML=`<h3>💾 גיבוי הנתונים</h3>
+    <p class="mut" style="margin-bottom:8px">העתק את הטקסט ושמור אותו (וואטסאפ לעצמך / פתקים), או הורד כקובץ. השחזור — בכפתור 📂 במכשיר השני.</p>
+    <textarea id="expTa" readonly style="width:100%;min-height:130px;direction:ltr;font-size:.68rem">${esc(JSON.stringify(S))}</textarea>
+    <div class="mbtns"><button class="ok" onclick="copyExport()">📋 העתקה</button><button class="cancel" onclick="downloadExport()">⬇️ קובץ</button><button class="cancel" onclick="closeModal()">סגירה</button></div>`;
+  document.getElementById('ovl').classList.add('show');
+}
+function copyExport(){
+  const ta=document.getElementById('expTa');ta.focus();ta.select();ta.setSelectionRange(0,ta.value.length);
+  let ok=false;
+  try{ok=document.execCommand('copy')}catch(e){}
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(ta.value).then(()=>toast('הועתק ✔')).catch(()=>toast(ok?'הועתק ✔':'סמן והעתק ידנית'));
+  else toast(ok?'הועתק ✔':'סמן והעתק ידנית');
+}
+function downloadExport(){
   const a=document.createElement('a');
-  a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(S,null,2));
-  a.download='eitan-business-backup-'+today()+'.json';a.click();toast('הגיבוי ירד ✔');
+  a.href='data:application/json;charset=utf-8,'+encodeURIComponent(document.getElementById('expTa').value);
+  a.download='eitan-business-backup-'+today()+'.json';document.body.appendChild(a);a.click();a.remove();
+}
+function importUI(){
+  const m=document.getElementById('modal');
+  m.innerHTML=`<h3>📂 שחזור מגיבוי</h3>
+    <p class="mut" style="margin-bottom:8px">הדבק כאן טקסט גיבוי, או טען קובץ. שים לב: השחזור מחליף את כל הנתונים במכשיר הזה.</p>
+    <textarea id="impTa" placeholder='{"services":...}' style="width:100%;min-height:130px;direction:ltr;font-size:.68rem"></textarea>
+    <div class="mbtns"><button class="ok" onclick="applyImport(document.getElementById('impTa').value)">שחזור מהטקסט</button><button class="cancel" onclick="document.getElementById('impfile').click()">מקובץ</button><button class="cancel" onclick="closeModal()">ביטול</button></div>`;
+  document.getElementById('ovl').classList.add('show');
+}
+function applyImport(txt){
+  try{
+    const d=JSON.parse(txt);
+    if(d&&d.services&&d.tasks){
+      S=Object.assign(JSON.parse(JSON.stringify(SEED)),d);
+      ideaFilter='הכל';taskFilter='הכל';
+      closeModal();save();toast('הנתונים שוחזרו ✔');
+    }else toast('זה לא נראה כמו קובץ גיבוי תקין');
+  }catch(e){toast('זה לא נראה כמו קובץ גיבוי תקין')}
 }
 function importData(inp){
   const f=inp.files[0];if(!f)return;
   const r=new FileReader();
-  r.onload=()=>{try{const d=JSON.parse(r.result);
-    if(d.services&&d.tasks){S=d;save();toast('הנתונים שוחזרו ✔')}else toast('קובץ לא תקין');
-  }catch(e){toast('קובץ לא תקין')}};
+  r.onload=()=>applyImport(r.result);
   r.readAsText(f);inp.value='';
 }
 
