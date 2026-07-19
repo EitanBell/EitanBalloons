@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ניהול העסק">
+<meta name="theme-color" content="#f9be2d">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='80' font-size='80'>🎈</text></svg>">
+<title>איתן בלונים — מרכז ניהול העסק</title>
+<style>
+:root{
+  color-scheme: light;
+  --y:#f9be2d; --y2:#fed152; --pk:#f84b6c; --sk:#3ca3f7; --or:#ff8533; --gn:#2f881b;
+  --bk:#1a1a1a; --wh:#ffffff; --bg:#faf7f0; --card:#ffffff; --line:#eee5d5; --mut:#8a8375;
+  --rad:14px; --sh:0 2px 10px rgba(0,0,0,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Heebo','Varela Round','Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--bk);min-height:100vh}
+header{background:linear-gradient(135deg,var(--y) 0%,var(--y2) 100%);padding:18px 22px 0;box-shadow:var(--sh)}
+.hrow{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.hrow h1{font-size:1.35rem;font-weight:800}
+.hrow .sub{font-size:.85rem;color:#6b5500}
+.hicon{font-size:2rem}
+.hspace{flex:1}
+.hbtn{background:rgba(255,255,255,.55);border:none;border-radius:8px;padding:6px 12px;font:inherit;font-size:.8rem;cursor:pointer;font-weight:600}
+.hbtn:hover{background:#fff}
+nav{display:flex;gap:4px;margin-top:14px;overflow-x:auto}
+nav button{border:none;background:rgba(255,255,255,.35);padding:10px 18px;border-radius:12px 12px 0 0;font:inherit;font-weight:700;font-size:.92rem;cursor:pointer;white-space:nowrap;color:#5c4a00}
+nav button.on{background:var(--bg);color:var(--bk)}
+main{max-width:1150px;margin:0 auto;padding:22px 18px 70px}
+h2{font-size:1.15rem;margin:20px 0 12px;display:flex;align-items:center;gap:8px}
+h2 .cnt{font-size:.75rem;background:var(--line);border-radius:20px;padding:2px 10px;font-weight:600}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:8px}
+.stat{background:var(--card);border-radius:var(--rad);padding:14px;box-shadow:var(--sh);border-top:4px solid var(--y)}
+.stat .num{font-size:1.7rem;font-weight:800}
+.stat .lbl{font-size:.8rem;color:var(--mut)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+.card{background:var(--card);border-radius:var(--rad);padding:16px;box-shadow:var(--sh);position:relative}
+.card h3{font-size:1rem;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+.chip{display:inline-block;font-size:.72rem;font-weight:700;padding:3px 10px;border-radius:20px;color:#fff}
+.chip.ghost{background:var(--line);color:var(--bk)}
+.bar{height:8px;background:var(--line);border-radius:6px;overflow:hidden;margin:8px 0 4px}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--sk),var(--gn));border-radius:6px}
+.mut{font-size:.8rem;color:var(--mut)}
+.miss{font-size:.8rem;color:var(--pk);margin-top:6px}
+.miss b{font-weight:700}
+.cardbtns{position:absolute;top:12px;left:12px;display:flex;gap:4px}
+.ib{border:none;background:transparent;cursor:pointer;font-size:.95rem;opacity:.45;padding:2px}
+.ib:hover{opacity:1}
+.addbtn{background:var(--y);border:none;border-radius:10px;padding:9px 18px;font:inherit;font-weight:700;cursor:pointer;box-shadow:var(--sh);font-size:.9rem}
+.addbtn:hover{background:var(--y2)}
+.addbtn.sm{padding:6px 12px;font-size:.8rem}
+.toolrow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
+select,input,textarea{font:inherit;border:1.5px solid var(--line);border-radius:8px;padding:7px 10px;background:#fff;font-size:.88rem}
+select:focus,input:focus,textarea:focus{outline:2px solid var(--y)}
+.task{display:flex;align-items:flex-start;gap:10px;background:var(--card);border-radius:10px;padding:10px 14px;box-shadow:var(--sh);margin-bottom:8px}
+.task input[type=checkbox]{width:18px;height:18px;margin-top:3px;accent-color:var(--gn);cursor:pointer}
+.task .tt{flex:1}
+.task .tt .ti{font-weight:600;font-size:.92rem}
+.task.done .ti{text-decoration:line-through;opacity:.5}
+.tchips{display:flex;gap:6px;margin-top:4px;flex-wrap:wrap}
+.tchip{font-size:.7rem;padding:2px 8px;border-radius:20px;background:var(--line);font-weight:600}
+.tchip.hi{background:var(--pk);color:#fff}
+.tchip.late{background:var(--pk);color:#fff}
+.ms{display:flex;align-items:center;gap:8px;font-size:.87rem;padding:4px 0;cursor:pointer;user-select:none}
+.ms input{accent-color:var(--gn);width:16px;height:16px;cursor:pointer}
+.ms.done span{text-decoration:line-through;opacity:.5}
+.due{font-size:.78rem;font-weight:700}
+.due.late{color:var(--pk)}
+.due.soon{color:var(--or)}
+.catbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}
+.catbar button{border:1.5px solid var(--line);background:#fff;border-radius:20px;padding:6px 14px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer}
+.catbar button.on{background:var(--bk);color:#fff;border-color:var(--bk)}
+.insight{display:flex;gap:12px;align-items:flex-start;background:var(--card);border-radius:var(--rad);padding:14px 16px;box-shadow:var(--sh);margin-bottom:10px;border-right:5px solid var(--sk)}
+.insight.warn{border-right-color:var(--pk)}
+.insight.good{border-right-color:var(--gn)}
+.insight.tip{border-right-color:var(--or)}
+.insight .ic{font-size:1.3rem}
+.insight p{font-size:.9rem}
+details{background:var(--card);border-radius:var(--rad);box-shadow:var(--sh);margin-bottom:10px;padding:0 16px}
+summary{padding:13px 0;font-weight:700;font-size:.92rem;cursor:pointer;list-style-position:inside}
+details p{padding:0 4px 14px;font-size:.88rem;line-height:1.6;color:#444}
+.aibox{background:var(--card);border-radius:var(--rad);padding:18px;box-shadow:var(--sh);margin-top:16px;border:2px dashed var(--y)}
+.aibox h3{margin-bottom:8px}
+#aiout{white-space:pre-wrap;font-size:.9rem;line-height:1.65;margin-top:12px;background:var(--bg);border-radius:10px;padding:14px;display:none}
+.spin{display:inline-block;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+/* modal */
+#ovl{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-start;justify-content:center;z-index:50;padding:40px 16px;overflow:auto}
+#ovl.show{display:flex}
+#modal{background:#fff;border-radius:16px;padding:22px;width:100%;max-width:440px;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+#modal h3{margin-bottom:14px}
+.fld{margin-bottom:12px}
+.fld label{display:block;font-size:.8rem;font-weight:700;margin-bottom:4px}
+.fld input,.fld select,.fld textarea{width:100%}
+.fld textarea{min-height:70px;resize:vertical}
+.mbtns{display:flex;gap:10px;margin-top:16px}
+.mbtns .ok{flex:1;background:var(--y);border:none;border-radius:10px;padding:10px;font:inherit;font-weight:800;cursor:pointer}
+.mbtns .cancel{background:var(--line);border:none;border-radius:10px;padding:10px 18px;font:inherit;cursor:pointer}
+#toast{position:fixed;bottom:20px;right:50%;transform:translateX(50%);background:var(--bk);color:#fff;padding:10px 22px;border-radius:30px;font-size:.85rem;opacity:0;transition:.3s;pointer-events:none;z-index:60}
+#toast.show{opacity:1}
+.empty{text-align:center;color:var(--mut);padding:30px;font-size:.9rem}
+@media(max-width:640px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hrow">
+    <span class="hicon">🎈</span>
+    <div><h1>איתן בלונים — מרכז ניהול</h1><div class="sub">אומנות מכל הלב · שליטה מלאה בעסק</div></div>
+    <div class="hspace"></div>
+    <button class="hbtn" onclick="exportData()">💾 גיבוי</button>
+    <button class="hbtn" onclick="document.getElementById('impfile').click()">📂 שחזור</button>
+    <input type="file" id="impfile" accept=".json" style="display:none" onchange="importData(this)">
+  </div>
+  <nav id="nav"></nav>
+</header>
+<main id="main"></main>
+
+<div id="ovl"><div id="modal"></div></div>
+<div id="toast"></div>
+
+<script>
+'use strict';
+const KEY='eitanbiz_v1';
+const TABS=[
+  {id:'dash', l:'🏠 מבט על'},
+  {id:'goals',l:'🎯 מטרות'},
+  {id:'tasks',l:'✅ משימות'},
+  {id:'ideas',l:'💡 רעיונות'},
+  {id:'adv',  l:'🧭 יועץ עסקי'}
+];
+const SVC_ST={
+  active:{l:'פעיל',c:'var(--gn)'},
+  work:{l:'בעבודה',c:'var(--sk)'},
+  potential:{l:'פוטנציאלי',c:'var(--or)'},
+  paused:{l:'מושהה',c:'#999'}
+};
+const PRI={high:'דחוף',med:'רגיל',low:'נמוך'};
+const IDEA_ST={new:'✨ חדש',check:'🔍 לבדיקה',doing:'🚀 בביצוע',archived:'📦 בארכיון'};
+
+const SEED={
+  services:[
+    {id:'s1',icon:'🎪',name:'מופעי בלונים',status:'active',progress:100,missing:'',note:'הליבה של העסק מאז 2014'},
+    {id:'s2',icon:'🎈',name:'הפעלות לאירועים',status:'active',progress:100,missing:'',note:''},
+    {id:'s3',icon:'🎨',name:'עיצובי אירועים',status:'active',progress:100,missing:'',note:''},
+    {id:'s4',icon:'🚚',name:'משלוחי בלונים',status:'active',progress:100,missing:'',note:''},
+    {id:'s5',icon:'🎩',name:'קרנבל כובעים',status:'active',progress:100,missing:'',note:''},
+    {id:'s6',icon:'🎓',name:'קורס "ממתחיל ליוצר"',status:'work',progress:75,missing:'URL רב מסר, וידאו ב-Vimeo, תמונות גלריה ובונוסים',note:'דף המכירה מוכן — נשארו חיבורים אחרונים'},
+    {id:'s7',icon:'🤖',name:'כלי AI — "מרעיון לבלון"',status:'work',progress:50,missing:'',note:'בונוס לקורס: תמונה → גרסת בלונים'},
+    {id:'s8',icon:'📱',name:'תוכן ברשתות חברתיות',status:'work',progress:40,missing:'שגרת פרסום קבועה',note:'אינסטגרם, טיקטוק, יוטיוב שורטס'},
+    {id:'s9',icon:'🏆',name:'קורס מתקדמים',status:'potential',progress:0,missing:'',note:'ייבנה על בסיס קורס 1'},
+    {id:'s10',icon:'🎀',name:'קורס עיצוב אירועים',status:'potential',progress:0,missing:'',note:'קשתות, עמודים, אירועים שלמים'}
+  ],
+  goals:[
+    {id:'g1',title:'השקת הקורס "ממתחיל ליוצר"',why:'המוצר הדיגיטלי הראשון — הכנסה שלא תלויה בזמן שלי',due:'2026-09-01',ms:[
+      {t:'לסיים את צילומי הקורס',done:false},
+      {t:'עריכה והעלאה לרב מסר',done:false},
+      {t:'להעלות וידאו תדמית ל-Vimeo',done:false},
+      {t:'לחבר את דף המכירה לרב מסר (CTA)',done:false},
+      {t:'תמונות גלריה + בונוסים בדף',done:false},
+      {t:'השקה רשמית + קמפיין ברשתות',done:false}
+    ]},
+    {id:'g2',title:'בניית קהל ברשתות',why:'הקהל הוא מנוע המכירות של הקורסים',due:'2026-12-31',ms:[
+      {t:'שגרה של 3 סרטונים בשבוע',done:false},
+      {t:'סרטון ראשון שמפנה לדף הקורס',done:false},
+      {t:'1,000 עוקבים חדשים',done:false}
+    ]},
+    {id:'g3',title:'הכנסה חוזרת מקורסים',why:'לגוון את ההכנסה מעבר לאירועים',due:'2027-03-01',ms:[
+      {t:'10 מכירות ראשונות',done:false},
+      {t:'איסוף המלצות תלמידים',done:false},
+      {t:'התחלת בניית קורס מתקדמים',done:false}
+    ]}
+  ],
+  tasks:[
+    {id:'t1',title:'להעלות את סרטון התדמית ל-Vimeo ולעדכן את ה-iframe בדף',cat:'השקת הקורס',pri:'high',due:'',done:false},
+    {id:'t2',title:'להחליף את כל כפתורי ה-CTA ל-URL של רב מסר (~7 מקומות)',cat:'השקת הקורס',pri:'high',due:'',done:false},
+    {id:'t3',title:'לסגור סילבוס סופי לקורס',cat:'השקת הקורס',pri:'med',due:'',done:false},
+    {id:'t4',title:'לתכנן רשימת שוטים ליום הצילום הבא',cat:'ימי צילום',pri:'high',due:'',done:false},
+    {id:'t5',title:'לצלם 6 תמונות לגלריה של דף המכירה',cat:'ימי צילום',pri:'med',due:'',done:false},
+    {id:'t6',title:'לצלם 4 תמונות לבונוסים (AI, וואטסאפ, צ\'קליסט, תעודה)',cat:'ימי צילום',pri:'med',due:'',done:false}
+  ],
+  taskCats:['השקת הקורס','ימי צילום','שיווק ותוכן','כללי'],
+  ideas:[
+    {id:'i1',cat:'רעיונות עסקיים',title:'מונה תלמידים דינמי בדף המכירה',note:'social proof שמתעדכן',status:'check'},
+    {id:'i2',cat:'רעיונות עסקיים',title:'סקשן המלצות תלמידים',note:'אחרי המכירות הראשונות',status:'new'},
+    {id:'i3',cat:'רעיונות לסרטונים',title:'לפני/אחרי — יצירה ראשונה מול אחרי הקורס',note:'',status:'new'},
+    {id:'i4',cat:'רעיונות לסרטונים',title:'"3 טעויות של מתחילים בבלונים"',note:'',status:'new'},
+    {id:'i5',cat:'רעיונות לסרטונים',title:'מאחורי הקלעים של צילומי הקורס',note:'גם מקדם את הקורס',status:'check'}
+  ],
+  ideaCats:['רעיונות עסקיים','רעיונות לסרטונים']
+};
+
+let S=load(), tab='dash', ideaFilter='הכל', taskFilter='הכל', showDone=false;
+function load(){try{const r=localStorage.getItem(KEY);if(r)return JSON.parse(r)}catch(e){}return JSON.parse(JSON.stringify(SEED))}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}render()}
+function uid(){return 'x'+Date.now().toString(36)+Math.floor(Math.random()*999)}
+function esc(s){return String(s||'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1800)}
+function today(){return new Date().toISOString().slice(0,10)}
+function dueInfo(d){if(!d)return null;const diff=Math.ceil((new Date(d)-new Date(today()))/864e5);
+  if(diff<0)return{cls:'late',txt:'באיחור '+(-diff)+' ימים'};
+  if(diff===0)return{cls:'soon',txt:'היום!'};
+  if(diff<=7)return{cls:'soon',txt:'בעוד '+diff+' ימים'};
+  return{cls:'',txt:new Date(d).toLocaleDateString('he-IL')}}
+
+/* ---------- nav ---------- */
+function renderNav(){document.getElementById('nav').innerHTML=TABS.map(t=>
+  `<button class="${tab===t.id?'on':''}" onclick="tab='${t.id}';render()">${t.l}</button>`).join('')}
+
+/* ---------- dashboard ---------- */
+function renderDash(){
+  const open=S.tasks.filter(t=>!t.done), late=open.filter(t=>t.due&&t.due<today());
+  const allMs=S.goals.flatMap(g=>g.ms), gp=allMs.length?Math.round(allMs.filter(m=>m.done).length/allMs.length*100):0;
+  let h=`<div class="stats">
+    <div class="stat" style="border-color:var(--gn)"><div class="num">${S.services.filter(s=>s.status==='active').length}</div><div class="lbl">שירותים פעילים</div></div>
+    <div class="stat" style="border-color:var(--sk)"><div class="num">${S.services.filter(s=>s.status==='work').length}</div><div class="lbl">בעבודה עכשיו</div></div>
+    <div class="stat" style="border-color:var(--or)"><div class="num">${open.length}</div><div class="lbl">משימות פתוחות${late.length?' · <b style="color:var(--pk)">'+late.length+' באיחור</b>':''}</div></div>
+    <div class="stat" style="border-color:var(--pk)"><div class="num">${gp}%</div><div class="lbl">התקדמות במטרות</div></div>
+  </div>`;
+  const order=['work','active','potential','paused'];
+  for(const st of order){
+    const list=S.services.filter(s=>s.status===st);
+    if(!list.length)continue;
+    h+=`<h2>${SVC_ST[st].l} <span class="cnt">${list.length}</span></h2><div class="grid">`;
+    h+=list.map(s=>`<div class="card">
+      <div class="cardbtns"><button class="ib" onclick="svcForm('${s.id}')" title="עריכה">✏️</button><button class="ib" onclick="delSvc('${s.id}')" title="מחיקה">🗑️</button></div>
+      <h3>${esc(s.icon)} ${esc(s.name)}</h3>
+      <span class="chip" style="background:${SVC_ST[s.status].c}">${SVC_ST[s.status].l}</span>
+      ${s.status==='work'?`<div class="bar"><i style="width:${s.progress}%"></i></div><div class="mut">${s.progress}% הושלם</div>`:''}
+      ${s.note?`<div class="mut" style="margin-top:6px">${esc(s.note)}</div>`:''}
+      ${s.missing?`<div class="miss"><b>⚠️ חסר:</b> ${esc(s.missing)}</div>`:''}
+    </div>`).join('');
+    h+=`</div>`;
+  }
+  h+=`<div style="margin-top:18px"><button class="addbtn" onclick="svcForm()">➕ הוספת שירות / מיזם</button></div>`;
+  return h;
+}
+function svcForm(id){
+  const s=id?S.services.find(x=>x.id===id):{icon:'🎈',name:'',status:'potential',progress:0,missing:'',note:''};
+  openModal(id?'עריכת שירות':'שירות / מיזם חדש',[
+    {k:'icon',l:'אייקון (אימוג׳י)',t:'text',v:s.icon},
+    {k:'name',l:'שם',t:'text',v:s.name,req:1},
+    {k:'status',l:'סטטוס',t:'select',v:s.status,opts:Object.entries(SVC_ST).map(([k,v])=>[k,v.l])},
+    {k:'progress',l:'התקדמות (%)',t:'number',v:s.progress},
+    {k:'missing',l:'מה עוד חסר? (להצגה בדשבורד)',t:'text',v:s.missing},
+    {k:'note',l:'הערה',t:'textarea',v:s.note}
+  ],vals=>{
+    vals.progress=Math.max(0,Math.min(100,parseInt(vals.progress)||0));
+    if(id)Object.assign(s,vals);else S.services.push({id:uid(),...vals});
+    save();toast('נשמר ✔');
+  });
+}
+function delSvc(id){if(confirm('למחוק את השירות?')){S.services=S.services.filter(s=>s.id!==id);save()}}
+
+/* ---------- goals ---------- */
+function renderGoals(){
+  let h=`<div class="toolrow"><button class="addbtn" onclick="goalForm()">➕ מטרה חדשה</button></div>`;
+  if(!S.goals.length)return h+`<div class="empty">אין מטרות עדיין — זה הזמן להגדיר אחת 🎯</div>`;
+  h+=`<div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(320px,1fr))">`;
+  h+=S.goals.map(g=>{
+    const done=g.ms.filter(m=>m.done).length, p=g.ms.length?Math.round(done/g.ms.length*100):0;
+    const di=dueInfo(g.due);
+    return `<div class="card">
+      <div class="cardbtns"><button class="ib" onclick="goalForm('${g.id}')">✏️</button><button class="ib" onclick="delGoal('${g.id}')">🗑️</button></div>
+      <h3>🎯 ${esc(g.title)}</h3>
+      ${g.why?`<div class="mut">${esc(g.why)}</div>`:''}
+      ${di?`<div class="due ${di.cls}" style="margin-top:4px">📅 ${di.txt}</div>`:''}
+      <div class="bar"><i style="width:${p}%"></i></div>
+      <div class="mut">${done}/${g.ms.length} אבני דרך (${p}%)</div>
+      <div style="margin-top:8px">${g.ms.map((m,i)=>`
+        <label class="ms ${m.done?'done':''}"><input type="checkbox" ${m.done?'checked':''} onchange="toggleMs('${g.id}',${i})"><span>${esc(m.t)}</span></label>`).join('')}
+      </div>
+    </div>`}).join('');
+  return h+`</div>`;
+}
+function toggleMs(gid,i){const g=S.goals.find(x=>x.id===gid);g.ms[i].done=!g.ms[i].done;save()}
+function goalForm(id){
+  const g=id?S.goals.find(x=>x.id===id):{title:'',why:'',due:'',ms:[]};
+  openModal(id?'עריכת מטרה':'מטרה חדשה',[
+    {k:'title',l:'המטרה',t:'text',v:g.title,req:1},
+    {k:'why',l:'למה זה חשוב?',t:'text',v:g.why},
+    {k:'due',l:'תאריך יעד',t:'date',v:g.due},
+    {k:'mstxt',l:'אבני דרך (שורה לכל שלב)',t:'textarea',v:g.ms.map(m=>m.t).join('\n')}
+  ],vals=>{
+    const lines=vals.mstxt.split('\n').map(x=>x.trim()).filter(Boolean);
+    const ms=lines.map(t=>{const old=g.ms.find(m=>m.t===t);return{t,done:old?old.done:false}});
+    const obj={title:vals.title,why:vals.why,due:vals.due,ms};
+    if(id)Object.assign(g,obj);else S.goals.push({id:uid(),...obj});
+    save();toast('נשמר ✔');
+  });
+}
+function delGoal(id){if(confirm('למחוק את המטרה?')){S.goals=S.goals.filter(g=>g.id!==id);save()}}
+
+/* ---------- tasks ---------- */
+function renderTasks(){
+  const cats=['הכל',...S.taskCats];
+  let h=`<div class="toolrow">
+    <button class="addbtn" onclick="taskForm()">➕ משימה חדשה</button>
+    <select onchange="taskFilter=this.value;render()">${cats.map(c=>`<option ${taskFilter===c?'selected':''}>${esc(c)}</option>`).join('')}</select>
+    <label style="font-size:.83rem;display:flex;gap:5px;align-items:center"><input type="checkbox" ${showDone?'checked':''} onchange="showDone=this.checked;render()"> הצג גם משימות שבוצעו</label>
+  </div>`;
+  let list=S.tasks.filter(t=>taskFilter==='הכל'||t.cat===taskFilter);
+  if(!showDone)list=list.filter(t=>!t.done);
+  list.sort((a,b)=>(a.done-b.done)||((a.pri==='high'?0:a.pri==='med'?1:2)-(b.pri==='high'?0:b.pri==='med'?1:2)));
+  if(!list.length)return h+`<div class="empty">אין משימות להצגה 🎉</div>`;
+  const groups={};list.forEach(t=>{(groups[t.cat]=groups[t.cat]||[]).push(t)});
+  for(const c in groups){
+    h+=`<h2>📂 ${esc(c)} <span class="cnt">${groups[c].filter(t=>!t.done).length} פתוחות</span></h2>`;
+    h+=groups[c].map(t=>{
+      const di=dueInfo(t.due);
+      return `<div class="task ${t.done?'done':''}">
+        <input type="checkbox" ${t.done?'checked':''} onchange="toggleTask('${t.id}')">
+        <div class="tt"><div class="ti">${esc(t.title)}</div>
+          <div class="tchips">
+            <span class="tchip ${t.pri==='high'?'hi':''}">${PRI[t.pri]}</span>
+            ${di?`<span class="tchip ${di.cls==='late'?'late':''}">📅 ${di.txt}</span>`:''}
+          </div></div>
+        <button class="ib" onclick="taskForm('${t.id}')">✏️</button>
+        <button class="ib" onclick="delTask('${t.id}')">🗑️</button>
+      </div>`}).join('');
+  }
+  return h;
+}
+function toggleTask(id){const t=S.tasks.find(x=>x.id===id);t.done=!t.done;save();if(t.done)toast('כל הכבוד! 🎈')}
+function taskForm(id){
+  const t=id?S.tasks.find(x=>x.id===id):{title:'',cat:S.taskCats[0],pri:'med',due:'',done:false};
+  openModal(id?'עריכת משימה':'משימה חדשה',[
+    {k:'title',l:'מה צריך לעשות?',t:'text',v:t.title,req:1},
+    {k:'cat',l:'קטגוריה',t:'select',v:t.cat,opts:S.taskCats.map(c=>[c,c]).concat([['__new','➕ קטגוריה חדשה…']])},
+    {k:'newcat',l:'שם קטגוריה חדשה (אם בחרת)',t:'text',v:''},
+    {k:'pri',l:'עדיפות',t:'select',v:t.pri,opts:Object.entries(PRI)},
+    {k:'due',l:'תאריך יעד',t:'date',v:t.due}
+  ],vals=>{
+    if(vals.cat==='__new'&&vals.newcat.trim()){vals.cat=vals.newcat.trim();if(!S.taskCats.includes(vals.cat))S.taskCats.push(vals.cat)}
+    if(vals.cat==='__new')vals.cat=S.taskCats[0];
+    const obj={title:vals.title,cat:vals.cat,pri:vals.pri,due:vals.due};
+    if(id)Object.assign(t,obj);else S.tasks.push({id:uid(),...obj,done:false});
+    save();toast('נשמר ✔');
+  });
+}
+function delTask(id){if(confirm('למחוק את המשימה?')){S.tasks=S.tasks.filter(t=>t.id!==id);save()}}
+
+/* ---------- ideas ---------- */
+function renderIdeas(){
+  const cats=['הכל',...S.ideaCats];
+  let h=`<div class="toolrow">
+    <button class="addbtn" onclick="ideaForm()">➕ רעיון חדש</button>
+    <button class="addbtn sm" style="background:var(--line)" onclick="newIdeaCat()">📁 קטגוריה חדשה</button>
+  </div>
+  <div class="catbar">${cats.map(c=>`<button class="${ideaFilter===c?'on':''}" onclick="ideaFilter='${esc(c)}';render()">${esc(c)}</button>`).join('')}</div>`;
+  const list=S.ideas.filter(i=>ideaFilter==='הכל'||i.cat===ideaFilter);
+  if(!list.length)return h+`<div class="empty">אין רעיונות בקטגוריה הזאת — כשמשהו עולה לך, תזרוק אותו לפה 💡</div>`;
+  h+=`<div class="grid">`;
+  h+=list.map(i=>`<div class="card">
+    <div class="cardbtns"><button class="ib" onclick="ideaForm('${i.id}')">✏️</button><button class="ib" onclick="delIdea('${i.id}')">🗑️</button></div>
+    <h3>💡 ${esc(i.title)}</h3>
+    <span class="chip ghost">${esc(i.cat)}</span>
+    ${i.note?`<div class="mut" style="margin-top:6px">${esc(i.note)}</div>`:''}
+    <div class="toolrow" style="margin:10px 0 0">
+      <select onchange="setIdeaStatus('${i.id}',this.value)">${Object.entries(IDEA_ST).map(([k,v])=>`<option value="${k}" ${i.status===k?'selected':''}>${v}</option>`).join('')}</select>
+      <button class="addbtn sm" onclick="ideaToTask('${i.id}')">➡️ הפוך למשימה</button>
+    </div>
+  </div>`).join('');
+  return h+`</div>`;
+}
+function setIdeaStatus(id,v){S.ideas.find(i=>i.id===id).status=v;save()}
+function ideaToTask(id){const i=S.ideas.find(x=>x.id===id);
+  const cat=i.cat==='רעיונות לסרטונים'?'שיווק ותוכן':'כללי';
+  if(!S.taskCats.includes(cat))S.taskCats.push(cat);
+  S.tasks.push({id:uid(),title:i.title,cat,pri:'med',due:'',done:false});
+  i.status='doing';save();toast('נוצרה משימה מהרעיון ✔')}
+function ideaForm(id){
+  const i=id?S.ideas.find(x=>x.id===id):{title:'',note:'',cat:ideaFilter!=='הכל'?ideaFilter:S.ideaCats[0],status:'new'};
+  openModal(id?'עריכת רעיון':'רעיון חדש',[
+    {k:'title',l:'הרעיון',t:'text',v:i.title,req:1},
+    {k:'cat',l:'קטגוריה',t:'select',v:i.cat,opts:S.ideaCats.map(c=>[c,c])},
+    {k:'status',l:'סטטוס',t:'select',v:i.status,opts:Object.entries(IDEA_ST)},
+    {k:'note',l:'פירוט / הערות',t:'textarea',v:i.note}
+  ],vals=>{
+    if(id)Object.assign(i,vals);else S.ideas.push({id:uid(),...vals});
+    save();toast('נשמר ✔');
+  });
+}
+function newIdeaCat(){const n=prompt('שם הקטגוריה החדשה:');if(n&&n.trim()&&!S.ideaCats.includes(n.trim())){S.ideaCats.push(n.trim());ideaFilter=n.trim();save()}}
+function delIdea(id){if(confirm('למחוק את הרעיון?')){S.ideas=S.ideas.filter(i=>i.id!==id);save()}}
+
+/* ---------- advisor ---------- */
+function computeInsights(){
+  const out=[], open=S.tasks.filter(t=>!t.done);
+  const late=open.filter(t=>t.due&&t.due<today());
+  if(late.length)out.push({c:'warn',ic:'⏰',t:`יש ${late.length} משימות באיחור — כדאי לטפל בהן קודם או לעדכן תאריכי יעד.`});
+  const hi=open.filter(t=>t.pri==='high');
+  if(hi.length)out.push({c:'tip',ic:'🔥',t:`${hi.length} משימות דחופות פתוחות. המומלצת להתחיל בה: "${hi[0].title}".`});
+  const work=S.services.filter(s=>s.status==='work');
+  if(work.length>3)out.push({c:'warn',ic:'🎯',t:`${work.length} מיזמים "בעבודה" במקביל — פיזור גדול מדי מאט את כולם. שקול לבחור 1-2 עיקריים ולהשהות את השאר עד אחרי ההשקה.`});
+  work.filter(s=>s.missing).forEach(s=>out.push({c:'tip',ic:'🧩',t:`${s.icon} ${s.name}: חסר — ${s.missing}.`}));
+  const g=S.goals.filter(x=>x.due&&x.ms.some(m=>!m.done)).sort((a,b)=>a.due<b.due?-1:1)[0];
+  if(g){const done=g.ms.filter(m=>m.done).length,p=Math.round(done/g.ms.length*100),di=dueInfo(g.due);
+    out.push({c:'good',ic:'🎯',t:`המטרה הקרובה: "${g.title}" (${p}% הושלם, יעד: ${di.txt}). הצעד הבא: ${g.ms.find(m=>!m.done).t}.`})}
+  const chk=S.ideas.filter(i=>i.status==='check');
+  if(chk.length)out.push({c:'tip',ic:'💡',t:`${chk.length} רעיונות ממתינים לבדיקה — קבע לעצמך 20 דקות בשבוע לעבור עליהם ולהחליט: לביצוע או לארכיון.`});
+  if(!open.length)out.push({c:'good',ic:'🎉',t:'אין משימות פתוחות! זה הזמן לתכנן את הצעד הבא או להוסיף משימות מהמטרות.'});
+  return out;
+}
+const TIPS=[
+  ['🚀 השקה לפני שלמות','הקורס הראשון לא צריך להיות מושלם — הוא צריך להיות בחוץ. כל שבוע של דחיה הוא שבוע בלי מכירות ובלי פידבק מתלמידים אמיתיים. השלם את 3-4 המשימות הקריטיות (רב מסר, וידאו, תמונות) והשק. שיפורים עושים אחרי, על בסיס משוב.'],
+  ['🎬 יום צילום = באצ׳ים','אל תצלם סרטון אחד בכל פעם. קבע יום צילום אחד בשבוע וצלם בו 4-6 סרטונים ברצף (אותה תאורה, אותו סט). כך שבוע צילום אחד מכסה חודש תוכן, והראש פנוי לעסק.'],
+  ['📢 כל סרטון מוביל לקורס','אחרי ההשקה — כל סרטון ברשתות צריך קריאה לפעולה: "הקורס המלא בביו". התוכן החינמי הוא המשפך; הקורס הוא היעד. בלי החיבור הזה, צפיות לא הופכות להכנסה.'],
+  ['⭐ המלצות מהתלמידים הראשונים','ל-10 הקונים הראשונים תן יחס אישי (קבוצת הוואטסאפ שלך מושלמת לזה) ובקש מהם המלצה מצולמת או כתובה. המלצות אמיתיות הן מנוע המכירה החזק ביותר לדף שלך.'],
+  ['📋 שגרת ניהול שבועית','קבע 30 דקות קבועות בשבוע (למשל ראשון בבוקר) לפתוח את האפליקציה הזאת: לסמן מה בוצע, לעדכן התקדמות, לבחור 3 משימות עיקריות לשבוע. שגרה קטנה = שליטה גדולה.'],
+  ['💰 תמחור לפי ערך','כשקורס 1 ימכור — קורס המתקדמים יכול להיות יקר משמעותית. מי שכבר קנה ולמד ממך סומך עליך. סולם מוצרים (קורס בסיס → מתקדם → עיצוב אירועים) שווה יותר מכל מוצר בודד.'],
+  ['✉️ רשימת תפוצה = נכס','רב מסר נותן לך לא רק קורסים אלא גם דיוור. כל ליד ששואל על אירוע וכל תלמיד — לרשימה. קהל שאתה מגיע אליו בלי תלות באלגוריתם הוא הנכס הכי יציב של העסק.']
+];
+function renderAdv(){
+  let h=`<h2>📊 תובנות מהנתונים שלך</h2>`;
+  h+=computeInsights().map(i=>`<div class="insight ${i.c}"><span class="ic">${i.ic}</span><p>${esc(i.t)}</p></div>`).join('');
+  h+=`<h2>📚 עקרונות עבודה מומלצים</h2>`;
+  h+=TIPS.map(([t,b])=>`<details><summary>${t}</summary><p>${b}</p></details>`).join('');
+  h+=`<div class="aibox"><h3>🤖 ניתוח חכם של מצב העסק</h3>
+    <p class="mut">קלוד יעבור על כל הנתונים באפליקציה — שירותים, מטרות, משימות ורעיונות — וייתן המלצות מותאמות לרגע הזה.</p>
+    <div style="margin-top:10px"><button class="addbtn" id="aibtn" onclick="runAI()">✨ נתח את העסק שלי עכשיו</button></div>
+    <div id="aiout"></div></div>`;
+  return h;
+}
+async function runAI(){
+  const btn=document.getElementById('aibtn'),out=document.getElementById('aiout');
+  btn.disabled=true;btn.innerHTML='<span class="spin">🎈</span> חושב…';
+  out.style.display='block';out.textContent='';
+  try{
+    const data=JSON.stringify({services:S.services,goals:S.goals,tasks:S.tasks.filter(t=>!t.done),ideas:S.ideas},null,1);
+    const prompt=`אתה יועץ עסקי של "איתן בלונים" — אמן בלונים ותיק (מאז 2014, 500+ אירועים) שמרחיב את העסק לקורסים דיגיטליים ותוכן ברשתות. הקורס הראשון "ממתחיל ליוצר" בשלבי הכנה אחרונים.
+לפניך מצב העסק הנוכחי (JSON). ענה בעברית, קצר וממוקד:
+1. אבחנה במשפט אחד — מה מצב העסק כרגע.
+2. שלוש ההמלצות הכי חשובות לשבוע הקרוב, לפי סדר עדיפות, כל אחת עם "למה".
+3. סיכון אחד ששווה לשים לב אליו.
+בלי הקדמות ובלי סיכומים.`;
+    const res=await window.cowork.askClaude(prompt,[data]);
+    out.textContent=typeof res==='string'?res:(res&&res.text)||JSON.stringify(res);
+  }catch(e){
+    out.textContent='הניתוח החכם זמין רק כשהאפליקציה פתוחה בתוך Claude. בינתיים — התובנות למעלה מחושבות אוטומטית מהנתונים שלך.';
+  }
+  btn.disabled=false;btn.textContent='✨ נתח את העסק שלי עכשיו';
+}
+
+/* ---------- modal ---------- */
+let modalCb=null;
+function openModal(title,fields,cb){
+  modalCb=cb;
+  const m=document.getElementById('modal');
+  m.innerHTML=`<h3>${title}</h3>`+fields.map(f=>{
+    let inp='';
+    if(f.t==='select')inp=`<select id="f_${f.k}">${f.opts.map(([v,l])=>`<option value="${esc(v)}" ${f.v===v?'selected':''}>${esc(l)}</option>`).join('')}</select>`;
+    else if(f.t==='textarea')inp=`<textarea id="f_${f.k}">${esc(f.v)}</textarea>`;
+    else inp=`<input id="f_${f.k}" type="${f.t}" value="${esc(f.v)}">`;
+    return `<div class="fld"><label>${f.l}</label>${inp}</div>`;
+  }).join('')+`<div class="mbtns"><button class="ok" onclick="submitModal(${JSON.stringify(fields.map(f=>({k:f.k,req:!!f.req}))).replace(/"/g,'&quot;')})">שמירה</button><button class="cancel" onclick="closeModal()">ביטול</button></div>`;
+  document.getElementById('ovl').classList.add('show');
+  const first=m.querySelector('input,textarea,select');if(first)first.focus();
+}
+function submitModal(spec){
+  const vals={};
+  for(const f of spec){
+    const el=document.getElementById('f_'+f.k);
+    vals[f.k]=el?el.value.trim():'';
+    if(f.req&&!vals[f.k]){el.focus();el.style.borderColor='var(--pk)';return}
+  }
+  closeModal();if(modalCb)modalCb(vals);
+}
+function closeModal(){document.getElementById('ovl').classList.remove('show');modalCb=null}
+document.getElementById('ovl').addEventListener('click',e=>{if(e.target.id==='ovl')closeModal()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+
+/* ---------- backup ---------- */
+function exportData(){
+  const a=document.createElement('a');
+  a.href='data:application/json;charset=utf-8,'+encodeURIComponent(JSON.stringify(S,null,2));
+  a.download='eitan-business-backup-'+today()+'.json';a.click();toast('הגיבוי ירד ✔');
+}
+function importData(inp){
+  const f=inp.files[0];if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{try{const d=JSON.parse(r.result);
+    if(d.services&&d.tasks){S=d;save();toast('הנתונים שוחזרו ✔')}else toast('קובץ לא תקין');
+  }catch(e){toast('קובץ לא תקין')}};
+  r.readAsText(f);inp.value='';
+}
+
+/* ---------- render ---------- */
+function render(){
+  renderNav();
+  const m=document.getElementById('main');
+  m.innerHTML = tab==='dash'?renderDash():tab==='goals'?renderGoals():tab==='tasks'?renderTasks():tab==='ideas'?renderIdeas():renderAdv();
+}
+render();
+</script>
+</body>
+</html>
